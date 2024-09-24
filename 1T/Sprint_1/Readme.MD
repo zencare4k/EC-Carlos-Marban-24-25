@@ -19,4 +19,4 @@ FO4 | 	Comprobar que el botón sigue funcionando después de la carga inicial | 
 
 ## Diagrama de flujo
 
-![Diagrama](1T/Sprint 1/Diagrama_sin_título.drawio.png)
+![Diagrama](1T/Sprint_1/Diagrama_sin_título.drawio.png)
