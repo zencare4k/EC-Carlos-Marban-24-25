@@ -20,3 +20,7 @@ FO4 | 	Comprobar que el botón sigue funcionando después de la carga inicial | 
 ## Diagrama de flujo
 
 ![Diagrama](https://raw.githubusercontent.com/zencare4k/EC-Carlos-Marban-24-25/refs/heads/main/1T/Sprint_1/Diagrama_sin_t%C3%ADtulo.drawio.png)
+
+## Gif de las pruebas del ejercicio
+
+![gif de prueba](https://raw.githubusercontent.com/zencare4k/EC-Carlos-Marban-24-25/refs/heads/main/1T/Sprint_1/Sprint1.gif)
