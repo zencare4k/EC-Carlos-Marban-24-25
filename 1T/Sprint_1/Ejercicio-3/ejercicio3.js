@@ -1,19 +1,16 @@
- const addButton = document.getElementById('addButton');
- const inputItem = document.getElementById('inputItem');
- const itemList = document.getElementById('itemList');
+function addlist() {
+    const newelement = document.getElementById("addlist").value;
 
- addButton.addEventListener('click', function() {
-     const newItemText = inputItem.value;
+    if (newelement == "") {
+        alert("Escriba algo en el cuadro de texto makinon");
+        return;
+    }
 
-     if (newItemText.trim() !== '') {
-         const newItem = document.createElement('li');
-         newItem.textContent = newItemText;
-         itemList.appendChild(newItem);
+    const newLi = document.createElement("li");
 
-         inputItem.value = '';
-     } else {
-         alert('Por favor, introduce un valor válido.');
-     }
+    newLi.textcontent = newelement
 
-     inputItem.focus();
- });
+    document.getElementById("addlist")
+
+
+}

@@ -1,11 +1,9 @@
-// Seleccionamos todos los divs con la clase 'contenedor'
 const contenedores = document.querySelectorAll('.contenedor');
 
-// Iteramos sobre cada div para agregar los eventos de mouseover y mouseout
 contenedores.forEach(function(contenedor) {
     contenedor.addEventListener('mouseover', function() {
-        contenedor.style.backgroundColor = 'blue'; // Cambia el fondo a azul
-        contenedor.style.color = 'white'; // Cambia el texto a blanco
+        contenedor.style.backgroundColor = 'blue'; /
+        contenedor.style.color = 'white'; 
     });
 
     contenedor.addEventListener('mouseout', function() {
