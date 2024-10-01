@@ -1,19 +1,20 @@
- const addButton = document.getElementById('addButton');
- const inputItem = document.getElementById('inputItem');
- const itemList = document.getElementById('itemList');
+function agregarli() {
+    let nuevoli = document.createElement('li');
+    
+    let contenidoInput = document.getElementById('inputItem').value;
+    
+if (contenidoInput == "") {
+ alert('No hay nada escrito')
+} else {
+    nuevoli.textContent = contenidoInput;
 
- addButton.addEventListener('click', function() {
-     const newItemText = inputItem.value;
+    let lista = document.getElementById('itemList'); // Corrige el id
+    lista.appendChild(nuevoli);
 
-     if (newItemText.trim() !== '') {
-         const newItem = document.createElement('li');
-         newItem.textContent = newItemText;
-         itemList.appendChild(newItem);
+    document.getElementById('inputItem').value = '';
+}
+}
 
-         inputItem.value = '';
-     } else {
-         alert('Por favor, introduce un valor válido.');
-     }
-
-     inputItem.focus();
- });
+// Asignar el evento click al botón
+let boton = document.getElementById('addButton');
+boton.addEventListener('click', agregarli);
