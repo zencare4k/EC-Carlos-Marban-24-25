@@ -12,7 +12,7 @@
 
 ## Pruebas de la resolución del prblema
 
-![imagen](https://github.com/zencare4k/EC-Carlos-Marban-24-25/blob/main/1T/Sprint_1/Ejercicio-1/ejercicio1.gif)
+![imagen](ejercicio1.gif)
 
 # Ejercicio 2 
 
@@ -40,3 +40,28 @@ Usando esto en un archivo js aparte, haz una pagina web con dos entradas para es
 ## Prueba de la resolución del problema
 
 ![imagen2](ejercicio2.gif)
+
+# Ejercicio 3
+
+## Análisis del problema 
+
+- Crea una página con un campo de entrada y un botón etiquetado "Añadir a la lista".
+- También debes tener una lista vacía (`<ul>` o `<ol>`).
+- Cuando el usuario escribe algo en el campo de entrada y hace clic en el botón, entonces el contenido del campo debe agregarse como un nuevo ítem (`<li>`) a la lista.
+
+## Prueba de la resolución del problema
+
+![imagen3](ejercicio3.gif)
+
+# Ejercicio 4
+
+## Análisis del problema 
+
+- Diseña una página con varios elementos div, cada uno con un texto diferente.
+- Al pasar el ratón sobre un div, cambia su color de fondo a azul y el texto a blanco.
+- Al mover el ratón fuera del div, restaura sus estilos originales.
+
+
+## Prueba de la resolución del problema
+
+![imagen3](ejercicio4.gif)

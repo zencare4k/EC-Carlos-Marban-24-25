@@ -1,10 +1,5 @@
-HEAD
 const contenedores = document.querySelectorAll('.contenedor');
 
-contenedores.forEach(function(contenedor) {
-    contenedor.addEventListener('mouseover', function() {
-        contenedor.style.backgroundColor = 'blue'; 
-        contenedor.style.color = 'white'; 
 function dinamicstyle() {
     let div1 = document.getElementById('div1');
     let div2 = document.getElementById('div2');
