@@ -23,3 +23,4 @@ Usando esto en un archivo js aparte, haz una pagina web con dos entradas para es
 
 ## Prueba de la resolución del problema
 
+![imagen2](ejercicio2.gif)
