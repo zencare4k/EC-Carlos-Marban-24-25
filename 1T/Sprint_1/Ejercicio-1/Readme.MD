@@ -16,3 +16,4 @@ Hazlo en un archivo js aparte.
 
 ## Pruebas de la resolución del prblema
 
+![imagen](https://github.com/zencare4k/EC-Carlos-Marban-24-25/blob/main/1T/Sprint_1/Ejercicio-1/ejercicio1.gif)
