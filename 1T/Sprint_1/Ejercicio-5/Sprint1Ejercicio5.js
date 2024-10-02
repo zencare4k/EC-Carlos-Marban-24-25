@@ -13,4 +13,10 @@ function clickdetector() {
         })
     })
 }
+
+function genxpath(element){
+return 'id ("' + element.id + '")'
+
+let xpath = ''
+}
 clickdetector();
