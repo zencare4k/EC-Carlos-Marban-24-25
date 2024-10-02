@@ -1,4 +1,3 @@
-// Función para generar un color RGB aleatorio
 function getRandomColor() {
     const r = Math.floor(Math.random() * 256); 
     const g = Math.floor(Math.random() * 256);
