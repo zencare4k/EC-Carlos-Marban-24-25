@@ -1,101 +1,62 @@
-// Función para generar el XPath del elemento clicado
-function getXPath(element) {
-    // Asegurarse de que el elemento no sea nulo
-    if (!element) return '';
-
+// Función para generar el XPath
+function generateXPath(element) {
     if (element.id) {
-        return `//*[@id='${element.id}']`;
+        return '//*[@id="' + element.id + '"]';
     }
     if (element === document.body) {
         return '/html/body';
     }
 
     let index = 0;
-    const siblings = element.parentNode ? element.parentNode.childNodes : [];
-
+    const siblings = element.parentNode.children;
     for (let i = 0; i < siblings.length; i++) {
         const sibling = siblings[i];
-
-        // Solo contamos nodos de tipo Element (tipo 1)
-        if (sibling.nodeType === 1 && sibling.tagName === element.tagName) {
+        if (sibling.tagName === element.tagName) {
             index++;
         }
-
-        // Si encontramos el elemento, construimos el XPath
         if (sibling === element) {
-            return `${getXPath(element.parentNode)}/${element.tagName.toLowerCase()}[${index}]`;
+            return `${generateXPath(element.parentNode)}/${element.tagName.toLowerCase()}[${index}]`;
         }
     }
-
-    return ''; // Retornar cadena vacía si no se encuentra el XPath
+    return null;
 }
 
-// Escuchar clics en el documento principal
+// Detectar clics en el documento principal
 document.addEventListener('click', function(event) {
-    const clickedElement = event.target; // Obtener el elemento clicado
-    const xpath = getXPath(clickedElement); // Generar el XPath
-    if (clickedElement.id === 'mainButton') {
-        alert(`XPath del documento principal: ${xpath}`); // Mostrar en una alerta
+    const clickedElement = event.target;
+
+    // Solo procesar clics en botones
+    if (clickedElement.tagName.toLowerCase() === 'button') {
+        const xpath = generateXPath(clickedElement);
+        alert(`XPath del botón en el documento principal: ${xpath}`);
     }
 });
 
-// Acceder al iframe desde el documento principal
+// Acceder al iframe y agregar evento de clic
 const iframe = document.getElementById('myIframe');
-
-// Cuando el iframe esté completamente cargado
 iframe.onload = function() {
-    const iframeDocument = iframe.contentWindow.document;
+    const iframeWindow = iframe.contentWindow;
 
-    // Crear el script que vamos a insertar en el iframe
-    const script = iframeDocument.createElement('script');
-    script.textContent = `
-        // Función para generar el XPath dentro del iframe
-        function getXPath(element) {
-            // Asegurarse de que el elemento no sea nulo
-            if (!element) return '';
+    // Detectar clics dentro del iframe
+    iframeWindow.document.addEventListener('click', function(event) {
+        const clickedElement = event.target;
 
-            if (element.id) {
-                return \`//*[@id='\${element.id}']\`;
-            }
-            if (element === document.body) {
-                return '/html/body';
-            }
-
-            let index = 0;
-            const siblings = element.parentNode ? element.parentNode.childNodes : [];
-
-            for (let i = 0; i < siblings.length; i++) {
-                const sibling = siblings[i];
-
-                // Solo contamos nodos de tipo Element (tipo 1)
-                if (sibling.nodeType === 1 && sibling.tagName === element.tagName) {
-                    index++;
-                }
-
-                // Si encontramos el elemento, construimos el XPath
-                if (sibling === element) {
-                    return \`\${getXPath(element.parentNode)}/\${element.tagName.toLowerCase()}[\${index}]\`;
-                }
-            }
-
-            return ''; // Retornar cadena vacía si no se encuentra el XPath
+        // Solo procesar clics en botones
+        if (clickedElement.tagName.toLowerCase() === 'button') {
+            const xpath = generateXPath(clickedElement);
+            // Enviar el XPath al documento principal
+            window.parent.postMessage(xpath, window.location.origin);
         }
-
-        // Detectar clics dentro del iframe
-        document.addEventListener('click', function(event) {
-            const clickedElement = event.target; // Obtener el elemento clicado
-            const xpath = getXPath(clickedElement); // Generar el XPath
-            if (clickedElement.id === 'iframeButton') {
-                window.parent.postMessage(xpath, '*'); // Enviar el XPath al documento principal
-            }
-        });
-    `;
-
-    // Insertar el script en el iframe
-    iframeDocument.body.appendChild(script);
+    });
 };
 
-// Escuchar los mensajes del iframe en el documento principal
+// Escuchar los mensajes provenientes del iframe
 window.addEventListener('message', function(event) {
-    alert(`XPath del elemento clicado en el iframe: ${event.data}`); // Mostrar en una alerta
+    // Asegurar que el mensaje venga del mismo origen
+    if (event.origin === window.location.origin) {
+        const xpath = event.data;
+        alert(`XPath del botón en el iframe: ${xpath}`);
+    } else {
+        console.warn("Origen no autorizado:", event.origin);
+    }
 });
