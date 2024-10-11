@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Color Favorito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-bottom: 15px;
+        }
+        .chart {
+            width: 100%;
+            max-width: 400px;
+        }
+        .bar-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .bar {
+            height: 20px;
+            background-color: #4CAF50;
+            margin-right: 10px;
+        }
+        .label {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Encuesta: ¿Cuál es tu color favorito?</h1>
+    
+    <div class="question">Seleccione su color favorito:</div>
+    <div class="options">
+        <input type="radio" id="rojo" name="color" value="rojo">
+        <label for="rojo">Rojo</label><br>
+        <input type="radio" id="azul" name="color" value="azul">
+        <label for="azul">Azul</label><br>
+        <input type="radio" id="verde" name="color" value="verde">
+        <label for="verde">Verde</label><br>
+        <input type="radio" id="amarillo" name="color" value="amarillo">
+        <label for="amarillo">Amarillo</label><br>
+    </div>
+    
+    <button id="submit">Enviar</button>
+    
+    <h2>Resultados:</h2>
+    <div class="chart">
+        <div class="bar-container">
+            <span class="label">Rojo</span>
+            <div class="bar rojo-bar" style="width: 0;"></div>
+            <span class="rojo-count">0</span>
+        </div>
+        <div class="bar-container">
+            <span class="label">Azul</span>
+            <div class="bar azul-bar" style="width: 0;"></div>
+            <span class="azul-count">0</span>
+        </div>
+        <div class="bar-container">
+            <span class="label">Verde</span>
+            <div class="bar verde-bar" style="width: 0;"></div>
+            <span class="verde-count">0</span>
+        </div>
+        <div class="bar-container">
+            <span class="label">Amarillo</span>
+            <div class="bar amarillo-bar" style="width: 0;"></div>
+            <span class="amarillo-count">0</span>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="ejercicio3.js"></script>
+</body>
+</html>
