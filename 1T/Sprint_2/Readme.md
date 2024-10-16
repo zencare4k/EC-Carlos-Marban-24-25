@@ -9,9 +9,10 @@
 
 ## Diseño de la propuesta de solución al problema ##
 
-### Propuesta 1 ###
+### Propuesta 1 Rellenar el campo de tiempo con el valor 2 segundos y pulsar el botón "Iniciar", verificando que el temporizador cuenta correctamente y muestra una alerta al terminar los 2 segundos. ###
 ![Propuesta 1](ejercicio1_1.gif)
-### Propuesta 2 ###
+### Propuesta 2 Repetir la prueba con el valor 4 segundos, asegurándose de que el temporizador cuenta hasta los 4 segundos y que al finalizar se muestra la alerta correspondiente.
+ ###
 ![Propuesta 2](ejercicio1_2.gif)
 
 # Ejercicio 2 #
@@ -26,15 +27,16 @@
 
 ## Diseño de la propuesta de solución al problema ##
 
-#### Propuesta 1 ###
+### Propuesta 1 Probar que la suma de 10 + 12 muestra correctamente el resultado de 22.
+ ###
 ![Propuesta 1](ejercicio2_1.gif)
-### Propuesta 2 ###
+### Propuesta 2 Verificar que la resta de 10 - 12 devuelve el valor esperado de -2. ###
 ![Propuesta 2](ejercicio2_2.gif)
 
-### Propuesta 3 ###
+### Propuesta 3 Comprobar que la multiplicación de 5x4 es 20, y que 5x0 devuelve 0. ###
 ![Propuesta 3](ejercicio2_3.gif)
 
-### Propuesta 4 ###
+### Propuesta 4 Probar que la división de 5/4 es 1.25 y que 5/0 devuelve el mensaje "INDEFINIDO". ###
 ![Propuesta 4](ejercicio2_4.gif)
 
 # Ejercicio 3 #
@@ -48,15 +50,15 @@
 
 ## Diseño de la propuesta de solución al problema ##
 
-#### Propuesta 1 ###
+### Propuesta 1 Verificar que al seleccionar una opción y hacer clic en "Enviar", se actualicen correctamente los votos en el gráfico. ###
 ![Propuesta 1](ejercicio3_1.gif)
-### Propuesta 2 ###
+### Propuesta 2 Comprobar que el gráfico de barras se actualiza dinámicamente después de cada nueva votación. ###
 ![Propuesta 2](ejercicio3_2.gif)
 
-### Propuesta 3 ###
+### Propuesta 3 Probar que el sistema gestiona correctamente intentos de envío sin seleccionar ninguna opción.###
 ![Propuesta 3](ejercicio3_3.gif)
 
-### Propuesta 4 ###
+### Propuesta 4 Verificar que las votaciones previas se mantienen después de varias interacciones.###
 ![Propuesta 4](ejercicio3_4.gif)
 
 # Ejercicio 4 #
@@ -70,15 +72,15 @@
 
 ## Diseño de la propuesta de solución al problema ##
 
-#### Propuesta 1 ###
+#### Propuesta 1 Probar que el cronómetro comienza a contar correctamente al hacer clic en "Iniciar".###
 ![Propuesta 1](ejercicio4_1.gif)
-### Propuesta 2 ###
+### Propuesta 2 Comprobar que al pausar el cronómetro se detiene en el tiempo actual y no continúa avanzando. ###
 ![Propuesta 2](ejercicio4_2.gif)
 
-### Propuesta 3 ###
+### Propuesta 3 Verificar que al hacer clic en "Reiniciar", el cronómetro vuelve a cero.###
 ![Propuesta 3](ejercicio4_3.gif)
 
-### Propuesta 4 ###
+### Propuesta 4 Probar que el cronómetro maneja correctamente largos períodos de tiempo sin errores.###
 ![Propuesta 4](ejercicio4_4.gif)
 
 ## Diseño de la propuesta de solución al problema ##
@@ -96,13 +98,13 @@
 
 ## Diseño de la propuesta de solución al problema ##
 
-#### Propuesta 1 ###
+### Propuesta 1 Verificar que las cartas se voltean al hacer clic y se quedan volteadas si coinciden.###
 ![Propuesta 1](ejercicio5_1.gif)
-### Propuesta 2 ###
+### Propuesta 2 Comprobar que dos cartas no coincidentes se voltean de nuevo después de un breve intervalo.###
 ![Propuesta 2](ejercicio5_2.gif)
 
-### Propuesta 3 ###
+### Propuesta 3 Probar que el juego detecta cuando se han encontrado todas las parejas y muestra un mensaje de finalización. ###
 ![Propuesta 3](ejercicio5_3.gif)
 
-### Propuesta 4 ###
+### Propuesta 4 Verificar que el juego puede reiniciarse correctamente barajando las cartas de nuevo.###
 ![Propuesta 4](ejercicio5_4.gif)
