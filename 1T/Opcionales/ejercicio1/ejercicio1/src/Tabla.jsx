@@ -15,6 +15,7 @@ export default function DiscordTable() {
                     </tr>
                 </thead>
                 <tbody>
+                    
                 </tbody>
             </table>
         </div>
