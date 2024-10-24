@@ -1,35 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información Pokémon</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        .pokemon-info {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            width: 300px;
-            background-color: white;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <title>Pokémon Search</title>
 </head>
 <body>
-    <h1>Información Pokémon</h1>
-    <input type="text" id="pokemonName" placeholder="Nombre del Pokémon" />
-    <button id="fetchPokemon">Obtener Información</button>
-
-    <div id="result" class="pokemon-info"></div>
+    <h1>Buscar Pokémon</h1>
+    <input type="text" id="pokemonName" placeholder="Escribe el nombre del Pokémon">
+    <button id="searchButton">Buscar</button>
+    
+    <!-- Aquí se mostrará la información del Pokémon -->
+    <div id="pokemonInfo"></div>
 
     <script src="script.js"></script>
 </body>
