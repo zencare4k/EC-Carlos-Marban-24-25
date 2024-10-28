@@ -1,102 +1,127 @@
-  // Función para abrir el modal de añadir miembro
-  function openAddMemberModal() {
-    document.getElementById("memberForm").reset();
-    document.getElementById("modalTitle").innerText = "Add New Member";
-    document.getElementById("memberModal").style.display = "flex";
-  }
+// Get HTML elements
+const membersTable = document.getElementById('membersTable').querySelector('tbody');
+const addMemberButton = document.getElementById('addMemberButton');
+const memberModal = document.getElementById('memberModal');
+const closeModal = document.getElementById('closeModal');
+const memberForm = document.getElementById('memberForm');
+const modalTitle = document.getElementById('modalTitle');
 
-  // Cargar datos al modal para editar
-  function openEditMemberModal(member) {
-    document.getElementById("user_id").value = member.user_id;
-    document.getElementById("username").value = member.username;
-    document.getElementById("level").value = member.level;
-    document.getElementById("ilvl").value = member.ilvl;
-    document.getElementById("character_role").value = member.character_role;
-    document.getElementById("guild_role").value = member.guild_role;
-    document.getElementById("main_archetype").value = member.main_archetype;
-    document.getElementById("secondary_archetype").value = member.secondary_archetype;
-    document.getElementById("email").value = member.email;
-    document.getElementById("notify_email").checked = member.notify_email;
+let editingMember = null;
 
-    document.getElementById("modalTitle").innerText = "Edit Member";
-    document.getElementById("memberModal").style.display = "flex";
-  }
+// Event Listeners
+addMemberButton.addEventListener('click', openModal);
+closeModal.addEventListener('click', closeModalFunc);
+memberForm.addEventListener('submit', saveMember);
 
-  function closeModal() {
-    document.getElementById("memberModal").style.display = "none";
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const memberData = {
-      user_id: document.getElementById("user_id").value,
-      username: document.getElementById("username").value,
-      level: document.getElementById("level").value,
-      ilvl: document.getElementById("ilvl").value,
-      character_role: document.getElementById("character_role").value,
-      guild_role: document.getElementById("guild_role").value,
-      main_archetype: document.getElementById("main_archetype").value,
-      secondary_archetype: document.getElementById("secondary_archetype").value,
-      email: document.getElementById("email").value,
-      notify_email: document.getElementById("notify_email").checked
-    };
-    const isEditing = !!memberData.user_id;
-    const endpoint = isEditing ? `/api/members/${memberData.user_id}` : '/api/members';
-    const method = isEditing ? 'PUT' : 'POST';
-
-    const response = await fetch(endpoint, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(memberData)
-    });
-
-    if (response.ok) {
-      loadMembers();
-      closeModal();
-    } else {
-      alert("Error saving member data.");
-    }
-  }
-
-  async function deleteMember(userId) {
-    const response = await fetch(`/api/members/${userId}`, { method: 'DELETE' });
-    if (response.ok) {
-      loadMembers();
-      closeDeleteModal();
-    } else {
-      alert("Error deleting member.");
-    }
-  }
-
-  function openDeleteModal(userId) {
-    document.getElementById("deleteConfirmationModal").style.display = "flex";
-  }
-
-  function closeDeleteModal() {
-    document.getElementById("deleteConfirmationModal").style.display = "none";
-  }
-
-  async function loadMembers() {
-    const response = await fetch('/api/members');
+// Fetch Members
+async function fetchMembers() {
+  try {
+    const response = await fetch('/api/guild/members'); // Change this to your actual endpoint
     const members = await response.json();
-    const tableBody = document.getElementById("tableBody");
-    tableBody.innerHTML = "";
-    members.forEach(member => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${member.user_id}</td>
-        <td>${member.username}</td>
-        <td>${member.level}</td>
-        <td>${member.ilvl}</td>
-        <td>${member.character_role}</td>
-        <td>${member.guild_role}</td>
-        <td>
-          <button onclick='openEditMemberModal(${JSON.stringify(member)})'>Edit</button>
-          <button onclick='deleteMember("${member.user_id}")'>Delete</button>
-        </td>
-      `;
-      tableBody.appendChild(row);
-    });
+    renderMembersTable(members);
+  } catch (error) {
+    console.error('Error fetching members:', error);
   }
+}
 
-  window.onload = loadMembers;
+// Render Table
+function renderMembersTable(members) {
+  membersTable.innerHTML = '';
+  members.forEach(member => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${member.user_id}</td>
+      <td>${member.username}</td>
+      <td>${member.level}</td>
+      <td>${member.ilvl}</td>
+      <td>${member.character_role}</td>
+      <td>${member.guild_role}</td>
+      <td>
+        <button onclick="editMember('${member.user_id}')">Edit</button>
+        <button onclick="deleteMember('${member.user_id}')">Delete</button>
+      </td>
+    `;
+    membersTable.appendChild(row);
+  });
+}
+
+// Open Modal
+function openModal() {
+  editingMember = null;
+  memberForm.reset();
+  modalTitle.textContent = "Add New Member";
+  memberModal.style.display = 'flex';
+}
+
+// Close Modal
+function closeModalFunc() {
+  memberModal.style.display = 'none';
+}
+
+// Save Member (Add or Update)
+async function saveMember(event) {
+  event.preventDefault();
+  
+  const member = {
+    user_id: memberForm.user_id.value,
+    username: memberForm.username.value,
+    level: parseInt(memberForm.level.value),
+    ilvl: parseInt(memberForm.ilvl.value),
+    character_role: memberForm.character_role.value,
+    guild_role: memberForm.guild_role.value,
+    email: memberForm.email.value
+  };
+
+  const endpoint = editingMember ? `/api/guild/members/${member.user_id}` : '/api/guild/members';
+  const method = editingMember ? 'PUT' : 'POST';
+
+  try {
+    await fetch(endpoint, {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(member)
+    });
+    
+    closeModalFunc();
+    fetchMembers(); // Update table with the new data
+  } catch (error) {
+    console.error('Error saving member:', error);
+  }
+}
+
+// Edit Member
+async function editMember(user_id) {
+  try {
+    const response = await fetch(`/api/guild/members/${user_id}`);
+    const member = await response.json();
+    
+    editingMember = user_id;
+    modalTitle.textContent = "Edit Member";
+    memberForm.user_id.value = member.user_id;
+    memberForm.username.value = member.username;
+    memberForm.level.value = member.level;
+    memberForm.ilvl.value = member.ilvl;
+    memberForm.character_role.value = member.character_role;
+    memberForm.guild_role.value = member.guild_role;
+    memberForm.email.value = member.email;
+
+    memberModal.style.display = 'flex';
+  } catch (error) {
+    console.error('Error fetching member for edit:', error);
+  }
+}
+
+// Delete Member
+async function deleteMember(user_id) {
+  if (confirm('Are you sure you want to delete this member?')) {
+    try {
+      await fetch(`/api/guild/members/${user_id}`, { method: 'DELETE' });
+      fetchMembers(); // Update table after deletion
+    } catch (error) {
+      console.error('Error deleting member:', error);
+    }
+  }
+}
+
+// Initialize Members Data
+fetchMembers();

@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guild Member Management</title>
+  <title>Guild Management</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<h1>Guild Member Management</h1>
-
-<div id="memberTable">
-  <button onclick="openAddMemberModal()">Add New Member</button>
-  <table>
+  <h1>Guild Members Management</h1>
+  
+  <button id="addMemberButton">Add New Member</button>
+  
+  <table id="membersTable">
     <thead>
       <tr>
         <th>User ID</th>
@@ -24,92 +23,53 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="tableBody">
-      <!-- Rows de miembros se generarán aquí -->
-    </tbody>
+    <tbody></tbody>
   </table>
-</div>
+  
+  <!-- Modal for Add/Edit Member -->
+  <div id="memberModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2 id="modalTitle">Add New Member</h2>
+      <form id="memberForm">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required>
 
-<!-- Modal para añadir/editar miembro -->
-<div id="memberModal" class="modal">
-  <div class="modal-content">
-    <h2 id="modalTitle">Add New Member</h2>
-    <form id="memberForm" onsubmit="handleSubmit(event)">
-      <label for="user_id">User ID</label>
-      <input type="text" id="user_id" name="user_id" required />
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
 
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required />
+        <label for="level">Level:</label>
+        <input type="number" id="level" name="level" required>
 
-      <label for="level">Level</label>
-      <input type="number" id="level" name="level" required />
+        <label for="ilvl">Item Level:</label>
+        <input type="number" id="ilvl" name="ilvl" required>
 
-      <label for="ilvl">Item Level</label>
-      <input type="number" id="ilvl" name="ilvl" required />
+        <label for="character_role">Character Role:</label>
+        <select id="character_role" name="character_role" required>
+          <option value="TANK">TANK</option>
+          <option value="HEALER">HEALER</option>
+          <option value="DAMAGE">DAMAGE</option>
+          <option value="SUPPORT">SUPPORT</option>
+        </select>
 
-      <label for="character_role">Character Role</label>
-      <select id="character_role" name="character_role" required>
-        <option value="TANK">TANK</option>
-        <option value="HEALER">HEALER</option>
-        <option value="DAMAGE">DAMAGE</option>
-        <option value="SUPPORT">SUPPORT</option>
-      </select>
+        <label for="guild_role">Guild Role:</label>
+        <select id="guild_role" name="guild_role" required>
+          <option value="LIDER">LIDER</option>
+          <option value="GERENTE SENIOR">GERENTE SENIOR</option>
+          <option value="GERENTE">GERENTE</option>
+          <option value="GERENTE A2">GERENTE A2</option>
+          <option value="ALPHA 2">ALPHA 2</option>
+          <option value="MEMBER">MEMBER</option>
+        </select>
 
-      <label for="guild_role">Guild Role</label>
-      <select id="guild_role" name="guild_role" required>
-        <option value="LIDER">LIDER</option>
-        <option value="GERENTE SENIOR">GERENTE SENIOR</option>
-        <option value="GERENTE">GERENTE</option>
-        <option value="GERENTE A2">GERENTE A2</option>
-        <option value="ALPHA 2">ALPHA 2</option>
-        <option value="MEMBER">MEMBER</option>
-      </select>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="main_archetype">Main Archetype</label>
-      <select id="main_archetype" name="main_archetype" required>
-        <option value="BARD">BARD</option>
-        <option value="CLERIC">CLERIC</option>
-        <option value="FIGHTER">FIGHTER</option>
-        <option value="MAGE">MAGE</option>
-        <option value="RANGER">RANGER</option>
-        <option value="ROGUE">ROGUE</option>
-        <option value="SUMMONER">SUMMONER</option>
-        <option value="TANK">TANK</option>
-      </select>
-
-      <label for="secondary_archetype">Secondary Archetype</label>
-      <select id="secondary_archetype" name="secondary_archetype" required>
-        <option value="BARD">BARD</option>
-        <option value="CLERIC">CLERIC</option>
-        <option value="FIGHTER">FIGHTER</option>
-        <option value="MAGE">MAGE</option>
-        <option value="RANGER">RANGER</option>
-        <option value="ROGUE">ROGUE</option>
-        <option value="SUMMONER">SUMMONER</option>
-        <option value="TANK">TANK</option>
-      </select>
-
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
-
-      <label for="notify_email">Notify Email</label>
-      <input type="checkbox" id="notify_email" name="notify_email" />
-
-      <button type="submit">Save</button>
-      <button type="button" onclick="closeModal()">Cancel</button>
-    </form>
+        <button type="submit" id="saveMemberButton">Save</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Modal de confirmación de eliminación -->
-<div id="deleteConfirmationModal" class="modal">
-  <div class="modal-content">
-    <p>Are you sure you want to delete this member?</p>
-    <button onclick="confirmDelete()">Yes</button>
-    <button onclick="closeDeleteModal()">No</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
