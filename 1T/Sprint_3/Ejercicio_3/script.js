@@ -207,3 +207,140 @@ function hideForm() {
     document.getElementById('popup').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 }
+
+// URL base para la API de parties
+const PARTY_API_URL = "http://localhost:3000/partyfinder";
+let parties = []; // Variable para almacenar las parties obtenidas
+let editingPartyId = null; // ID de la party en edición
+
+// Validar formato de fecha y hora (DD/MM/YYYY_HH:mm)
+function isValidDateTime(dateTimeStr) {
+    const dateTimeRegex = /^\d{2}\/\d{2}\/\d{4}_\d{2}:\d{2}$/;
+    if (!dateTimeRegex.test(dateTimeStr)) return false;
+
+    const [datePart, timePart] = dateTimeStr.split('_');
+    const [day, month, year] = datePart.split('/').map(Number);
+    const [hours, minutes] = timePart.split(':').map(Number);
+    const date = new Date(year, month - 1, day, hours, minutes);
+
+    return date > new Date(); // Verificar que la fecha sea futura
+}
+
+// Mostrar formulario de creación de parties
+function showPartyForm() {
+    document.getElementById('partyPopup').classList.add('active');
+    document.getElementById('partyOverlay').classList.add('active');
+}
+
+// Ocultar formulario de creación de parties
+function hidePartyForm() {
+    document.getElementById('partyPopup').classList.remove('active');
+    document.getElementById('partyOverlay').classList.remove('active');
+    document.getElementById('partyForm').reset();
+    editingPartyId = null; // Reiniciar el ID de edición
+}
+
+// Función para obtener parties y mostrarlas en la tabla
+async function fetchParties() {
+    try {
+        const response = await fetch(PARTY_API_URL);
+        const data = await response.json();
+        parties = data;
+        displayParties();
+    } catch (error) {
+        console.error("Error fetching parties:", error);
+    }
+}
+
+// Función para mostrar las parties en la tabla
+function displayParties() {
+    const partyTableBody = document.getElementById('partyTable').querySelector('tbody');
+    partyTableBody.innerHTML = ''; // Limpiar tabla
+    parties.forEach((party, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${party.party_size}</td>
+            <td>${party.creator_id}</td>
+            <td>${party.level_cap}</td>
+            <td>${party.ilvl_cap}</td>
+            <td>${party.party_role}</td>
+            <td>${party.planned_start}</td>
+            <td>
+                <button onclick="prepareEditParty(${index})">Edit</button>
+                <button onclick="deleteParty('${party.id}')">Delete</button>
+            </td>`;
+        partyTableBody.appendChild(row);
+    });
+}
+
+// Crear una nueva party
+async function createParty(event) {
+    event.preventDefault();
+
+    const party = {
+        party_size: document.getElementById("party_size").value,
+        creator_id: document.getElementById("creator_id").value,
+        level_cap: parseInt(document.getElementById("level_cap").value),
+        ilvl_cap: parseInt(document.getElementById("ilvl_cap").value),
+        party_role: document.getElementById("party_role").value,
+        planned_start: document.getElementById("planned_start").value,
+    };
+
+    if (!isValidDateTime(party.planned_start)) {
+        alert("Error: Planned Start must be a future date in DD/MM/YYYY_HH:mm format.");
+        return;
+    }
+
+    try {
+        const response = await fetch(PARTY_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(party),
+        });
+
+        if (response.ok) {
+            alert("Party created successfully.");
+            fetchParties(); // Refrescar la lista de parties
+            hidePartyForm(); // Cerrar el formulario
+        } else {
+            const errorData = await response.json();
+            alert("Error: " + errorData.message);
+        }
+    } catch (error) {
+        console.error("Error creating party:", error);
+    }
+}
+
+// Preparar edición de una party
+function prepareEditParty(index) {
+    const party = parties[index];
+    document.getElementById("party_size").value = party.party_size;
+    document.getElementById("creator_id").value = party.creator_id;
+    document.getElementById("level_cap").value = party.level_cap;
+    document.getElementById("ilvl_cap").value = party.ilvl_cap;
+    document.getElementById("party_role").value = party.party_role;
+    document.getElementById("planned_start").value = party.planned_start;
+    editingPartyId = party.id;
+    showPartyForm();
+}
+
+// Eliminar una party
+async function deleteParty(id) {
+    if (confirm("Are you sure you want to delete this party?")) {
+        try {
+            const response = await fetch(`${PARTY_API_URL}/${id}`, { method: "DELETE" });
+            if (response.ok) {
+                alert("Party deleted successfully.");
+                fetchParties(); // Refrescar la lista de parties
+            } else {
+                const errorData = await response.json();
+                alert("Error: " + errorData.message);
+            }
+        } catch (error) {
+            console.error("Error deleting party:", error);
+        }
+    }
+}
+
+// Llamar a la función para cargar parties al inicio
+fetchParties();

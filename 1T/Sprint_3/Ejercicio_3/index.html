@@ -136,6 +136,68 @@
             </div>
         </form>
     </div>  
+  <div id="overlayparty" onclick="hideFormparty()"></div>
+ 
+    <!-- Botón para abrir el formulario de creación de parties en un popup -->
+    <button id="showPartyFormButton" onclick="showPartyForm()">Abrir creador de partys</button>
+
+    <!-- Overlay para el popup -->
+    <div id="partyOverlay" class="overlay" onclick="hidePartyForm()"></div>
+
+    <!-- Formulario para crear una Party -->
+    <div id="partyPopup" class="popup">
+        <form id="partyForm" onsubmit="createParty(event)">
+            <label for="party_size">Party Size:</label>
+            <select id="party_size" required>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+            </select>
+
+            <label for="creator_id">Creator ID:</label>
+            <input type="text" id="creator_id" required>
+
+            <label for="level_cap">Level Cap:</label>
+            <input type="number" id="level_cap" min="1" required>
+
+            <label for="ilvl_cap">Item Level Cap:</label>
+            <input type="number" id="ilvl_cap" min="1" required>
+
+            <label for="party_role">Party Role:</label>
+            <select id="party_role" required>
+                <option value="TANK">TANK</option>
+                <option value="HEALER">HEALER</option>
+                <option value="DAMAGE">DAMAGE</option>
+                <option value="SUPPORT">SUPPORT</option>
+            </select>
+
+            <label for="planned_start">Planned Start (DD/MM/YYYY_HH:mm):</label>
+            <input type="text" id="planned_start" required>
+
+            <div class="button-group">
+                <button type="submit">Crear Party</button>
+                <button type="button" onclick="hidePartyForm()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla para listar las parties -->
+    <table id="partyTable">
+        <thead>
+            <tr>
+                <th>Party Size</th>
+                <th>Creator ID</th>
+                <th>Level Cap</th>
+                <th>Item Level Cap</th>
+                <th>Party Role</th>
+                <th>Planned Start</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se cargarán las parties de la API -->
+        </tbody>
+    </table>
 
     <script src="script.js"></script>
 </body>
