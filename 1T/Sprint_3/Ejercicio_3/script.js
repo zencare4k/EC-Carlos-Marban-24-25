@@ -28,11 +28,9 @@ function displayMembers() {
         <th>ILVL</th>
         <th>Character Role</th>
         <th>Guild Role</th>
-        <th>Role</th>
         <th>Main Archetype</th>
         <th>Secondary Archetype</th>
         <th>Grandmaster Professions</th>
-        <th>Email</th>
         <th>Actions</th>
     </tr>`;
     
@@ -45,11 +43,9 @@ function displayMembers() {
             <td>${member.ilvl}</td>
             <td>${member.character_role}</td>
             <td>${member.guild_role}</td>
-            <td>${member.role || ''}</td> <!-- Ajuste para evitar undefined -->
             <td>${member.main_archetype}</td>
             <td>${member.secondary_archetype}</td>
             <td>${member.grandmaster_profession_one}, ${member.grandmaster_profession_two}</td>
-            <td>${member.email || ''}</td> <!-- Ajuste para evitar undefined -->
             <td>
                 <button onclick="prepareEditMember(${index})">Edit</button>
                 <button onclick="deleteMember('${member.user_id}')">Delete</button>
@@ -61,7 +57,6 @@ function displayMembers() {
 // Añadir nuevo miembro mediante la API
 async function addMember() {
     const member = collectMemberData();
-    console.log("Datos del miembro a enviar:", member); // Log para depuración
     if (!validateMember(member)) return;  // Validación inicial
 
     try {
@@ -75,6 +70,7 @@ async function addMember() {
             alert("Member added successfully.");
             fetchMembers();  // Actualizar lista
             resetForm();     // Restablecer el formulario solo después de agregar
+            hideForm();      // Ocultar el formulario después de la acción
         } else {
             const errorData = await response.json();
             alert("Error: " + errorData.message);
@@ -93,12 +89,11 @@ function collectMemberData() {
         ilvl: document.getElementById("ilvl").value,
         character_role: document.getElementById("character_role").value,
         guild_role: document.getElementById("guild_role").value,
-        role: document.getElementById("role").value || '',  // Ajuste para evitar undefined
         main_archetype: document.getElementById("main_archetype").value,
         secondary_archetype: document.getElementById("secondary_archetype").value,
         grandmaster_profession_one: document.getElementById("grandmaster_profession_one").value,
         grandmaster_profession_two: document.getElementById("grandmaster_profession_two").value,
-        email: document.getElementById("email").value || '',  // Ajuste para evitar undefined
+        email: document.getElementById("email").value,
         notify_email: document.getElementById("notify_email").checked
     };
 }
@@ -122,12 +117,11 @@ async function deleteMember(user_id) {
 }
 
 // Preparar edición de miembro
-async function prepareEditMember(index) {
+function prepareEditMember(index) {
     const member = members[index];
     fillForm(member);
     editingMemberId = member.user_id; // Guardar ID del miembro a editar
-    document.getElementById("addMemberBtn").textContent = "Update Member";
-    document.getElementById("addMemberBtn").onclick = updateMember;
+    showForm(); // Mostrar formulario en modo edición
 }
 
 // Actualizar miembro en la API
@@ -135,7 +129,6 @@ async function updateMember() {
     if (!editingMemberId) return; // Salir si no hay un miembro en edición
 
     const updatedMember = collectMemberData();
-    console.log("Datos del miembro actualizados:", updatedMember); // Log para depuración
     if (!validateMember(updatedMember)) return;  // Validación inicial
 
     try {
@@ -149,6 +142,8 @@ async function updateMember() {
             alert("Member updated successfully.");
             fetchMembers();  // Actualizar lista
             resetForm();     // Restablecer el formulario solo después de actualizar
+            hideForm();      // Ocultar el formulario después de la acción
+            editingMemberId = null; // Resetear la variable de edición
         } else {
             const errorData = await response.json();
             alert("Error: " + errorData.message);
@@ -166,12 +161,11 @@ function fillForm(member) {
     document.getElementById("ilvl").value = member.ilvl;
     document.getElementById("character_role").value = member.character_role;
     document.getElementById("guild_role").value = member.guild_role;
-    document.getElementById("role").value = member.role || '';  // Ajuste para evitar undefined
     document.getElementById("main_archetype").value = member.main_archetype;
     document.getElementById("secondary_archetype").value = member.secondary_archetype;
     document.getElementById("grandmaster_profession_one").value = member.grandmaster_profession_one;
     document.getElementById("grandmaster_profession_two").value = member.grandmaster_profession_two;
-    document.getElementById("email").value = member.email || '';  // Ajuste para evitar undefined
+    document.getElementById("email").value = member.email;
     document.getElementById("notify_email").checked = member.notify_email;
 }
 
@@ -181,8 +175,8 @@ function validateMember(member) {
         alert("Error: Email format is invalid.");
         return false;
     }
-    if (!member.username || !member.user_id || !member.role) {
-        alert("Error: Username, User ID and Role cannot be empty.");
+    if (!member.username || !member.user_id) {
+        alert("Error: Username and User ID cannot be empty.");
         return false;
     }
     return true;
@@ -190,26 +184,26 @@ function validateMember(member) {
 
 // Restablecer formulario
 function resetForm() {
-    document.getElementById("user_id").value = '';
-    document.getElementById("username").value = '';
-    document.getElementById("level").value = '';
-    document.getElementById("ilvl").value = '';
-    document.getElementById("character_role").value = '';
-    document.getElementById("guild_role").value = '';
-    document.getElementById("role").value = '';
-    document.getElementById("main_archetype").value = '';
-    document.getElementById("secondary_archetype").value = '';
-    document.getElementById("grandmaster_profession_one").value = '';
-    document.getElementById("grandmaster_profession_two").value = '';
-    document.getElementById("email").value = '';
-    document.getElementById("notify_email").checked = false;
+    document.getElementById("memberForm").reset();
     editingMemberId = null; // Resetear solo si se completa la operación
-    document.getElementById("addMemberBtn").textContent = "Add Member";
-    document.getElementById("addMemberBtn").onclick = addMember;
 }
 
 // Configuración inicial
 document.addEventListener("DOMContentLoaded", () => {
     fetchMembers();  // Obtener todos los miembros
-    document.getElementById("addMemberBtn").onclick = addMember;
+    document.getElementById("showFormButton").onclick = () => {
+        resetForm();
+        showForm();
+    };
 });
+
+// Funciones para mostrar y ocultar el formulario
+function showForm() {
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+}
+
+function hideForm() {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
