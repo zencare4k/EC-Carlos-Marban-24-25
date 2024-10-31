@@ -24,7 +24,7 @@ const estudiantes = [
 //Readme para el ejercicio 1 y 2 separados y readme para el 3, 4 y 5 juntos
  //Ejercicio 1
 
- //Parte 1 
+ /*/Parte 1 
  function estudiantesDestacadosPorAsignatura(estudiantes, asignatura) {
   return estudiantes
       .filter(estudiante => estudiante.calificaciones[asignatura] !== undefined) // Asegúrate de que la asignatura existe
@@ -35,6 +35,7 @@ const estudiantes = [
 
 // Ejemplo de uso:
 console.log(estudiantesDestacadosPorAsignatura(estudiantes, 'matematicas'));
+
 
  //Parte 2
 
@@ -67,7 +68,7 @@ console.log(estudiantesDestacadosPorAsignatura(estudiantes, 'matematicas'));
 
 console.log(asignaturaMenorRendimiento(estudiantes));
 
-//Parte 3
+//Parte 3/
 
 function mejoraNotasBeca(estudiantes) {
   estudiantes.forEach(estudiante => {
@@ -82,7 +83,7 @@ function mejoraNotasBeca(estudiantes) {
 mejoraNotasBeca(estudiantes);
 console.log(estudiantes);
 
-//Parte 4
+//Parte 4/
 
 function filtrarPorCiudadYAsignatura(estudiantes, ciudad, asignatura) {
   return estudiantes
@@ -93,8 +94,8 @@ function filtrarPorCiudadYAsignatura(estudiantes, ciudad, asignatura) {
 
 // Ejemplo de uso:
 console.log(filtrarPorCiudadYAsignatura(estudiantes, 'Madrid', 'matematicas'));
-
-//Parte 5
+*/
+/*/Parte 5
 
 function estudiantesSinBecaPorCiudad(estudiantes, ciudad) {
   return estudiantes.filter(estudiante => 
@@ -131,7 +132,7 @@ function mejoresEstudiantes(estudiantes) {
 
 console.log(mejoresEstudiantes(estudiantes));
 
-//Parte 8
+//Parte 8*/
 
 function estudiantesAprobados(estudiantes) {
   return estudiantes.filter(estudiante => {

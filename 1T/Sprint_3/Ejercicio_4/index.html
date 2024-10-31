@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Finder - Crear Party</title>
+   <style>
+    /* Fondo y fuente generales */
+/* General */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #0b2142; /* Fondo claro */
+    color: #e74c3c; /* Texto oscuro */
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* Título */
+h1 {
+    color: #e74c3c; /* Azul accesible */
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Botones */
+button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+    box-shadow: 0px 4px 12px rgba(0, 102, 204, 0.4);
+}
+
+button[type="button"] {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Modal */
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+}
+
+.modal-content {
+    background-color: #0b2142;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideIn 0.5s ease-out;
+}
+
+.close {
+    color: #e74c3c;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #40a0ff;
+}
+
+/* Formulario */
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+/* Mensajes */
+#errorMessage {
+    color: #e74c3c;
+    margin-bottom: 10px;
+    display: none;
+}
+
+#confirmationMessage {
+    color: #f44336;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Lista de parties */
+#partyList {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#partyList h3 {
+    color: #f44336;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+   </style>
+</head>
+
+<body>
+    <h1>Party Finder</h1> 
+
+
+
+
+    <button id="openModalBtn">Crear Party</button> 
+
+    <!-- Modal -->
+    <div id="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h2>Crear Party</h2>
+            <div id="errorMessage"></div>
+            <form id="partyForm" onsubmit="return false;">
+                <label for="partySize">Party Size:</label>
+                <select id="partySize" name="partySize" required>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="8">8</option>
+                </select>
+
+                <label for="creatorId">Creator ID:</label>
+                <input type="text" id="creatorId" name="creatorId" required>
+
+                <label for="levelCap">Level Cap:</label>
+                <input type="number" id="levelCap" name="levelCap" min="1" required>
+
+                <label for="ilvlCap">ILevel Cap:</label>
+                <input type="number" id="ilvlCap" name="ilvlCap" min="1" required>
+
+                <label for="partyRole">Party Role:</label>
+                <select id="partyRole" name="partyRole" required>
+                    <option value="TANK">TANK</option>
+                    <option value="HEALER">HEALER</option>
+                    <option value="DAMAGE">DAMAGE</option>
+                    <option value="SUPPORT">SUPPORT</option>
+                </select>
+
+                <label for="plannedStartDate">Planned Start Date:</label>
+                <input type="date" id="plannedStartDate" name="plannedStartDate" required>
+
+                <label for="plannedStartTime">Planned Start Time:</label>
+                <input type="time" id="plannedStartTime" name="plannedStartTime" required>
+
+                <button type="button" id="submitPartyBtn" onclick="createParty()">Create Party</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <div id="confirmationMessage"></div>
+    <div id="partyList">
+        <h3>Parties Creadas:</h3>
+        <ul id="partyListContainer"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

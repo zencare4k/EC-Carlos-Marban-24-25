@@ -4,31 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Search</title>
+    <style>
+        /* Estilos para el modal */
+        #abilityModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #modalContent {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            width: 80%;
+        }
+        #closeModal {
+            float: right;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
-<style>
-    /* Estilos para el modal */
-    #abilityModal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    #modalContent {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        width: 80%;
-    }
-    #closeModal {
-        float: right;
-        cursor: pointer;
-    }
-</style>
+
 <body>
     <h1>Buscar Pokémon</h1>
     <input type="text" id="pokemonName" placeholder="Escribe el nombre del Pokémon">
