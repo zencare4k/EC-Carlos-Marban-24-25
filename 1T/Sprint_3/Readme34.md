@@ -26,7 +26,7 @@
 ![df](Parte1_Ejercicio3_Prueba5.gif)
 
 
-
+    
 ### Prueba 6: Comportamiento del Modal:
 
 ![df](Parte1_Ejercicio3_Prueba6.gif)

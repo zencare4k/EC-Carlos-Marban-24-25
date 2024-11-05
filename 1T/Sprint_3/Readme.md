@@ -1,6 +1,7 @@
 # Sprint 3 
 
-## Ejercicio 1
+## Ejercicio 1 : Análisis y Transformación Avanzada de Datos
+
 
 ### Parte 1: Estudiantes Destacados por Asignatura
 
@@ -33,3 +34,4 @@
 ### Parte 8: Estudiantes con Todas las Materias Aprobadas
 
 ![eje](Parte8_Ejercicio1.gif)
+
