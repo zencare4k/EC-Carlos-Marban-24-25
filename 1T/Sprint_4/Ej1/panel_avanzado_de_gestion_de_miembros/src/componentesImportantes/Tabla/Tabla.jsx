@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Tabla.css';
 import FilterBar from './FilterBar/FilterBar'; // Asegúrate de ajustar la ruta según tu estructura de archivos
+import addMember from '../../Services/addMember';
+import updateMember from '../../Services/updateMember';
+import deleteMember from '../../Services/deleteMember';
 
 const Tabla = () => {
   const [guildMembers, setGuildMembers] = useState([]);
@@ -108,7 +111,7 @@ const Tabla = () => {
 
   const handleDeleteMember = async (userId) => {
     try {
-      await axios.delete(`http://localhost:3000/guildmembers/${userId}`); // Reemplaza con la URL de tu API
+      await deleteMember(userId);
       setGuildMembers((prevMembers) =>
         prevMembers.filter((member) => member.user_id !== userId)
       );
@@ -125,14 +128,14 @@ const Tabla = () => {
 
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:3000/guildmembers/${editingMember.user_id}`, editingMember); // Reemplaza con la URL de tu API
+        await updateMember(editingMember.user_id, editingMember);
         setGuildMembers((prevMembers) =>
           prevMembers.map((member) =>
             member.user_id === editingMember.user_id ? editingMember : member
           )
         );
       } else {
-        await axios.post('http://localhost:3000/guildmembers', editingMember); // Reemplaza con la URL de tu API
+        await addMember(editingMember);
         setGuildMembers((prevMembers) => [...prevMembers, editingMember]);
       }
       setShowModal(false);
@@ -214,8 +217,7 @@ const Tabla = () => {
               <label>
                 User Id: 
                 <input type="text" name="user_id" value={editingMember.user_id} onChange={handleChange} />
-                
-                </label>
+              </label>
               <label>
                 Username:
                 <input type="text" name="username" value={editingMember.username} onChange={handleChange} />
