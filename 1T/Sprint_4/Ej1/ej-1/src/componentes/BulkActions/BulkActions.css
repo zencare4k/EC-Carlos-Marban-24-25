@@ -1,0 +1,20 @@
+/* BulkActions.css */
+.bulk-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .bulk-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bulk-actions button:hover {
+    background-color: #0056b3;
+  }

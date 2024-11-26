@@ -1,0 +1,10 @@
+/* MemberDetailsModal.css */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal-content p {
+    margin: 0;
+  }

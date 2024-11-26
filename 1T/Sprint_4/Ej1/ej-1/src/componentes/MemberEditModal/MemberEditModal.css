@@ -1,0 +1,25 @@
+/* MemberEditModal.css */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal-content input,
+  .modal-content select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .modal-content input:focus,
+  .modal-content select:focus {
+    border-color: #007bff;
+  }
+  
+  .modal-content label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
