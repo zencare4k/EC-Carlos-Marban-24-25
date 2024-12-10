@@ -1,0 +1,30 @@
+.bulk-actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .bulk-actions select {
+    margin-right: 10px;
+    padding: 5px;
+  }
+  
+  .bulk-actions button {
+    margin: 0 5px;
+    padding: 5px 10px;
+  }
+  
+  .notification {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .notification.success {
+    background-color: green;
+  }
+  
+  .notification.error {
+    background-color: red;
+  }
