@@ -7,11 +7,11 @@ import GuildMemberManagement from './Components/GuildMemberManagement/GuildMembe
 const App = () => {
   return (
     <Router>
-      <AppHeader />
+      <AppHeader/>
       <Routes>
         <Route path="/" element={<GuildMemberManagement />} />
       </Routes>
-      <AppFooter />
+      <AppFooter/>
     </Router>
   );
 };

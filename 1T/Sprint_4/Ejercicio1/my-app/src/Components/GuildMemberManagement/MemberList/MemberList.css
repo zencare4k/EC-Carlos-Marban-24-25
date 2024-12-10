@@ -1,0 +1,48 @@
+.member-list {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.member-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.member-list th, .member-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.member-list th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.member-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.member-list tr:hover {
+    background-color: #ddd;
+}
+
+.member-list th.sortable:hover {
+    cursor: pointer;
+    background-color: #45a049;
+}
+
+.member-list .actions button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.member-list .actions button:hover {
+    background-color: #45a049;
+}
