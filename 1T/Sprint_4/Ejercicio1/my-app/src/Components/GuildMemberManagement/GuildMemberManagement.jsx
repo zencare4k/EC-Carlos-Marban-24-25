@@ -1,4 +1,4 @@
-// src/components/GuildMemberManagement/GuildMemberManagement.jsx
+// src/Components/GuildMemberManagement/GuildMemberManagement.jsx
 import React, { useState, useEffect } from "react";
 
 import FilterBar from './FilterBar/FilterBar';
@@ -11,9 +11,6 @@ import ConfirmationDialog from '../General/ConfirmationDialog/ConfirmationDialog
 import CreateMember from './CreateMember/CreateMember';
 
 const GuildMemberManagement = () => {
-  // Administra el estado global relacionado con la gestión de miembros.
-  // Maneja la comunicación con los componentes secundarios que tiene para que se integren adecuadamente.
-  
   const [members, setMembers] = useState([]);
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [filters, setFilters] = useState({});
@@ -34,8 +31,6 @@ const GuildMemberManagement = () => {
   const [inputErrors, setInputErrors] = useState({ ilv: "", lvl: "" });
   const [ilv, setIlv] = useState("");
   const [lvl, setLvl] = useState("");
-
-  // Removed unused teamRequirements variable
 
   const applySorting = () => {
     const { sortColumn, sortOrder } = sortConfig;
@@ -128,11 +123,7 @@ const GuildMemberManagement = () => {
   };
 
   const handleSendMessage = async () => {
-    // Lógica para enviar mensaje a los miembros seleccionados
-  };
-
-  const handleChangeRole = async () => {
-    // Lógica para cambiar el rol de los miembros seleccionados
+    // Implementar lógica para enviar mensaje
   };
 
   const handleEdit = (member) => {
@@ -168,8 +159,6 @@ const GuildMemberManagement = () => {
     setIsConfirmDeleteSingleOpen(false);
   };
 
-
-
   const handleAddMember = async (newMember) => {
     try {
       if (members.some(member => member.user_id === newMember.user_id)) {
@@ -179,11 +168,11 @@ const GuildMemberManagement = () => {
       const addedMember = await createGuildMember(newMember);
       setMembers((prevMembers) => [...prevMembers, addedMember]);
       setFilteredMembers((prevFilteredMembers) => [...prevFilteredMembers, addedMember]);
-      setNotification("Miembro añadido correctamente."); // Notificación de éxito
-      applySorting(); // Aplicar la ordenación después de añadir el nuevo miembro
+      setNotification("Miembro añadido correctamente.");
+      applySorting();
     } catch (error) {
       console.error("Error al añadir el miembro:", error);
-      setNotification("Error al añadir el miembro."); // Notificación de error
+      setNotification("Error al añadir el miembro.");
     }
   };
 
@@ -223,12 +212,10 @@ const GuildMemberManagement = () => {
         }));
       }
     }
-    // ...existing code...
   };
 
   return (
     <div className="container" style={{ marginTop: '60px' }}>
-     
       <h1>Guild Member Management</h1>
 
       {isLoading ? (
@@ -248,30 +235,30 @@ const GuildMemberManagement = () => {
           </button>
 
           <MemberList
-            members={filteredMembers} // Lista de miembros paginados
-            onEdit={handleEdit} // Manejar edición
-            onDelete={handleDeleteSingleMember} // Manejar eliminación
-            onViewDetails={handleViewDetails} // Ver detalles
-            onSelect={handleSelectMember} // Manejar selección
-            selectedMembers={selectedMembers} // Asegúrate de pasar selectedMembers
-            setSelectedMembers={setSelectedMembers} // Asegúrate de pasar setSelectedMembers
-            onSendMessage={handleSendMessage} // Función para enviar mensaje
-            onSelectMember={handleSelectMember} // Manejar selección
-            onDeleteMembers={handleDeleteMembers} // Función para eliminar miembros
-            isCreateMemberOpen={isAddModalOpen} // Estado para abrir/cerrar modal de creación de miembro
-            onCreateMemberClose={() => setIsAddModalOpen(false)} // Función para cerrar modal de creación de miembro
-            onSaveMember={handleAddMember} // Función para guardar miembro
-            isDetailsModalOpen={isDetailsModalOpen} // Estado para abrir/cerrar modal de detalles
-            onDetailsModalClose={() => setIsDetailsModalOpen(false)} // Función para cerrar modal de detalles
-            isEditModalOpen={isEditModalOpen} // Estado para abrir/cerrar modal de edición
-            onEditModalClose={() => setIsEditModalOpen(false)} // Función para cerrar modal de edición
+            members={filteredMembers}
+            onEdit={handleEdit}
+            onDelete={handleDeleteSingleMember}
+            onViewDetails={handleViewDetails}
+            onSelect={handleSelectMember}
+            selectedMembers={selectedMembers}
+            setSelectedMembers={setSelectedMembers}
+            onSendMessage={handleSendMessage}
+            onSelectMember={handleSelectMember}
+            onDeleteMembers={handleDeleteMembers}
+            isCreateMemberOpen={isAddModalOpen}
+            onCreateMemberClose={() => setIsAddModalOpen(false)}
+            onSaveMember={handleAddMember}
+            isDetailsModalOpen={isDetailsModalOpen}
+            onDetailsModalClose={() => setIsDetailsModalOpen(false)}
+            isEditModalOpen={isEditModalOpen}
+            onEditModalClose={() => setIsEditModalOpen(false)}
           />
 
           <CreateMember
             isOpen={isAddModalOpen}
             onClose={() => setIsAddModalOpen(false)}
             onSave={handleAddMember}
-            existingMembers={members} // Pasar la lista de miembros existentes
+            existingMembers={members}
           />
 
           <input
@@ -316,8 +303,6 @@ const GuildMemberManagement = () => {
         onCancel={() => setIsConfirmDeleteSingleOpen(false)}
         message="¿Estás seguro de que deseas eliminar este miembro?"
       />
-
-   
     </div>
   );
 };

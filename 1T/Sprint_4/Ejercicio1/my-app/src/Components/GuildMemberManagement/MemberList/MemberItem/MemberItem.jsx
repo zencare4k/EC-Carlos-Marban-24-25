@@ -5,37 +5,37 @@ import './MemberItem.css';
 import ConfirmationDialog from '../../../General/ConfirmationDialog/ConfirmationDialog';
 
 const MemberItem = ({ member, onSelectMember, onUpdateMember, onDeleteMember }) => {
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
 
   const handleEdit = () => {
-    setShowEditModal(true);
+    setIsEditModalOpen(true);
   };
 
   const handleSaveEdit = async (updatedMember) => {
     await onUpdateMember(member.user_id, updatedMember);
-    setShowEditModal(false);
+    setIsEditModalOpen(false);
   };
 
   const handleDelete = () => {
-    setShowConfirmationDialog(true);
+    setIsConfirmDeleteOpen(true);
   };
 
   const handleConfirmDelete = () => {
     onDeleteMember(member.user_id);
-    setShowConfirmationDialog(false);
+    setIsConfirmDeleteOpen(false);
   };
 
   const handleCancelDelete = () => {
-    setShowConfirmationDialog(false);
+    setIsConfirmDeleteOpen(false);
   };
 
   return (
     <>
       <tr>
         <td><input type="checkbox" onChange={() => onSelectMember(member.user_id)} /></td>
-        <td onClick={() => setShowDetailsModal(true)}>{member.username}</td>
+        <td onClick={() => setIsDetailsModalOpen(true)}>{member.username}</td>
         <td>{member.level}</td>
         <td>{member.ilvl}</td>
         <td>{member.character_role}</td>
@@ -49,19 +49,19 @@ const MemberItem = ({ member, onSelectMember, onUpdateMember, onDeleteMember }) 
           <button onClick={handleDelete}>Delete</button>
         </td>
       </tr>
-      {showDetailsModal && (
-        <MemberDetailsModal member={member} onClose={() => setShowDetailsModal(false)} />
+      {isDetailsModalOpen && (
+        <MemberDetailsModal member={member} onClose={() => setIsDetailsModalOpen(false)} />
       )}
-      {showEditModal && (
+      {isEditModalOpen && (
         <MemberEditModal
           member={member}
           onSave={handleSaveEdit}
-          onClose={() => setShowEditModal(false)}
+          onClose={() => setIsEditModalOpen(false)}
         />
       )}
-      {showConfirmationDialog && (
+      {isConfirmDeleteOpen && (
         <ConfirmationDialog
-          message="Are you sure you want to delete this member?"
+          message="¿Estás seguro de que deseas eliminar este miembro?"
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
         />

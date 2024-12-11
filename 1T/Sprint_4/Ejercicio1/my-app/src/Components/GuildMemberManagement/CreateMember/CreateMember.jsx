@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './CreateMember.css';
 import { createGuildMember } from '../../../Services/guildmembers_API';
 
-const CreateMember = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
   const [formData, setFormData] = useState({
     user_id: '',
     username: '',
@@ -20,29 +19,6 @@ const CreateMember = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setFormData({
-      user_id: '',
-      username: '',
-      level: '',
-      ilvl: '',
-      character_role: '',
-      guild_role: '',
-      main_archetype: '',
-      secondary_archetype: '',
-      grandmaster_profession_one: '',
-      grandmaster_profession_two: '',
-      email: '',
-      notify_email: false
-    });
-    setErrors({});
-  };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -58,6 +34,7 @@ const CreateMember = () => {
     if (!formData.level || isNaN(formData.level) || formData.level <= 0) newErrors.level = 'Level must be a positive number';
     if (!formData.ilvl || isNaN(formData.ilvl) || formData.ilvl <= 0) newErrors.ilvl = 'ilvl must be a positive number';
     if (!formData.email) newErrors.email = 'Email is required';
+    if (existingMembers.some(member => member.user_id === formData.user_id)) newErrors.user_id = 'User ID already exists';
     // Add more validations as needed
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -67,8 +44,8 @@ const CreateMember = () => {
     e.preventDefault();
     if (!validate()) return;
     try {
-      await createGuildMember(formData);
-      handleCloseModal();
+      await onSave(formData);
+      onClose();
     } catch (error) {
       console.error('Error creating member:', error);
     }
@@ -76,11 +53,10 @@ const CreateMember = () => {
 
   return (
     <div>
-      <button onClick={handleOpenModal}>Create Member</button>
-      {isModalOpen && (
+      {isOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <span className="close" onClick={onClose}>&times;</span>
             <form className="create-member" onSubmit={handleSubmit}>
               <input type="text" name="user_id" placeholder="User ID" value={formData.user_id} onChange={handleChange} />
               {errors.user_id && <span className="error">{errors.user_id}</span>}
@@ -184,6 +160,7 @@ const CreateMember = () => {
                 <input type="checkbox" name="notify_email" checked={formData.notify_email} onChange={handleChange} />
                 Notify by Email
               </label>
+              <button type="submit">Save Member</button>
             </form>
           </div>
         </div>

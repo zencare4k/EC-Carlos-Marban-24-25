@@ -4,7 +4,7 @@ import Pagination from '../MemberList/Pagination/Pagination';
 import BulkActions from './BulkActions/BulkActions'
 import './MemberList.css';
 
-const MemberList = ({ members, onSelectMember, sortConfig, onUpdateMember, onDeleteMember }) => {
+const MemberList = ({ members, onEdit, onDelete, onViewDetails, onSelect, selectedMembers, setSelectedMembers, onSendMessage, onDeleteMembers }) => {
   return (
     <div className="member-list">
       <table>
@@ -28,9 +28,9 @@ const MemberList = ({ members, onSelectMember, sortConfig, onUpdateMember, onDel
             <MemberItem
               key={member.user_id}
               member={member}
-              onSelectMember={onSelectMember}
-              onUpdateMember={onUpdateMember}
-              onDeleteMember={onDeleteMember}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onViewDetails
             />
           ))}
         </tbody>

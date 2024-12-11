@@ -13,6 +13,9 @@ export const getAllGuildMembers = async () => {
   }
 };
 
+// Alias for getAllGuildMembers
+export const fetchMembers = getAllGuildMembers;
+
 // Crear un nuevo miembro
 export const createGuildMember = async (memberData) => {
   try {
