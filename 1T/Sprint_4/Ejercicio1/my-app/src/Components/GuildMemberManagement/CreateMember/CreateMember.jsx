@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './CreateMember.css';
-import { createGuildMember } from '../../../Services/guildmembers_API';
+import { createGuildMember } from '../../../Services/guildmembers_API'; // Adjust the import path as needed
 
 const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     user_id: '',
     username: '',
     level: '',
@@ -16,7 +16,9 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
     grandmaster_profession_two: '',
     email: '',
     notify_email: false
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -44,11 +46,17 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
     e.preventDefault();
     if (!validate()) return;
     try {
+      await createGuildMember(formData); // Use createGuildMember here
       await onSave(formData);
-      onClose();
+      handleClose();
     } catch (error) {
       console.error('Error creating member:', error);
     }
+  };
+
+  const handleClose = () => {
+    setFormData(initialFormData);
+    onClose();
   };
 
   return (
@@ -56,7 +64,7 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
       {isOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={onClose}>&times;</span>
+            <span className="close" onClick={handleClose}>&times;</span>
             <form className="create-member" onSubmit={handleSubmit}>
               <input type="text" name="user_id" placeholder="User ID" value={formData.user_id} onChange={handleChange} />
               {errors.user_id && <span className="error">{errors.user_id}</span>}

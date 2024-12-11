@@ -60,6 +60,17 @@ export const deleteGuildMember = async (userId) => {
   }
 };
 
+// Eliminar varios miembros
+export const deleteGuildMembers = async (userIds) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/guildmembers/delete`, { userIds });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting guild members:', error);
+    throw error;
+  }
+};
+
 // Actualizar DKP_1 de un miembro
 export const updateDKP1 = async (userId, value) => {
   try {
@@ -104,13 +115,24 @@ export const getMembersWithIlvlGreaterThan = async (ilvl) => {
   }
 };
 
-// Obtener miembros por character_role
-export const getMembersByCharacterRole = async (characterRole) => {
+// Obtener flags de notificación de un miembro
+// export const getNotificationFlags = async (userId) => {
+//   try {
+//     const response = await axios.get(`${API_BASE_URL}/guildmembers/${userId}/notifications`);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching notification flags:', error);
+//     throw error;
+//   }
+// };
+
+// Actualizar el rol de varios miembros
+export const updateGuildMembersRole = async (userIds, role) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/guildmembers/character_role/${characterRole}`);
+    const response = await axios.put(`${API_BASE_URL}/guildmembers/updateRole`, { userIds, role });
     return response.data;
   } catch (error) {
-    console.error('Error fetching members by character role:', error);
+    console.error('Error updating guild members role:', error);
     throw error;
   }
 };

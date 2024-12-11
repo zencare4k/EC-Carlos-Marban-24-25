@@ -1,5 +1,5 @@
 // src/Components/GuildMemberManagement/GuildMemberManagement.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import FilterBar from './FilterBar/FilterBar';
 import SortControls from './SortControls/SortControls';
@@ -32,7 +32,7 @@ const GuildMemberManagement = () => {
   const [ilv, setIlv] = useState("");
   const [lvl, setLvl] = useState("");
 
-  const applySorting = () => {
+  const applySorting = useCallback(() => {
     const { sortColumn, sortOrder } = sortConfig;
     const sortedMembers = [...filteredMembers].sort((a, b) => {
       const valueA = a[sortColumn];
@@ -43,7 +43,7 @@ const GuildMemberManagement = () => {
       return 0;
     });
     setFilteredMembers(sortedMembers);
-  };
+  }, [sortConfig, filteredMembers]);
 
   useEffect(() => {
     loadMembers();
@@ -51,7 +51,7 @@ const GuildMemberManagement = () => {
 
   useEffect(() => {
     applySorting();
-  }, [sortConfig, members]);
+  }, [sortConfig, members, applySorting]);
 
   useEffect(() => {
     const interval = setInterval(() => {

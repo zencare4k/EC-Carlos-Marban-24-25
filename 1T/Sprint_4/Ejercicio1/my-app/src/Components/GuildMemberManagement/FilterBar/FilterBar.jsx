@@ -128,9 +128,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         <option value="TAILORING">Tailoring</option>
         <option value="WEAPONSMITHING">Weaponsmithing</option>
       </select>
-      <button className="filter-btn" onClick={() => onFilterChange(filters)}>
-        Filtrar
-      </button>
+  
     </div>
   );
 };
