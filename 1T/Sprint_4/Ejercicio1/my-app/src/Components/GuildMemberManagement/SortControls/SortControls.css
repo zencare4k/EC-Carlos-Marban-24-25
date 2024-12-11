@@ -1,22 +1,12 @@
-.sort-controls {
-    margin-top: 60px; /* Ensure it doesn't overlap with the fixed header */
-    padding: 10px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.sort-controls button {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.sort-controls button:hover {
-    background-color: #555;
-}
+.sort-bar {
+    margin: 10px 0;
+  }
+  
+  .sort-bar label {
+    margin-right: 10px;
+  }
+  
+  .sort-bar select {
+    padding: 5px;
+    font-size: 16px;
+  }

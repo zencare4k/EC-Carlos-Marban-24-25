@@ -7,9 +7,11 @@ import GuildMemberManagement from './Components/GuildMemberManagement/GuildMembe
 const App = () => {
   return (
     <Router>
+      <header>
       <AppHeader/>
+      </header>
       <Routes>
-        <Route path="/" element={<GuildMemberManagement />} />
+        <Route path="/" element={<GuildMemberManagement/>} />
       </Routes>
       <AppFooter/>
     </Router>

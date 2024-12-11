@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
-import { updateGuildMember, deleteGuildMember } from '../../../../Services/guildmembers_API';
-import './BulkActions.css';
+import React, { useState, useEffect } from 'react';
+import { getAllGuildMembers, deleteGuildMember, updateGuildMember } from '../../../../Services/guildmembers_API';
 
-const BulkActions = ({ selectedMembers, onActionComplete }) => {
+const BulkActions = ({ selectedMembers, onActionComplete = () => {} }) => {
   const [guildRole, setGuildRole] = useState('');
   const [notification, setNotification] = useState({ message: '', type: '' });
+  const [allMembers, setAllMembers] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  useEffect(() => {
+    const fetchAllMembers = async () => {
+      try {
+        const members = await getAllGuildMembers();
+        setAllMembers(members);
+      } catch (error) {
+        console.error('Error fetching all guild members:', error);
+      }
+    };
+
+    fetchAllMembers();
+  }, []);
+
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    if (!selectAll) {
+      onActionComplete(allMembers.map(member => member.id));
+    } else {
+      onActionComplete([]);
+    }
+  };
 
   const handleAction = async (action) => {
     if (action === 'changeRole' && !guildRole) {
@@ -16,6 +39,7 @@ const BulkActions = ({ selectedMembers, onActionComplete }) => {
       if (action === 'delete') {
         await Promise.all(selectedMembers.map(userId => deleteGuildMember(userId)));
         setNotification({ message: 'Members deleted successfully', type: 'success' });
+        setGuildRole(''); // Reset guildRole after deletion
       } else if (action === 'changeRole') {
         await Promise.all(selectedMembers.map(userId => updateGuildMember(userId, { guild_role: guildRole })));
         setNotification({ message: 'Guild roles updated successfully', type: 'success' });
@@ -29,6 +53,12 @@ const BulkActions = ({ selectedMembers, onActionComplete }) => {
 
   return (
     <div className="bulk-actions">
+      <input
+        type="checkbox"
+        checked={selectAll}
+        onChange={handleSelectAll}
+      />
+      <label>Select All Members</label>
       <select value={guildRole} onChange={(e) => setGuildRole(e.target.value)}>
         <option value="">Select Guild Role</option>
         <option value="LIDER">LIDER</option>

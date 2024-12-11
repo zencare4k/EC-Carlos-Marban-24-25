@@ -1,6 +1,7 @@
 import React from 'react';
 import MemberItem from '../MemberList/MemberItem/MemberItem';
 import Pagination from '../MemberList/Pagination/Pagination';
+import BulkActions from './BulkActions/BulkActions'
 import './MemberList.css';
 
 const MemberList = ({ members, onSelectMember, sortConfig, onUpdateMember, onDeleteMember }) => {
@@ -34,6 +35,7 @@ const MemberList = ({ members, onSelectMember, sortConfig, onUpdateMember, onDel
           ))}
         </tbody>
       </table>
+      <BulkActions />
       <Pagination />
     </div>
   );

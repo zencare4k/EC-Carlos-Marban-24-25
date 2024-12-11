@@ -184,7 +184,6 @@ const CreateMember = () => {
                 <input type="checkbox" name="notify_email" checked={formData.notify_email} onChange={handleChange} />
                 Notify by Email
               </label>
-              <button type="submit">Create Member</button>
             </form>
           </div>
         </div>
