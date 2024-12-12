@@ -1,13 +1,27 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAllGuildMembers } from '../../../Services/guildmembers_API';
 import MemberItem from '../MemberList/MemberItem/MemberItem';
 import Pagination from '../MemberList/Pagination/Pagination';
 import BulkActions from './BulkActions/BulkActions';
 import './MemberList.css';
-
-const MemberList = ({ members, onEdit, onDelete, onViewDetails, onSelectMember = () => {} }) => {
+const MemberList = ({ onEdit, onDelete, onViewDetails, onSelectMember = () => {} }) => {
+  const [members, setMembers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const data = await getAllGuildMembers();
+        setMembers(data);
+      } catch (error) {
+        console.error('Error fetching members:', error);
+      }
+    };
+
+    fetchMembers();
+  }, []);
 
   const handlePageChange = (page, newLimit) => {
     setCurrentPage(page);
