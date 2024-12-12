@@ -3,6 +3,7 @@ import MemberDetailsModal from '../MemberDetailsModal/MemberDetailsModal';
 import MemberEditModal from '../MemberEditModal/MemberEditModal';
 import './MemberItem.css';
 import ConfirmationDialog from '../../../General/ConfirmationDialog/ConfirmationDialog';
+import { updateGuildMember, deleteGuildMember } from '../../../../Services/guildmembers_API';
 
 const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember, onDeleteMember }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -20,18 +21,28 @@ const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember
       setError('El nombre de usuario ya existe.');
       return;
     }
-    await onUpdateMember(member.user_id, updatedMember);
-    setIsEditModalOpen(false);
-    setError('');
+    try {
+      await updateGuildMember(member.user_id, updatedMember);
+      onUpdateMember(member.user_id, updatedMember);
+      setIsEditModalOpen(false);
+      setError('');
+    } catch (error) {
+      setError('Error updating member.');
+    }
   };
 
   const handleDelete = () => {
     setIsConfirmDeleteOpen(true);
   };
 
-  const handleConfirmDelete = () => {
-    onDeleteMember(member.user_id);
-    setIsConfirmDeleteOpen(false);
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteGuildMember(member.user_id);
+      onDeleteMember(member.user_id);
+      setIsConfirmDeleteOpen(false);
+    } catch (error) {
+      setError('Error deleting member.');
+    }
   };
 
   const handleCancelDelete = () => {
@@ -88,4 +99,5 @@ const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember
     </>
   );
 };
- export default MemberItem;
+
+export default MemberItem;
