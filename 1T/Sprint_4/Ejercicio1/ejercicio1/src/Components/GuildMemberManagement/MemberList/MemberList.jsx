@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-import MemberDetailsModal from '../MemberDetailsModal/MemberDetailsModal';
-import MemberEditModal from '../MemberEditModal/MemberEditModal';
-import './MemberItem.css';
-import ConfirmationDialog from '../../../General/ConfirmationDialog/ConfirmationDialog';
+import MemberDetailsModal from './MemberDetailsModal/MemberDetailsModal';
+import MemberEditModal from './MemberEditModal/MemberEditModal';
+import './MemberList.css';
+import ConfirmationDialog from '../../General/ConfirmationDialog/ConfirmationDialog';
 
-const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember, onDeleteMember }) => {
+const MemberItem = ({ member, isSelected, onToggleSelect, onDeleteMember }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
   const [error, setError] = useState('');
 
   const handleEdit = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveEdit = async (updatedMember) => {
-    if (members.some(m => m.username === updatedMember.username && m.user_id !== member.user_id)) {
-      setError('El nombre de usuario ya existe.');
-      return;
-    }
-    await onUpdateMember(member.user_id, updatedMember);
+  const handleSaveEdit = (updatedMember) => {
+    // Implementa la lógica para guardar los cambios del miembro
     setIsEditModalOpen(false);
-    setError('');
   };
 
   const handleDelete = () => {
@@ -38,20 +32,10 @@ const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember
     setIsConfirmDeleteOpen(false);
   };
 
-  const handleCheckboxChange = () => {
-    const newIsSelected = !isSelected;
-    setIsSelected(newIsSelected);
-    onSelectMember(member.user_id, newIsSelected);
-    const bulkActionsElement = document.getElementById('bulkActions');
-    if (bulkActionsElement) {
-      bulkActionsElement.disabled = !newIsSelected;
-    }
-  };
-
   return (
     <>
       <tr>
-        <td><input type="checkbox" checked={isSelected} onChange={handleCheckboxChange} /></td>
+        <td><input type="checkbox" checked={isSelected} onChange={() => onToggleSelect(member.user_id)} /></td>
         <td onClick={() => setIsDetailsModalOpen(true)}>{member.username}</td>
         <td>{member.user_id}</td>
         <td>{member.level}</td>
@@ -88,4 +72,5 @@ const MemberItem = ({ member, members, onSelectMember = () => {}, onUpdateMember
     </>
   );
 };
- export default MemberItem;
+
+export default MemberItem;

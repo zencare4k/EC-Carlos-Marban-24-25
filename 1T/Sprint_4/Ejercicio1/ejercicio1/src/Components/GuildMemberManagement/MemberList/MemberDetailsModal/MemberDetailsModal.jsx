@@ -25,4 +25,3 @@ const MemberDetailsModal = ({ member, onClose }) => {
 };
 
 export default MemberDetailsModal;
-

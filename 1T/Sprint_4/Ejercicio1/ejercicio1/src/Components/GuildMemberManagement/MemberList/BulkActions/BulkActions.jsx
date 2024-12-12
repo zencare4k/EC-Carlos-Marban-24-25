@@ -35,9 +35,6 @@ const BulkActions = ({ selectedMembers = [], onActionComplete = () => {}, setSel
       setNotification({ message: 'No members selected.', type: 'error' });
       return;
     }
-    if (selectAll) {
-      setSelectedMembers(allMembers.map(member => member.user_id));
-    }
     if (action === 'changeRole' && !guildRole) {
       setNotification({ message: 'Please select a guild role.', type: 'error' });
       return;

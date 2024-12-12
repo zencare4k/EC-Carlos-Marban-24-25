@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAllGuildMembers } from '../../../../Services/guildmembers_API';
@@ -27,8 +26,10 @@ const Pagination = ({ onPageChange = () => {} }) => {
     };
 
     const handleLimitChange = (event) => {
-        setLimit(Number(event.target.value));
+        const newLimit = Number(event.target.value);
+        setLimit(newLimit);
         setCurrentPage(1);
+        onPageChange(1, newLimit);
     };
 
     const renderPageNumbers = () => {

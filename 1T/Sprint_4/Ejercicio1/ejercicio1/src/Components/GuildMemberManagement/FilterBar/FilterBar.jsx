@@ -12,7 +12,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
       <input
         type="text"
         name="username"
-        placeholder="Buscar por username"
+        placeholder="Search by username"
         value={filters.username || ""}
         onChange={handleChange}
       />
@@ -21,7 +21,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.character_role || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona un rol</option>
+        <option value="">Select a role</option>
         <option value="TANK">Tank</option>
         <option value="HEALER">Healer</option>
         <option value="DAMAGE">Damage</option>
@@ -32,7 +32,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.guild_role || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona un rol de gremio</option>
+        <option value="">Select a Character Role </option>
         <option value="LIDER">Lider</option>
         <option value="GERENTE">Gerente</option>
         <option value="GERENTE SENIOR">Gerente Senior</option>
@@ -45,7 +45,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.main_archetype || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona un arquetipo principal</option>
+        <option value="">Select a Main Archetype</option>
         <option value="BARD">Bard</option>
         <option value="CLERIC">Cleric</option>
         <option value="FIGHTER">Fighter</option>
@@ -60,7 +60,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.secondary_archetype || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona un arquetipo secundario</option>
+        <option value="">Select a Secondary Archetype</option>
         <option value="BARD">Bard</option>
         <option value="CLERIC">Cleric</option>
         <option value="FIGHTER">Fighter</option>
@@ -75,7 +75,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.grandmaster_profession_one || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona una profesión maestra</option>
+        <option value="">Select a Grandmaster Profession One</option>
         <option value="FISHING">Fishing</option>
         <option value="HERBALISM">Herbalism</option>
         <option value="HUNTING">Hunting</option>
@@ -104,7 +104,7 @@ const FilterBar = ({ filters, onFilterChange }) => {
         value={filters.grandmaster_profession_two || ""}
         onChange={handleChange}
       >
-        <option value="">Selecciona una segunda profesión maestra</option>
+        <option value="">Select a Grandmaster Profession Two</option>
         <option value="FISHING">Fishing</option>
         <option value="HERBALISM">Herbalism</option>
         <option value="HUNTING">Hunting</option>
@@ -128,7 +128,6 @@ const FilterBar = ({ filters, onFilterChange }) => {
         <option value="TAILORING">Tailoring</option>
         <option value="WEAPONSMITHING">Weaponsmithing</option>
       </select>
-  
     </div>
   );
 };

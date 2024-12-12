@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './CreateMember.css';
 import { createGuildMember } from '../../../Services/guildmembers_API'; // Adjust the import path as needed
+import { validateMember } from '../../General/ValidationSystem/ValidationSystem'; // Ajusta la ruta según sea necesario
+import { Toast } from 'react-bootstrap';
 
 const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
   const initialFormData = {
@@ -20,6 +22,7 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,14 +33,7 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!formData.user_id || isNaN(formData.user_id)) newErrors.user_id = 'User ID must be a number';
-    if (!formData.username) newErrors.username = 'Username is required';
-    if (!formData.level || isNaN(formData.level) || formData.level <= 0) newErrors.level = 'Level must be a positive number';
-    if (!formData.ilvl || isNaN(formData.ilvl) || formData.ilvl <= 0) newErrors.ilvl = 'ilvl must be a positive number';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (existingMembers.some(member => member.user_id === formData.user_id)) newErrors.user_id = 'User ID already exists';
-    // Add more validations as needed
+    const newErrors = validateMember(formData, existingMembers);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -45,6 +41,13 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    if (existingMembers.some(member => member.user_id === formData.user_id)) {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+      return;
+    }
     try {
       await createGuildMember(formData); // Use createGuildMember here
       await onSave(formData);
@@ -173,6 +176,23 @@ const CreateMember = ({ isOpen, onClose, onSave, existingMembers }) => {
           </div>
         </div>
       )}
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
+        autohide
+        style={{
+          position: 'fixed',
+          top: 20,
+          right: 20,
+          zIndex: 9999,
+        }}
+      >
+        <Toast.Header>
+          <strong className="mr-auto">Error</strong>
+        </Toast.Header>
+        <Toast.Body>User ID already exists!</Toast.Body>
+      </Toast>
     </div>
   );
 };
