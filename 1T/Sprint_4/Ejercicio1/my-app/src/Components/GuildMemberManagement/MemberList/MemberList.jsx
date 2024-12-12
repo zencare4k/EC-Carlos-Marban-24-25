@@ -5,7 +5,7 @@ import MemberItem from '../MemberList/MemberItem/MemberItem';
 import Pagination from '../MemberList/Pagination/Pagination';
 import BulkActions from './BulkActions/BulkActions';
 import './MemberList.css';
-const MemberList = ({ onEdit, onDelete, onViewDetails, onSelectMember = () => {} }) => {
+const MemberList = ({ onSave, onEdit, onDelete, onViewDetails, onSelectMember = () => {} }) => {
   const [members, setMembers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -37,8 +37,8 @@ const MemberList = ({ onEdit, onDelete, onViewDetails, onSelectMember = () => {}
         <thead>
           <tr>
             <th>Select</th>
-            <th>User ID</th>
             <th>Username</th>
+            <th>User ID</th>
             <th>Level</th>
             <th>ilvl</th>
             <th>Character Role</th>
@@ -56,6 +56,7 @@ const MemberList = ({ onEdit, onDelete, onViewDetails, onSelectMember = () => {}
               key={member.user_id}
               member={member}
               onEdit={onEdit}
+              onSave={onSave}
               onDelete={onDelete}
               onViewDetails={onViewDetails}
               onSelect={onSelectMember}

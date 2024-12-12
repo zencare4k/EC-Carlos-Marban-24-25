@@ -1,0 +1,56 @@
+.bulk-actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .bulk-actions select {
+    margin-right: 10px;
+    padding: 5px;
+  }
+  
+  .bulk-actions button {
+    margin: 0 5px;
+    padding: 5px 10px;
+  }
+  
+  .notification {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .notification.success {
+    background-color: green;
+  }
+  
+  .notification.error {
+    background-color: red;
+  }
+  .confirmation-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .confirmation-dialog .dialog-message {
+    margin-bottom: 20px;
+  }
+
+  .confirmation-dialog .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .confirmation-dialog .dialog-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+  }

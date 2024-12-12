@@ -6,7 +6,6 @@ const MemberDetailsModal = ({ member, onClose }) => {
     <div className="member-details-modal">
       <div className="modal-content">
         <h2>Member Details</h2>
-        <p><strong>User ID:</strong>{member.user_id}</p>
         <p><strong>Username:</strong> {member.username}</p>
         <p><strong>Level:</strong> {member.level}</p>
         <p><strong>ilvl:</strong> {member.ilvl}</p>
@@ -25,4 +24,3 @@ const MemberDetailsModal = ({ member, onClose }) => {
 };
 
 export default MemberDetailsModal;
-
