@@ -1,0 +1,67 @@
+/* Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #6A6A6A;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nav-list {
+    height: 50px;
+    border: solid black 1px;
+    border-left: white;
+    border-right: white;
+    list-style-type: none;
+    margin: 0;
+    display: inline-flex;
+    gap: 1rem;
+  }
+  
+  .nav-footer {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nav-list-footer {
+    height: 50px;
+    list-style-type: none;
+    margin: 0;
+    display: inline-flex;
+    gap: 1rem;
+  }
+  
+  .nav-item {
+    color: #6A6A6A;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .nav-item-footer {
+    color: #6A6A6A;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  .footer {
+    
+    border: solid black 1px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #6A6A6A;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
