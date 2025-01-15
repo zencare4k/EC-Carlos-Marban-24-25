@@ -14,9 +14,12 @@ const Header = () => {
       <nav className="nav">
         <ul className="nav-list">
           <li><a href="#home" className="nav-item">Inicio</a></li>
-          <li><a href="#about" className="nav-item">Acerca de</a></li>
-          <li><a href="#services" className="nav-item">Servicios</a></li>
+          <li><a href="#ManShirt" className='nav-item'>Camisetas Hombre</a></li>
+          <li><a href="#WomenShirt" className='nav-item'>Camisetas Mujer</a></li>
+          <li><a href="#BoyShirt" className='nav-item'>Camisetas Niño</a></li>
+          <li><a href="#GirlShirt" className='nav-item'>Camisetas Niña</a></li>
           <li><a href="#contact" className="nav-item">Contacto</a></li>
+
         </ul>
       </nav>
     </header>

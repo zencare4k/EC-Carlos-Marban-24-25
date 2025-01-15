@@ -19,6 +19,9 @@ const footer = () => {
           <li><a href="#contact" className="nav-item-footer">Contacto</a></li>
         </ul>
       </nav>
+      <div id='Derechos'>
+        <p>© 2025 Telite. Todos los derechos reservados.</p>
+      </div>
     </footer>
   );
 };
