@@ -1,13 +1,17 @@
 /* Header.css */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    color: #6A6A6A;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: #6A6A6A;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  position: fixed; /* Fija el NavBar en la parte superior */
+  top: 0;
+  width: 100%;
+  background-color: white; /* Asegura que el fondo sea visible */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
   .logo {
     font-size: 1.5rem;
   }
