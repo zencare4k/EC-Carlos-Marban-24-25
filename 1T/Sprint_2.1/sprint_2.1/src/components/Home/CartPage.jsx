@@ -1,10 +1,7 @@
 import React from "react";
 import '../../styles/products.css';
-import { useNavigate } from "react-router-dom";
 
-const CartPreview = ({ cartItems = [], setShowCartPreview }) => {
-    const navigate = useNavigate();
-
+const CartPage = ({ cartItems }) => {
     // Agrupar productos por id y contar la cantidad
     const groupedItems = cartItems.reduce((acc, item) => {
         const existingItem = acc.find(i => i.id === item.id);
@@ -16,15 +13,9 @@ const CartPreview = ({ cartItems = [], setShowCartPreview }) => {
         return acc;
     }, []);
 
-    const totalItems = cartItems.length;
-
     return (
-        <div 
-            className="cart-preview"
-            onMouseEnter={() => setShowCartPreview(true)}
-            onMouseLeave={() => setShowCartPreview(false)}
-        >
-            <h3>Carrito de Compras ({totalItems} {totalItems === 1 ? 'producto' : 'productos'})</h3>
+        <div className="cart-page">
+            <h2>Carrito de Compras</h2>
             {groupedItems.length === 0 ? (
                 <p>El carrito está vacío</p>
             ) : (
@@ -41,9 +32,8 @@ const CartPreview = ({ cartItems = [], setShowCartPreview }) => {
                     ))}
                 </ul>
             )}
-            <button className="view-cart-button" onClick={() => navigate('/cart')}>Ver Carrito</button>
         </div>
     );
 };
 
-export default CartPreview;
+export default CartPage;

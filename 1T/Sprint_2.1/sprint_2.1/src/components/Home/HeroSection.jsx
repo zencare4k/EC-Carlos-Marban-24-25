@@ -29,7 +29,7 @@ const Herosection = () => {
     return (
         <div id="sideshow-example" data-component="slideshow">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" />
-            <div role="list">
+ v           <div role="list">
                 {slides.map((slide, index) => (
                     <div
                         key={index}

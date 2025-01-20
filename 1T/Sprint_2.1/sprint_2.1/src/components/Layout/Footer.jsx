@@ -6,7 +6,7 @@ const footer = () => {
     <footer className="footer">
       <div className="logo">
         <img 
-          src="/assets/images/Logo.svg" 
+          src="/assets/icons/Logo.svg" 
           alt="Logo de la aplicación" 
           className="logo-image"
         />

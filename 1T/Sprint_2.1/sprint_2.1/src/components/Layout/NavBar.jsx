@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/layout.css';
+import CartPreview from '../Home/CartPreview';
 
-const Header = () => {
+const Header = ({ cartItems }) => {
+  const [showCartPreview, setShowCartPreview] = useState(false);
+
   return (
     <header className="header">
       <div className="logo">
         <img 
-          src="/assets/images/Logo.svg" 
+          src="/assets/icons/Logo.svg" 
           alt="Logo de la aplicación" 
           className="logo-image"
         />
@@ -19,9 +22,20 @@ const Header = () => {
           <li><a href="#BoyShirt" className='nav-item'>Camisetas Niño</a></li>
           <li><a href="#GirlShirt" className='nav-item'>Camisetas Niña</a></li>
           <li><a href="#contact" className="nav-item">Contacto</a></li>
-
         </ul>
       </nav>
+      <div 
+        className="cart-container"
+        onMouseEnter={() => setShowCartPreview(true)}
+        onMouseLeave={() => setShowCartPreview(false)}
+      >
+        <img 
+          src="/assets/icons/Carrito.svg" 
+          alt="Carrito de compras" 
+          className="cart-icon"
+        />
+        {showCartPreview && <CartPreview cartItems={cartItems} setShowCartPreview={setShowCartPreview} />}
+      </div>
     </header>
   );
 };
