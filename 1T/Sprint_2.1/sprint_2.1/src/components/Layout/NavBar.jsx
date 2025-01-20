@@ -36,6 +36,16 @@ const Header = ({ cartItems }) => {
         />
         {showCartPreview && <CartPreview cartItems={cartItems} setShowCartPreview={setShowCartPreview} />}
       </div>
+      <button 
+        className="login-button" 
+        onClick={() => window.location.href = '/login'}
+      >
+        <img 
+          src="/assets/icons/IniciarSesion.svg" 
+          alt="Login" 
+          className="login-icon"
+        />
+      </button>
     </header>
   );
 };

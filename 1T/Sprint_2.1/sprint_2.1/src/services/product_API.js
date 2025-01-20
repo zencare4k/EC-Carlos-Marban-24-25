@@ -6,7 +6,7 @@ const mockProducts = [
         price: "10.99€",
         originalPrice: "20.99€",
         discount: "50%",
-        image: "/assets/images/image1.jpg"
+        image: "/assets/products/image1.jpg"
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ const mockProducts = [
         price: "18.89€",
         originalPrice: "20.99€",
         discount: "10%",
-        image: "/assets/images/image2.jpg"
+        image: "/assets/products/image2.jpg"
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ const mockProducts = [
         price: "13.64€",
         originalPrice: "20.99€",
         discount: "35%",
-        image: "/assets/images/image3.jpg"
+        image: "/assets/products/image3.jpg"
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ const mockProducts = [
         price: "1.05€",
         originalPrice: "20.99€",
         discount: "95%",
-        image: "/assets/images/image4.jpg"
+        image: "/assets/products/image4.jpg"
     }
 ];
 

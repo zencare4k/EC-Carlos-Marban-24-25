@@ -4,10 +4,10 @@ import '../../styles/home.css';
 const Herosection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const slides = [
-        { src: "/assets/images/image1.jpg", alt: "Slide 1", text: `Camiseta Naruto 50% 2̶0̶.̶9̶9̶€̶  10.99€` },
-        { src: "/assets/images/image2.jpg", alt: "Slide 2", text: "Camiseta de Linkin park 10% 2̶0̶.̶9̶9̶€̶   18.89€" },
-        { src: "/assets/images/image3.jpg", alt: "Slide 3", text: "Camiseta de Limp Bizkit 35% 2̶0̶.̶9̶9̶€̶  13.64€" },
-        { src: "/assets/images/image4.jpg", alt: "Slide 4", text: "Camiseta de Dragon Ball z 95% 2̶0̶.̶9̶9̶€̶  1.05€" },
+        { src: "/assets/products/image1.jpg", alt: "Slide 1", text: `Camiseta Naruto 50% 2̶0̶.̶9̶9̶€̶  10.99€` },
+        { src: "/assets/products/image2.jpg", alt: "Slide 2", text: "Camiseta de Linkin park 10% 2̶0̶.̶9̶9̶€̶   18.89€" },
+        { src: "/assets/products/image3.jpg", alt: "Slide 3", text: "Camiseta de Limp Bizkit 35% 2̶0̶.̶9̶9̶€̶  13.64€" },
+        { src: "/assets/products/image4.jpg", alt: "Slide 4", text: "Camiseta de Dragon Ball z 95% 2̶0̶.̶9̶9̶€̶  1.05€" },
     ];
 
     useEffect(() => {

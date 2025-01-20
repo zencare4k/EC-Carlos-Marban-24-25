@@ -6,8 +6,11 @@ import Header from './components/Layout/NavBar';
 import Herosection from './components/Home/HeroSection';
 import ContentList from './components/Home/ProductList';
 import ProductFilter from './components/Home/ProductFilter';
-import CartPage from './components/Home/CartPage'; // Asegúrate de tener este componente
-import { fetchProducts } from './components/services/product_API';
+import CartPage from './components/Home/CartPage';
+import LoginForm from './components/Auth/LoginForm';
+import RegisterForm from './components/Auth/RegisterForm';
+import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
+import { fetchProducts } from './services/product_API';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -52,6 +55,9 @@ function App() {
               </>
             } />
             <Route path="/cart" element={<CartPage cartItems={cartItems} />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           </Routes>
         </main>
         

@@ -127,6 +127,14 @@
 
 
 .cart-icon {
+  margin-left: -350px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.login-icon{
+  margin-left: -300px;
+  width: 100px;
   height: 30px;
   cursor: pointer;
 }
