@@ -1,0 +1,127 @@
+/* Header.css */
+
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nav-list {
+    padding-top: 20px;
+    margin: 0;
+    height: 50px;
+    border: solid black 1px;
+    width: auto;
+    padding-right: 40px;
+    border-left: white;
+    border-right: white;
+    list-style-type: none;
+    display: inline-flex;
+    gap: 1rem;
+  }
+  
+  .nav-footer {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nav-list-footer {
+    height: 50px;
+    list-style-type: none;
+    margin: 0;
+    display: inline-flex;
+    gap: 1rem;
+  }
+  
+  .nav-item {
+    color: #6A6A6A;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .nav-item-footer {
+    color: #6A6A6A;
+    margin: 0;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  .footer {
+    margin: 0;
+    border: solid black 1px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #6A6A6A;
+    background-color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  #Derechos{
+    text-align: center;
+  }
+  main {
+    padding-top: 70px; /* Añade un padding superior para evitar que el contenido choque con el header */
+    padding-bottom: 100px; /* Añade un padding inferior para evitar que el contenido choque con el footer */
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #6A6A6A;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    position: fixed; /* Fija el header en la parte superior */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  }
+  
+.logo-image {
+  height: 40px;
+}
+
+.nav {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.nav-item {
+  color: #6A6A6A;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.cart {
+  margin-left: -390px;
+  padding-right: 600px;
+  position: relative;
+}
+
+
+.cart-icon {
+  margin-left: -350px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.login-icon{
+  margin-left: -300px;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+}
