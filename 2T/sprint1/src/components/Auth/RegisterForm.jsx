@@ -38,6 +38,7 @@ const RegisterForm = () => {
     setError('');
     registerUser({ username, email, password })
       .then(message => {
+        console.log('Correo registrado exitosamente:', email); // Mensaje en consola
         setSuccess(message);
         setTimeout(() => {
           window.location.href = '/login';

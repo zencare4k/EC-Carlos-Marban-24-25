@@ -28,6 +28,7 @@ const LoginForm = () => {
     setError('');
     loginUser(email, password)
       .then(message => {
+        console.log('Correo verificado exitosamente:', email); // Mensaje en consola
         setSuccess(message);
         setTimeout(() => {
           window.location.href = '/';
