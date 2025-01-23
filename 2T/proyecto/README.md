@@ -180,6 +180,8 @@ El resultado de las pruebas ha sido satisfactorio, confirmando que la implementa
 ## Diagrama de flujo de login
 ![Gif 5:  Recuperación de Contraseña](public/assets/images/DiagramaDeLogin.jpeg)
 
+
+
 ## NOTA: He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
 
 
