@@ -176,10 +176,3 @@ El resultado de las pruebas ha sido satisfactorio, confirmando que la implementa
 
 ## NOTA: He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
 
-# Diagrama de Flujo de Inicio de Sesión
-
-![Image: Diagrama de flujo de inicio de sesion](public/assets/images/D_Flujo_Inicio_Sesion.jpg)
-
-# Diagrama de flujo de la api, web y bbdd
-
-![Image: Diagrama API, BBDD, WEB](public/assets/images/Diagrama_API_BBDD_WEB.jpg)

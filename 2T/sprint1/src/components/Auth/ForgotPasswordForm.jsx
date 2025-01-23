@@ -22,7 +22,6 @@ const ForgotPasswordForm = () => {
     setError('');
     forgotPassword(email)
       .then(message => {
-        console.log('Correo electrónico detectado correctamente:', email);
         setSuccess(message);
         setTimeout(() => {
           window.location.href = '/login';
