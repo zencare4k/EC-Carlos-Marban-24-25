@@ -176,3 +176,10 @@ El resultado de las pruebas ha sido satisfactorio, confirmando que la implementa
 
 ## NOTA: He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
 
+## Diagrama de flujo de API
+![Gif 5:  Recuperación de Contraseña](public/assets/images/DIagrama.jpg)
+
+## Diagrama de flujo ed login
+
+
+
