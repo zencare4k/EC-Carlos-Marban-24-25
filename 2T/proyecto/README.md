@@ -1,3 +1,6 @@
+> He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
+
+
 # Proyecto de Resolución de Problemas
 
 ## Análisis del Problema
@@ -182,7 +185,6 @@ El resultado de las pruebas ha sido satisfactorio, confirmando que la implementa
 
 
 
-## NOTA: He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
 
 
 
