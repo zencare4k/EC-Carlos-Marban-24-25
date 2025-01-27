@@ -43,9 +43,28 @@ export const getDailyForecast = async (municipioCode) => {
   }
 };
 
-const apiClient = {
-  getCurrentWeatherByProvince,
-  getDailyForecast,
+// Obtener las provincias
+export const getProvinces = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/maestro/provincias`, {
+      params: { api_key: API_KEY },
+    });
+
+    if (response.data && response.data.datos) {
+      const dataUrl = response.data.datos;
+      const provincesData = await axios.get(dataUrl);
+      return provincesData.data;
+    }
+
+    throw new Error('Invalid response from AEMET API');
+  } catch (error) {
+    console.error('Error fetching provinces data:', error.message);
+    throw error;
+  }
 };
 
-export default apiClient;
+export default {
+  getCurrentWeatherByProvince,
+  getDailyForecast,
+  getProvinces,
+};
