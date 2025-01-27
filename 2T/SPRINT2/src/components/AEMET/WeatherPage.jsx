@@ -4,7 +4,7 @@ import '../../styles/weather.css';
 import 'leaflet/dist/leaflet.css';
 import { Line } from 'react-chartjs-2';
 import { MapContainer, TileLayer, LayerGroup } from 'react-leaflet';
-import { SunspotLoaderComponent } from '../Shared/LoadingIcon';
+import { LoadingIcon } from '../Shared/LoadingIcon';
 
 const municipios = [
   { nombre: 'Madrid', codigo: '28079' },
@@ -86,7 +86,7 @@ const WeatherPage = () => {
         <button onClick={toggleTheme}>Toggle Theme</button>
       </div>
       {loading ? (
-        <SunspotLoaderComponent />
+        <LoadingIcon />
       ) : error ? (
         <p className="error-message">{error}</p>
       ) : (
