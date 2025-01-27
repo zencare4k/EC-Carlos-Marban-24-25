@@ -25,6 +25,7 @@ const Header = ({ cartItems }) => {
           <li><Link to="/404" className="nav-item">Camisetas Niño</Link></li>
           <li><Link to="/404" className="nav-item">Camisetas Niña</Link></li>
           <li><Link to="/404" className="nav-item">Contacto</Link></li>
+          <li><Link to="/weather" className="nav-item">Weather</Link></li> {/* Nueva opción */}
         </ul>
       </nav>
       <div 

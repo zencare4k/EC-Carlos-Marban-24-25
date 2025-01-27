@@ -10,6 +10,7 @@ import CartPage from './components/Home/CartPage';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
 import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
+import WeatherPage from './components/AEMET/WeatherPage'; // Importar el nuevo componente
 import { fetchProducts } from './services/product_API';
 
 const NotFound = () => <h2>404 Not Found</h2>;
@@ -61,6 +62,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+            <Route path="/weather" element={<WeatherPage />} /> {/* Nueva ruta */}
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
