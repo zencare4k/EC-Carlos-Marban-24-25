@@ -1,55 +1,4 @@
-import axios from 'axios';
-
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5jYXJlNGtAZ21haWwuY29tIiwianRpIjoiZjM4NjJkYjItMWI0YS00M2UyLTkyZWUtN2Q0MTRkNzZiOTFkIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3MzgwMjMyNjcsInVzZXJJZCI6ImYzODYyZGIyLTFiNGEtNDNlMi05MmVlLTdkNDE0ZDc2YjkxZCIsInJvbGUiOiIifQ.mUSi-jez7kRuTu4yYbqW-xOsKeZbTjbjYuav0g5O9oo';
-const BASE_URL = 'https://opendata.aemet.es/opendata/api';
-
-export const getCurrentWeatherByProvince = async (provinceCode) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/observacion/convencional/todas`, {
-      params: { api_key: API_KEY },
-    });
-
-    if (response.data && response.data.datos) {
-      const dataUrl = response.data.datos;
-      const weatherData = await axios.get(dataUrl);
-
-      // Log para revisar el contenido de los datos
-      console.log('Datos de clima actual:', weatherData.data);
-
-      // Filtrar los datos por el código del municipio
-      return weatherData.data.filter((item) => item.municipio_cod === provinceCode);
-    }
-
-    throw new Error('Respuesta inválida de la API de AEMET');
-  } catch (error) {
-    console.error('Error fetching current weather data:', error.message);
-    throw error;
-  }
-};
-
-
-export const getDailyForecast = async (provinceCode) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/prediccion/especifica/municipio/diaria/${provinceCode}`, {
-      params: { api_key: API_KEY },
-    });
-
-    if (response.data && response.data.datos) {
-      const dataUrl = response.data.datos;
-      const forecastData = await axios.get(dataUrl);
-      return forecastData.data[0];
-    }
-
-    throw new Error('Respuesta inválida de la API de AEMET');
-  } catch (error) {
-    console.error('Error fetching daily forecast data:', error.message);
-    throw error;
-  }
-};
-
-export const getProvinces = async () => {
-  // Aquí puedes devolver el array de provincias directamente o hacer una llamada a una API si es necesario
-  return [
+const provinces = [
     { nombre: 'Álava', codigo: '01059', latitud: 42.8464, longitud: -2.6719 },
     { nombre: 'Albacete', codigo: '02003', latitud: 38.9943, longitud: -1.8564 },
     { nombre: 'Alicante', codigo: '03014', latitud: 38.3452, longitud: -0.4810 },
@@ -102,12 +51,5 @@ export const getProvinces = async () => {
     { nombre: 'Ceuta', codigo: '51001', latitud: 35.8894, longitud: -5.3198 },
     { nombre: 'Melilla', codigo: '52001', latitud: 35.2923, longitud: -2.9381 }
   ];
-};
-
-const apiClient = {
-  getCurrentWeatherByProvince,
-  getDailyForecast,
-  getProvinces,
-};
-
-export default apiClient;
+  
+  export default provinces;

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/layout.css';
 
-const footer = () => {
+const Footer = () => {
   return (
     <footer className="footer">
       <div className="logo">
@@ -26,4 +26,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default Footer;
