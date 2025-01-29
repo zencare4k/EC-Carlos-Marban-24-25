@@ -32,6 +32,7 @@ main {
   top: 0;
   width: 100%;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  max-height: 10vh; /* Limita la altura máxima del header */
 }
 
 .logo-image {
@@ -62,6 +63,7 @@ main {
 }
 
 .cart-icon {
+  margin-left: -400px;
   height: 30px;
   cursor: pointer;
 }
@@ -73,6 +75,7 @@ main {
 }
 
 .login-icon {
+  margin-left: -400px;
   height: 30px;
   cursor: pointer;
 }
@@ -91,6 +94,7 @@ main {
   position: fixed;
   bottom: 0;
   left: 0;
+  max-height: 10vh; /* Limita la altura máxima del footer */
 }
 
 #Derechos {
@@ -116,6 +120,7 @@ main {
   .header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
   }
 
   .nav {
@@ -126,6 +131,7 @@ main {
   .nav-list {
     flex-direction: column;
     width: 100%;
+    gap: 0.5rem;
   }
 
   .nav-item {
@@ -144,6 +150,7 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 1rem;
   }
 
   .nav-list-footer {

@@ -1,5 +1,7 @@
 import React from "react";
 import '../../styles/products.css';
+import OpenConfiguratorButton from '../Shared/OpenConfiguratorButton';
+import ProductRating from './ProductRating';
 
 const ProductCard = ({ product, onAddToCart }) => {
     return (
@@ -12,6 +14,8 @@ const ProductCard = ({ product, onAddToCart }) => {
                 <span className="discounted-price">{product.price}</span>
             </p>
             <button className="buy-button" onClick={() => onAddToCart(product)}>Comprar</button>
+            <OpenConfiguratorButton product={product} addToCart={onAddToCart} />
+            <ProductRating product={product} />
         </div>
     );
 };

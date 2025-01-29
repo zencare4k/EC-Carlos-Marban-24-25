@@ -6,6 +6,10 @@ import CartPreview from '../Home/CartPreview';
 const Header = ({ cartItems }) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
 
+  const handleCartIconClick = () => {
+    setShowCartPreview(!showCartPreview);
+  };
+
   return (
     <header className="header">
       <div className="logo">
@@ -28,15 +32,12 @@ const Header = ({ cartItems }) => {
           <li><Link to="/weather" className="nav-item">Weather</Link></li> {/* Nueva opción */}
         </ul>
       </nav>
-      <div 
-        className="cart-container"
-        onMouseEnter={() => setShowCartPreview(true)}
-        onMouseLeave={() => setShowCartPreview(false)}
-      >
+      <div className="cart-container">
         <img 
           src="/assets/icons/Carrito.svg" 
           alt="Carrito de compras" 
           className="cart-icon"
+          onClick={handleCartIconClick}
         />
         {showCartPreview && <CartPreview cartItems={cartItems} setShowCartPreview={setShowCartPreview} />}
       </div>

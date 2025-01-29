@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import '../../styles/products.css';
 import { useNavigate } from "react-router-dom";
 
 const CartPreview = ({ cartItems = [], setShowCartPreview }) => {
     const navigate = useNavigate();
+    const cartPreviewRef = useRef(null);
 
     // Agrupar productos por id y contar la cantidad
     const groupedItems = cartItems.reduce((acc, item) => {
@@ -18,12 +19,22 @@ const CartPreview = ({ cartItems = [], setShowCartPreview }) => {
 
     const totalItems = cartItems.length;
 
+    // Manejar clics fuera del CartPreview para cerrarlo
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (cartPreviewRef.current && !cartPreviewRef.current.contains(event.target)) {
+                setShowCartPreview(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setShowCartPreview]);
+
     return (
-        <div 
-            className="cart-preview"
-            onMouseEnter={() => setShowCartPreview(true)}
-            onMouseLeave={() => setShowCartPreview(false)}
-        >
+        <div className="cart-preview" ref={cartPreviewRef}>
             <h3>Carrito de Compras ({totalItems} {totalItems === 1 ? 'producto' : 'productos'})</h3>
             {groupedItems.length === 0 ? (
                 <p>El carrito está vacío</p>

@@ -11,7 +11,7 @@ import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
 import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
 import WeatherPage from './components/AEMET/WeatherPage'; // Importar el nuevo componente
-import { fetchProducts } from './services/product_API';
+import { fetchProducts, addToMockupCart, getMockupCart } from './services/product_API'; // Importar getMockupCart
 
 const NotFound = () => <h2>404 Not Found</h2>;
 
@@ -28,7 +28,8 @@ function App() {
   }, []);
 
   const handleAddToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    addToMockupCart(product);
+    setCartItems(getMockupCart());
   };
 
   const handleFilter = ({ name, minPrice, maxPrice }) => {
@@ -58,7 +59,7 @@ function App() {
                 <ContentList products={filteredProducts} onAddToCart={handleAddToCart} />
               </>
             } />
-            <Route path="/cart" element={<CartPage cartItems={cartItems} />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
