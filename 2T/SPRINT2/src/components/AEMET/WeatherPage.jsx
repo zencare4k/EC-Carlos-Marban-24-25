@@ -3,8 +3,10 @@ import apiClient from '../../services/apiClient';
 import '../../styles/weather.css'; // Estilos personalizados para la interfaz
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import TemperatureToggleButton from '../Shared/TemperatureToggleButton';
+import ThemeToggleButton from '../Shared/ThemeToggleButton';
 
 // Registrar las escalas necesarias en Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -81,6 +83,21 @@ const WeatherPage = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  // Obtener la URL de la imagen del estado del cielo
+  const getSkyStatusImageUrl = (skyCode) => {
+    const code = String(skyCode).padStart(2, '0'); // Asegura que el código tenga dos dígitos
+    return `https://www.aemet.es/imagenes_gcd/_iconos_weather/${code}.png`;
+  };
+
+  // Obtener el clima en un momento específico del día
+  const getWeatherAtTime = (day, time) => {
+    if (!day.temperatura || !day.temperatura.hora) {
+      return 'Información no disponible';
+    }
+    const weatherAtTime = day.temperatura.hora.find(h => h.periodo === time);
+    return weatherAtTime ? weatherAtTime.value : 'Información no disponible';
+  };
+
   // Datos para el gráfico de línea
   const lineChartData = forecastData ? {
     labels: forecastData.prediccion.dia.map(day => day.fecha),
@@ -99,19 +116,6 @@ const WeatherPage = () => {
       },
     ],
   } : null;
-
-  const getSkyStatusImageUrl = (skyCode) => {
-    // Suponiendo que la API proporciona una URL directa para las imágenes
-    return `https://www.aemet.es/imagenes_gcd/_iconos_weather/${skyCode}.png`;
-  };
-
-  const getWeatherAtTime = (day, time) => {
-    if (!day.temperatura || !day.temperatura.hora) {
-      return 'Información no disponible';
-    }
-    const weatherAtTime = day.temperatura.hora.find(h => h.periodo === time);
-    return weatherAtTime ? weatherAtTime.value : 'Información no disponible';
-  };
 
   return (
     <div className={`weather-page ${theme}`}>
@@ -170,7 +174,7 @@ const WeatherPage = () => {
                   <td>{item.viento}</td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(item.estadoCielo) || 'default'}
+                      src={getSkyStatusImageUrl(item.estadoCielo)}
                       alt={item.estadoCielo || 'Desconocido'}
                       className="weather-icon"
                     />
@@ -205,7 +209,7 @@ const WeatherPage = () => {
                   <td>{day.fecha}</td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(day.estadoCielo[0]?.value || 'default')}
+                      src={getSkyStatusImageUrl(day.estadoCielo[0]?.value)}
                       alt={day.estadoCielo[0]?.descripcion || 'Desconocido'}
                       className="weather-icon"
                     />
@@ -213,7 +217,7 @@ const WeatherPage = () => {
                   </td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(day.estadoCielo[1]?.value || 'default')}
+                      src={getSkyStatusImageUrl(day.estadoCielo[1]?.value)}
                       alt={day.estadoCielo[1]?.descripcion || 'Desconocido'}
                       className="weather-icon"
                     />
@@ -221,7 +225,7 @@ const WeatherPage = () => {
                   </td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(day.estadoCielo[2]?.value || 'default')}
+                      src={getSkyStatusImageUrl(day.estadoCielo[2]?.value)}
                       alt={day.estadoCielo[2]?.descripcion || 'Desconocido'}
                       className="weather-icon"
                     />
@@ -244,18 +248,8 @@ const WeatherPage = () => {
       )}
 
       {/* Mapa interactivo */}
-      <MapContainer center={mapCenter} zoom={8} style={{ height: '400px', width: '100%' }}>
-        <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name="Temperatura">
-            <TileLayer url="https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY" />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Lluvia">
-            <TileLayer url="https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY" />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Viento">
-            <TileLayer url="https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY" />
-          </LayersControl.BaseLayer>
-        </LayersControl>
+      <MapContainer center={mapCenter} zoom={8} style={{ height: '400px', width: '100%' }} key={JSON.stringify(mapCenter)}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {markerPosition && (
           <Marker position={markerPosition}>
             <Popup>{selectedProvince?.nombre}</Popup>
@@ -265,12 +259,8 @@ const WeatherPage = () => {
 
       {/* Controles de personalización */}
       <div className="customization-controls">
-        <button onClick={toggleTemperatureUnit} className="toggle-button">
-          Cambiar a °{temperatureUnit === 'C' ? 'F' : 'C'}
-        </button>
-        <button onClick={toggleTheme} className="toggle-button">
-          Cambiar a tema {theme === 'light' ? 'oscuro' : 'claro'}
-        </button>
+        <TemperatureToggleButton toggleTemperatureUnit={toggleTemperatureUnit} temperatureUnit={temperatureUnit} />
+        <ThemeToggleButton toggleTheme={toggleTheme} theme={theme} />
       </div>
     </div>
   );
