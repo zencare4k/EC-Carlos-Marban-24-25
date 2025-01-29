@@ -75,8 +75,8 @@ h1, h2 {
 }
 
 .weather-table td img {
-  width: 30px;
-  height: 30px;
+  width: 16px; /* Ajusta el tamaño del icono */
+  height: 16px; /* Ajusta el tamaño del icono */
 }
 
 /* Gráficos */
@@ -133,6 +133,82 @@ h1, h2 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Indicador de carga */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.loading-gif {
+  width: 120px;
+  height: 120px;
+}
+
+/* Manejo de errores */
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+/* Controles de personalización */
+.customization-controls {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.toggle-button {
+  background-color: #0077be;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #005f99;
+}
+
+/* Tema oscuro */
+.weather-page.dark {
+  background-color: #333;
+  color: #f5f5f5;
+}
+
+.weather-page.dark .weather-container {
+  background-color: #444;
+}
+
+.weather-page.dark .search-input,
+.weather-page.dark .search-button,
+.weather-page.dark .toggle-button {
+  background-color: #555;
+  color: #f5f5f5;
+  border: 2px solid #0077be;
+}
+
+.weather-page.dark .search-button:hover,
+.weather-page.dark .toggle-button:hover {
+  background-color: #666;
+}
+
+.weather-page.dark .weather-table th,
+.weather-page.dark .forecast-table th {
+  background-color: #555;
+}
+
+.weather-page.dark .weather-table td,
+.weather-page.dark .forecast-table td {
+  background-color: #444;
+  color: #f5f5f5;
+}
+
 /* Adaptación móvil */
 @media (max-width: 768px) {
   .search-input {
@@ -151,4 +227,8 @@ h1, h2 {
   .overlay-buttons button {
     margin: 10px 5px;
   }
+}
+
+.weather-icon{
+  width: 45px;
 }
