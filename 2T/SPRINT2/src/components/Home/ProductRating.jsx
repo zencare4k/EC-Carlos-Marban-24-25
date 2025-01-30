@@ -12,21 +12,19 @@ const ProductRating = ({ product, onLikeUpdate }) => {
     }, [product.likes, product.hasLiked]);
 
     const handleLike = () => {
-        if (!hasLiked) {
-            valorateProduct(product.id).then(newLikes => {
-                setLikes(newLikes);
-                setHasLiked(true);
-                onLikeUpdate({ ...product, likes: newLikes, hasLiked: true });
-            }).catch(error => {
-                console.error(error);
-            });
-        }
+        valorateProduct(product.id).then(newLikes => {
+            setLikes(newLikes);
+            setHasLiked(!hasLiked);
+            onLikeUpdate({ ...product, likes: newLikes, hasLiked: !hasLiked });
+        }).catch(error => {
+            console.error(error);
+        });
     };
 
     return (
         <div className="product-rating">
-            <button onClick={handleLike} className="like-button" disabled={hasLiked}>
-                {hasLiked ? 'Liked' : 'Like'}
+            <button onClick={handleLike} className={`like-button ${hasLiked ? 'unlike' : 'like'}`}>
+                {hasLiked ? 'Unlike' : 'Like'}
             </button>
             <span className="likes-count">{likes} likes</span>
         </div>

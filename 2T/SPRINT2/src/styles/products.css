@@ -11,7 +11,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
-  width: 200px;
+  width: 150px; /* Ajusta el tamaño de las tarjetas */
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -219,12 +219,33 @@
       align-items: center;
   }
 
-  .product-card {
-      width: 90%;
-  }
-
   .cart-preview {
       width: 90%;
       right: 5%;
   }
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.product-card h2 {
+  margin: 10px 0;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.content-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content-list .product-card {
+  flex: 1 1 calc(20% - 20px); /* Ajusta el tamaño de las tarjetas */
+  margin: 10px;
 }

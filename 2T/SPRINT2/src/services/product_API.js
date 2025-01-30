@@ -109,7 +109,9 @@ export const valorateProduct = (productId) => {
                 product.hasLiked = true;
                 resolve(product.likes);
             } else {
-                reject('Product already liked');
+                product.likes = (product.likes || 0) - 1;
+                product.hasLiked = false;
+                resolve(product.likes);
             }
         } else {
             reject('Product not found');
@@ -117,6 +119,7 @@ export const valorateProduct = (productId) => {
     });
 };
 
+// ...existing code...
 const api = {
     fetchProducts,
     addToMockupCart,
