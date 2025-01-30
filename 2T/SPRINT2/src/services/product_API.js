@@ -66,7 +66,6 @@ const mockProducts = [
         comments: []
     }
 ];
-
 const getCartFromLocalStorage = () => {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
@@ -101,28 +100,21 @@ export const addRating = (productId, rating) => {
     }
 };
 
-export const addComment = (productId, comment) => {
-    const product = mockProducts.find(p => p.id === productId);
-    if (product) {
-        const existingComment = product.comments.find(c => c.id === comment.id);
-        if (!existingComment) {
-            const newComment = {
-                id: Date.now(), // Genera un ID único basado en la marca de tiempo actual
-                ...comment
-            };
-            product.comments.push(newComment);
+export const valorateProduct = (productId) => {
+    return new Promise((resolve, reject) => {
+        const product = mockProducts.find(p => p.id === productId);
+        if (product) {
+            if (!product.hasLiked) {
+                product.likes = (product.likes || 0) + 1;
+                product.hasLiked = true;
+                resolve(product.likes);
+            } else {
+                reject('Product already liked');
+            }
+        } else {
+            reject('Product not found');
         }
-    }
-};
-
-export const likeComment = (productId, commentId) => {
-    const product = mockProducts.find(p => p.id === productId);
-    if (product) {
-        const comment = product.comments.find(c => c.id === commentId);
-        if (comment) {
-            comment.likes = (comment.likes || 0) + 1;
-        }
-    }
+    });
 };
 
 const api = {
@@ -130,8 +122,7 @@ const api = {
     addToMockupCart,
     getMockupCart,
     addRating,
-    addComment,
-    likeComment
+    valorateProduct
 };
 
 export default api;

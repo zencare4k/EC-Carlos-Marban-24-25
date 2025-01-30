@@ -56,7 +56,8 @@
   .open-configurator-button {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    margin-top: 20px;
+    border-radius: 20px;
     background-color: #8D7B31;
     color: white;
     font-size: 1em;
