@@ -7,6 +7,8 @@ const mockProducts = [
         originalPrice: "20.99€",
         discount: "50%",
         image: "/assets/products/image1.jpg",
+        likes: 0,
+        hasLiked: false,
         ratings: [],
         comments: []
     },
@@ -18,6 +20,8 @@ const mockProducts = [
         originalPrice: "20.99€",
         discount: "10%",
         image: "/assets/products/image2.jpg",
+        likes: 0,
+        hasLiked: false,
         ratings: [],
         comments: []
     },
@@ -29,6 +33,8 @@ const mockProducts = [
         originalPrice: "20.99€",
         discount: "35%",
         image: "/assets/products/image3.jpg",
+        likes: 0,
+        hasLiked: false,
         ratings: [],
         comments: []
     },
@@ -40,6 +46,8 @@ const mockProducts = [
         originalPrice: "20.99€",
         discount: "95%",
         image: "/assets/products/image4.jpg",
+        likes: 0,
+        hasLiked: false,
         ratings: [],
         comments: []
     },
@@ -51,21 +59,13 @@ const mockProducts = [
         originalPrice: "20.99€",
         discount: "20%",
         image: "/assets/products/image5.jpg",
-        ratings: [],
-        comments: []
-    },
-    {
-        id: 6,
-        name: "Camiseta Bleach",
-        description: "Camiseta de Bleach con 30% de descuento",
-        price: "14.69€",
-        originalPrice: "20.99€",
-        discount: "30%",
-        image: "/assets/products/image6.jpeg",
+        likes: 0,
+        hasLiked: false,
         ratings: [],
         comments: []
     }
 ];
+
 const getCartFromLocalStorage = () => {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
@@ -100,26 +100,21 @@ export const addRating = (productId, rating) => {
     }
 };
 
-export const valorateProduct = (productId) => {
-    return new Promise((resolve, reject) => {
-        const product = mockProducts.find(p => p.id === productId);
-        if (product) {
-            if (!product.hasLiked) {
-                product.likes = (product.likes || 0) + 1;
-                product.hasLiked = true;
-                resolve(product.likes);
-            } else {
-                product.likes = (product.likes || 0) - 1;
-                product.hasLiked = false;
-                resolve(product.likes);
-            }
-        } else {
-            reject('Product not found');
-        }
-    });
-};
 
-// ...existing code...
+export const valorateProduct = async (productId, hasLiked) => {
+    const product = mockProducts.find(p => p.id === productId);
+    if (product) {
+        if (hasLiked) {
+            product.likes -= 1;
+            product.hasLiked = false;
+        } else {
+            product.likes += 1;
+            product.hasLiked = true;
+        }
+        return { likes: product.likes, hasLiked: product.hasLiked };
+    }
+    throw new Error('Product not found');
+};
 const api = {
     fetchProducts,
     addToMockupCart,

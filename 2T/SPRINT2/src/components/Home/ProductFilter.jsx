@@ -20,7 +20,9 @@ const ProductFilter = ({ products, onFilter }) => {
     }, [products]);
 
     useEffect(() => {
-        setPriceRange([Math.max(minPrice, priceRange[0]), Math.min(maxPrice, priceRange[1])]);
+        if (priceRange[0] < minPrice || priceRange[1] > maxPrice) {
+            setPriceRange([Math.max(minPrice, priceRange[0]), Math.min(maxPrice, priceRange[1])]);
+        }
     }, [minPrice, maxPrice, priceRange]);
 
     const handleFilter = () => {
@@ -53,11 +55,11 @@ const ProductFilter = ({ products, onFilter }) => {
         <div className="product-filter">
             <input
                 type="text"
-                placeholder="Nombre de la camiseta"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                placeholder="Buscar por nombre"
             />
-            <div className="slider-container">
+            <div className="price-range">
                 <label>Rango de precios:</label>
                 <ReactSlider
                     className="horizontal-slider"
@@ -67,9 +69,8 @@ const ProductFilter = ({ products, onFilter }) => {
                     max={maxPrice}
                     value={priceRange}
                     onChange={(value) => setPriceRange(value)}
-                    renderThumb={(props, state) => <div {...props}>{state.valueNow}€</div>}
                 />
-                <div className="price-range">
+                <div className="price-inputs">
                     <input
                         type="number"
                         value={priceRange[0]}

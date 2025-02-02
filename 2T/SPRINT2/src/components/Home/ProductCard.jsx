@@ -1,7 +1,7 @@
-import React from "react";
-import '../../styles/products.css';
-import OpenConfiguratorButton from '../Shared/OpenConfiguratorButton';
+import React from 'react';
 import ProductRating from './ProductRating';
+import OpenConfiguratorButton from '../Shared/OpenConfiguratorButton';
+import '../../styles/products.css';
 
 const ProductCard = ({ product, onAddToCart, onLikeUpdate }) => {
     return (
@@ -13,9 +13,8 @@ const ProductCard = ({ product, onAddToCart, onLikeUpdate }) => {
                 <span className="original-price">{product.originalPrice}</span>
                 <span className="discounted-price">{product.price}</span>
             </p>
-            <button className="buy-button" onClick={() => onAddToCart(product)}>Comprar</button>
-            <OpenConfiguratorButton product={product} addToCart={onAddToCart} />
             <ProductRating product={product} onLikeUpdate={onLikeUpdate} />
+            <OpenConfiguratorButton product={product} addToCart={onAddToCart} />
         </div>
     );
 };
