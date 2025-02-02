@@ -13,8 +13,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const WeatherPage = () => {
   const [provinces, setProvinces] = useState([]);
+  const [todayProvinces, setTodayProvinces] = useState([]);
   const [currentWeather, setCurrentWeather] = useState([]);
   const [forecastData, setForecastData] = useState(null);
+  const [todayForecast, setTodayForecast] = useState([]);
+  const [currentPrediction, setCurrentPrediction] = useState([]);
   const [location, setLocation] = useState('');
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,9 @@ const WeatherPage = () => {
     const fetchProvinces = async () => {
       try {
         const provincesList = await apiClient.getProvinces();
+        const todayProvincesList = await apiClient.getTodayProvinces();
         setProvinces(provincesList);
+        setTodayProvinces(todayProvincesList);
       } catch (error) {
         console.error('Error fetching provinces:', error.message);
       }
@@ -45,15 +50,20 @@ const WeatherPage = () => {
 
     try {
       const province = provinces.find(p => p.nombre.toLowerCase() === location.toLowerCase());
-      if (!province) {
+      const todayProvince = todayProvinces.find(p => p.nombre.toLowerCase() === location.toLowerCase());
+      if (!province || !todayProvince) {
         throw new Error('Provincia no encontrada');
       }
 
       const weather = await apiClient.getCurrentWeatherByProvince(province.codigo);
       const forecast = await apiClient.getDailyForecast(province.codigo);
+      const todayForecast = await apiClient.getTodayForecast(todayProvince.codigo);
+      const currentPrediction = await apiClient.getTodayForecast(todayProvince.codigo);
 
       setCurrentWeather(weather);
       setForecastData(forecast);
+      setTodayForecast(Array.isArray(todayForecast) ? todayForecast : []);
+      setCurrentPrediction(Array.isArray(currentPrediction) ? currentPrediction : []);
       setSelectedProvince(province);
 
       // Establecer coordenadas de la provincia y posición del marcador
@@ -63,6 +73,8 @@ const WeatherPage = () => {
       setError('Error al obtener los datos meteorológicos');
       setCurrentWeather([]);
       setForecastData(null);
+      setTodayForecast([]);
+      setCurrentPrediction([]);
     } finally {
       setLoading(false);
     }
@@ -139,6 +151,12 @@ const WeatherPage = () => {
         <button onClick={fetchWeatherData} className="search-button">
           Buscar
         </button>
+      </div>
+
+      {/* Botones de cambio de unidad de temperatura y tema */}
+      <div className="toggle-buttons">
+        <TemperatureToggleButton toggleTemperatureUnit={toggleTemperatureUnit} />
+        <ThemeToggleButton toggleTheme={toggleTheme} />
       </div>
 
       {/* Indicador de carga */}
@@ -247,6 +265,76 @@ const WeatherPage = () => {
         </div>
       )}
 
+      {/* Predicción de hoy */}
+      {todayForecast && todayForecast.length > 0 && (
+        <div className="today-forecast-section">
+          <h2>Predicción para hoy en {selectedProvince?.nombre}</h2>
+          <table className="today-forecast-table">
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Temperatura (°{temperatureUnit})</th>
+                <th>Humedad (%)</th>
+                <th>Viento (km/h)</th>
+                <th>Condición</th>
+              </tr>
+            </thead>
+            <tbody>
+              {todayForecast.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.hora}</td>
+                  <td>{convertTemperature(item.temperatura)}</td>
+                  <td>{item.humedad}</td>
+                  <td>{item.viento}</td>
+                  <td>
+                    <img
+                      src={getSkyStatusImageUrl(item.estadoCielo)}
+                      alt={item.estadoCielo || 'Desconocido'}
+                      className="weather-icon"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Predicción actual */}
+      {currentPrediction && currentPrediction.length > 0 && (
+        <div className="current-prediction-section">
+          <h2>Predicción Actual en {selectedProvince?.nombre}</h2>
+          <table className="current-prediction-table">
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Temperatura (°{temperatureUnit})</th>
+                <th>Humedad (%)</th>
+                <th>Viento (km/h)</th>
+                <th>Condición</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPrediction.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.hora}</td>
+                  <td>{convertTemperature(item.temperatura)}</td>
+                  <td>{item.humedad}</td>
+                  <td>{item.viento}</td>
+                  <td>
+                    <img
+                      src={getSkyStatusImageUrl(item.estadoCielo)}
+                      alt={item.estadoCielo || 'Desconocido'}
+                      className="weather-icon"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {/* Mapa interactivo */}
       <MapContainer center={mapCenter} zoom={8} style={{ height: '400px', width: '100%' }} key={JSON.stringify(mapCenter)}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -256,12 +344,6 @@ const WeatherPage = () => {
           </Marker>
         )}
       </MapContainer>
-
-      {/* Controles de personalización */}
-      <div className="customization-controls">
-        <TemperatureToggleButton toggleTemperatureUnit={toggleTemperatureUnit} temperatureUnit={temperatureUnit} />
-        <ThemeToggleButton toggleTheme={toggleTheme} theme={theme} />
-      </div>
     </div>
   );
 };
