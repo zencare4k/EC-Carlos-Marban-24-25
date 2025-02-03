@@ -16,7 +16,7 @@ body, html {
 main {
   flex: 1;
   padding-top: 70px; /* Añade un padding superior para evitar que el contenido choque con el header */
-  padding-bottom: 100px; /* Añade un padding inferior para evitar que el contenido choque con el footer */
+  padding-bottom: 120px; /* Añade un padding inferior para evitar que el contenido choque con el footer */
 }
 
 /* Header styles */
@@ -91,7 +91,7 @@ main {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   border-top: 1px solid #ddd;
   width: 100%;
-  position: fixed;
+  position: relative; /* Cambia a relative para que no se superponga con el contenido */
   bottom: 0;
   left: 0;
   max-height: 10vh; /* Limita la altura máxima del footer */

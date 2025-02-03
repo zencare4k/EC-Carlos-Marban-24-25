@@ -3,7 +3,7 @@ import ProductRating from './ProductRating';
 import OpenConfiguratorButton from '../Shared/OpenConfiguratorButton';
 import '../../styles/products.css';
 
-const ProductCard = ({ product, onAddToCart, onLikeUpdate }) => {
+const ProductCard = ({ product, onAddToCart, onLikeUpdate, onSelectForComparison }) => {
     return (
         <div className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
@@ -15,6 +15,9 @@ const ProductCard = ({ product, onAddToCart, onLikeUpdate }) => {
             </p>
             <ProductRating product={product} onLikeUpdate={onLikeUpdate} />
             <OpenConfiguratorButton product={product} addToCart={onAddToCart} />
+            <button onClick={() => onSelectForComparison(product)} className="compare-button">
+                Seleccionar para comparar
+            </button>
         </div>
     );
 };

@@ -66,14 +66,7 @@ const mockProducts = [
     }
 ];
 
-const getCartFromLocalStorage = () => {
-    const cart = localStorage.getItem('cart');
-    return cart ? JSON.parse(cart) : [];
-};
-
-const saveCartToLocalStorage = (cart) => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-};
+let cart = [];
 
 export const fetchProducts = () => {
     return new Promise((resolve) => {
@@ -84,13 +77,11 @@ export const fetchProducts = () => {
 };
 
 export const addToMockupCart = (productConfig) => {
-    const cart = getCartFromLocalStorage();
     cart.push(productConfig);
-    saveCartToLocalStorage(cart);
 };
 
 export const getMockupCart = () => {
-    return getCartFromLocalStorage();
+    return cart;
 };
 
 export const addRating = (productId, rating) => {
@@ -99,7 +90,6 @@ export const addRating = (productId, rating) => {
         product.ratings.push(rating);
     }
 };
-
 
 export const valorateProduct = async (productId, hasLiked) => {
     const product = mockProducts.find(p => p.id === productId);
@@ -115,6 +105,7 @@ export const valorateProduct = async (productId, hasLiked) => {
     }
     throw new Error('Product not found');
 };
+
 const api = {
     fetchProducts,
     addToMockupCart,
