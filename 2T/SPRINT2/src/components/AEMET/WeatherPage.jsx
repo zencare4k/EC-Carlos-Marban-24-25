@@ -196,7 +196,7 @@ const WeatherPage = () => {
                 </tr>
               ))}
             </tbody>
-          </table> a
+          </table> 
         </div>
       )}
 
