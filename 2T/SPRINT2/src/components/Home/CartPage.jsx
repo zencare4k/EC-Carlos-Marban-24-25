@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../../styles/CartPage.css';
 import { getMockupCart } from '../../services/product_API';
+import UserSurvey from './UserSurvey';
 
 const CartPage = () => {
     const [cart, setCart] = useState([]);
@@ -19,6 +20,11 @@ const CartPage = () => {
         }
         return acc;
     }, []);
+
+    const handleSurveySubmit = (surveyData) => {
+        console.log('Encuesta enviada:', surveyData);
+        // Aquí puedes manejar el envío de la encuesta, por ejemplo, enviándola a un servidor
+    };
 
     return (
         <div className="cart-page">
@@ -40,6 +46,7 @@ const CartPage = () => {
                     ))}
                 </ul>
             )}
+            <UserSurvey onSubmit={handleSurveySubmit} />
         </div>
     );
 };
