@@ -229,6 +229,27 @@ h1, h2 {
   }
 }
 
-.weather-icon{
-  width: 45px;
+.weather-page {
+  padding: 20px;
+}
+
+.today-forecast-section, .current-prediction-section {
+  margin-bottom: 20px;
+}
+
+.today-forecast-table, .current-prediction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.today-forecast-table th, .current-prediction-table th,
+.today-forecast-table td, .current-prediction-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.weather-icon {
+  width: 30px;
+  height: 30px;
 }

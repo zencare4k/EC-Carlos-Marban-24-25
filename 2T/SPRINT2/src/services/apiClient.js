@@ -46,9 +46,10 @@ export const getDailyForecast = async (provinceCode) => {
   }
 };
 
-export const getTodayForecast = async (provinceCode) => {
+// Obtener la predicción horaria de una provincia
+export const getTodayForecast = async (municipioCode) => {
   try {
-    const response = await axios.get(`${BASE_URL}/prediccion/provincia/hoy/${provinceCode}`, {
+    const response = await axios.get(`${BASE_URL}/prediccion/especifica/municipio/horaria/${municipioCode}`, {
       params: { api_key: API_KEY },
     });
 
@@ -68,6 +69,7 @@ export const getTodayForecast = async (provinceCode) => {
     return [];
   }
 };
+
 // Obtener el clima actual y el pronóstico para una provincia
 export const getWeatherAndForecastByProvince = async (provinceCode, municipioCode) => {
   try {
@@ -137,72 +139,6 @@ export const getProvinces = async () => {
   ];
 };
 
-// Obtener la lista de provincias/islas para la predicción de hoy
-export const getTodayProvinces = async () => {
-  return [
-    { nombre: 'Araba/Álaba', codigo: '01' },
-    { nombre: 'Araba/Álava', codigo: '01' },
-    { nombre: 'Albacete', codigo: '02' },
-    { nombre: 'Alacant/Alicante', codigo: '03' },
-    { nombre: 'Almería', codigo: '04' },
-    { nombre: 'Asturias', codigo: '33' },
-    { nombre: 'Ávila', codigo: '05' },
-    { nombre: 'Badajoz', codigo: '06' },
-    { nombre: 'Barcelona', codigo: '08' },
-    { nombre: 'Bizkaia', codigo: '48' },
-    { nombre: 'Burgos', codigo: '09' },
-    { nombre: 'Cáceres', codigo: '10' },
-    { nombre: 'Cádiz', codigo: '11' },
-    { nombre: 'Cantabria', codigo: '39' },
-    { nombre: 'Castelló/Castellón', codigo: '12' },
-    { nombre: 'Ceuta', codigo: '51' },
-    { nombre: 'Ciudad Real', codigo: '13' },
-    { nombre: 'Córdoba', codigo: '14' },
-    { nombre: 'A Coruña', codigo: '15' },
-    { nombre: 'Cuenca', codigo: '16' },
-    { nombre: 'Girona', codigo: '17' },
-    { nombre: 'Granada', codigo: '18' },
-    { nombre: 'Guadalajara', codigo: '19' },
-    { nombre: 'Gipuzkoa', codigo: '20' },
-    { nombre: 'Huelva', codigo: '21' },
-    { nombre: 'Huesca', codigo: '22' },
-    { nombre: 'Isla de Menorca', codigo: '071' },
-    { nombre: 'Isla de Mallorca', codigo: '072' },
-    { nombre: 'Islas de Ibiza y Formentera', codigo: '073' },
-    { nombre: 'Isla de Lanzarote', codigo: '351' },
-    { nombre: 'Isla de Fuerteventura', codigo: '352' },
-    { nombre: 'Isla de Gran Canaria', codigo: '353' },
-    { nombre: 'Isla de Tenerife', codigo: '381' },
-    { nombre: 'Isla de La Gomera', codigo: '382' },
-    { nombre: 'Isla de La Palma', codigo: '383' },
-    { nombre: 'Isla de El Hierro', codigo: '384' },
-    { nombre: 'Jaén', codigo: '23' },
-    { nombre: 'León', codigo: '24' },
-    { nombre: 'Lleida', codigo: '25' },
-    { nombre: 'Lugo', codigo: '27' },
-    { nombre: 'Madrid', codigo: '28' },
-    { nombre: 'Málaga', codigo: '29' },
-    { nombre: 'Melilla', codigo: '52' },
-    { nombre: 'Murcia', codigo: '30' },
-    { nombre: 'Navarra', codigo: '31' },
-    { nombre: 'Ourense', codigo: '32' },
-    { nombre: 'Palencia', codigo: '34' },
-    { nombre: 'Pontevedra', codigo: '36' },
-    { nombre: 'La Rioja', codigo: '26' },
-    { nombre: 'Salamanca', codigo: '37' },
-    { nombre: 'Segovia', codigo: '40' },
-    { nombre: 'Sevilla', codigo: '41' },
-    { nombre: 'Soria', codigo: '42' },
-    { nombre: 'Tarragona', codigo: '43' },
-    { nombre: 'Teruel', codigo: '44' },
-    { nombre: 'Toledo', codigo: '45' },
-    { nombre: 'València/Valencia', codigo: '46' },
-    { nombre: 'Valladolid', codigo: '47' },
-    { nombre: 'Zamora', codigo: '49' },
-    { nombre: 'Zaragoza', codigo: '50' },
-  ];
-};
-
 // Generar la URL de la imagen del estado del cielo
 export const getSkyStateImageUrl = (skyStateCode) => {
   if (!skyStateCode) {
@@ -219,7 +155,6 @@ const apiClient = {
   getTodayForecast,
   getWeatherAndForecastByProvince,
   getProvinces,
-  getTodayProvinces,
   getSkyStateImageUrl,
 };
 

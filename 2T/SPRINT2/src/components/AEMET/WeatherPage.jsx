@@ -13,7 +13,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const WeatherPage = () => {
   const [provinces, setProvinces] = useState([]);
-  const [todayProvinces, setTodayProvinces] = useState([]);
   const [currentWeather, setCurrentWeather] = useState([]);
   const [forecastData, setForecastData] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
@@ -32,9 +31,7 @@ const WeatherPage = () => {
     const fetchProvinces = async () => {
       try {
         const provincesList = await apiClient.getProvinces();
-        const todayProvincesList = await apiClient.getTodayProvinces();
         setProvinces(provincesList);
-        setTodayProvinces(todayProvincesList);
       } catch (error) {
         console.error('Error fetching provinces:', error.message);
       }
@@ -50,15 +47,14 @@ const WeatherPage = () => {
 
     try {
       const province = provinces.find(p => p.nombre.toLowerCase() === location.toLowerCase());
-      const todayProvince = todayProvinces.find(p => p.nombre.toLowerCase() === location.toLowerCase());
-      if (!province || !todayProvince) {
+      if (!province) {
         throw new Error('Provincia no encontrada');
       }
 
       const weather = await apiClient.getCurrentWeatherByProvince(province.codigo);
       const forecast = await apiClient.getDailyForecast(province.codigo);
-      const todayForecast = await apiClient.getTodayForecast(todayProvince.codigo);
-      const currentPrediction = await apiClient.getTodayForecast(todayProvince.codigo);
+      const todayForecast = await apiClient.getTodayForecast(province.codigo);
+      const currentPrediction = await apiClient.getTodayForecast(province.codigo);
 
       setCurrentWeather(weather);
       setForecastData(forecast);
