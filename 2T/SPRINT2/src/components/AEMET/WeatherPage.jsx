@@ -100,10 +100,10 @@ const WeatherPage = () => {
   // Obtener el clima en un momento específico del día
   const getWeatherAtTime = (day, time) => {
     if (!day.estadoCielo || !day.estadoCielo.length) {
-      return 'Información no disponible';
+      return ' Información no disponible';
     }
     const skyStatusAtTime = day.estadoCielo.find(h => h.periodo === time);
-    return skyStatusAtTime ? skyStatusAtTime.descripcion : 'Información no disponible';
+    return skyStatusAtTime ? skyStatusAtTime.descripcion : ' Información no disponible';
   };
 
   // Datos para el gráfico de línea
@@ -202,6 +202,24 @@ const WeatherPage = () => {
 
 {forecastData && (
   <div className="forecast-section">
+    {currentPrediction && currentPrediction.length > 0 && (
+  <div className="actual-forecast">
+    <h2>Predicción actual en {selectedProvince?.nombre}</h2>
+    <div className="forecast-container">
+      {currentPrediction.slice(0, 6).map((item, index) => (
+        <div key={index} className="forecast-item">
+          <p className="forecast-hour">{item.hora}</p>
+          <img
+            src={getSkyStatusImageUrl(item.estadoCielo)}
+            alt={item.estadoCielo || 'Desconocido'}
+            className="weather-icon"
+          />
+          <p className="forecast-temp">{convertTemperature(item.temperatura)}°{temperatureUnit}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
     <h2>Predicción para los próximos días en {selectedProvince?.nombre}</h2>
     <table className="forecast-table">
       <thead>
