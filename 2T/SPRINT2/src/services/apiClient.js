@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5jYXJlNGtAZ21haWwuY29tIiwianRpIjoiNWUwMGRkOTAtOTQ4My00YjUyLTkzMmQtNGE4NTE2NzliZWVjIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3Mzg1MDM1MjUsInVzZXJJZCI6IjVlMDBkZDkwLTk0ODMtNGI1Mi05MzJkLTRhODUxNjc5YmVlYyIsInJvbGUiOiIifQ.jSOwbFKhTpFHPNhsjYOMbTEjEJzE3QFH6pCRsRI7pD4';
+const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5jYXJlNGtAZ21haWwuY29tIiwianRpIjoiZDU5YTZkZWUtNzVmOS00YTRjLTg2YjctNWFmODVkNjg1MDM3IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3Mzg3ODA4NzksInVzZXJJZCI6ImQ1OWE2ZGVlLTc1ZjktNGE0Yy04NmI3LTVhZjg1ZDY4NTAzNyIsInJvbGUiOiIifQ.GbLSifuvSirW_C5jwUY1cn1y9EqIx4XKJsY2pBrRABA';
 const BASE_URL = 'https://opendata.aemet.es/opendata/api';
 
-// URL base para las imágenes de estado del cielo proporcionadas por AEMET
-const IMAGE_BASE_URL = 'https://www.aemet.es/imagenes_gcd/_iconos_weather/';
+// Configurar Axios para manejar la codificación de caracteres
+axios.defaults.headers.common['Accept-Charset'] = 'utf-8';
 
 // Obtener el tiempo actual en una provincia
 export const getCurrentWeatherByProvince = async (municipioCode) => {
@@ -57,7 +57,9 @@ export const getTodayForecast = async (municipioCode) => {
       const dataUrl = response.data.datos;
       const forecastResponse = await axios.get(dataUrl, { responseType: 'text' });
       if (forecastResponse.headers['content-type'].includes('application/json')) {
-        return JSON.parse(forecastResponse.data);
+        const forecastData = JSON.parse(forecastResponse.data);
+        const todayForecast = forecastData[0].prediccion.dia[0]; // Obtener la predicción del primer día
+        return todayForecast;
       } else {
         throw new Error('Respuesta no es JSON');
       }
@@ -146,7 +148,7 @@ export const getSkyStateImageUrl = (skyStateCode) => {
   }
 
   // El formato esperado por AEMET para las imágenes es código_estado_cielo + ".png"
-  return `${IMAGE_BASE_URL}${skyStateCode}.png`;
+  return `/assets/icons/${skyStateCode}.png`;
 };
 
 const apiClient = {

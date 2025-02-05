@@ -26,6 +26,13 @@ const WeatherPage = () => {
   const [temperatureUnit, setTemperatureUnit] = useState('C'); // Unidad de temperatura (C o F)
   const [theme, setTheme] = useState('light'); // Tema (light o dark)
 
+  const defaultIconUrl = '../../assets/icons/unknown.png'; // Reemplaza con la URL de tu icono predeterminado
+
+  // Function to normalize strings (remove accents)
+  const normalizeString = (str) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  };
+
   // Cargar las provincias al inicio
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -46,7 +53,8 @@ const WeatherPage = () => {
     setError(null);
 
     try {
-      const province = provinces.find(p => p.nombre.toLowerCase() === location.toLowerCase());
+      const normalizedLocation = normalizeString(location.toLowerCase());
+      const province = provinces.find(p => normalizeString(p.nombre.toLowerCase()) === normalizedLocation);
       if (!province) {
         throw new Error('Provincia no encontrada');
       }
@@ -54,12 +62,11 @@ const WeatherPage = () => {
       const weather = await apiClient.getCurrentWeatherByProvince(province.codigo);
       const forecast = await apiClient.getDailyForecast(province.codigo);
       const todayForecast = await apiClient.getTodayForecast(province.codigo);
-      const currentPrediction = await apiClient.getTodayForecast(province.codigo);
 
       setCurrentWeather(weather);
       setForecastData(forecast);
-      setTodayForecast(Array.isArray(todayForecast) ? todayForecast : []);
-      setCurrentPrediction(Array.isArray(currentPrediction) ? currentPrediction : []);
+      setTodayForecast(todayForecast);
+      setCurrentPrediction(todayForecast.estadoCielo);
       setSelectedProvince(province);
 
       // Establecer coordenadas de la provincia y posición del marcador
@@ -93,17 +100,17 @@ const WeatherPage = () => {
 
   // Obtener la URL de la imagen del estado del cielo
   const getSkyStatusImageUrl = (skyCode) => {
-    const code = String(skyCode).padStart(2, '0'); // Asegura que el código tenga dos dígitos
-    return `https://www.aemet.es/imagenes_gcd/_iconos_weather/${code}.png`;
+    const code = String(skyCode).padStart(2, '0'); // Ensure the code has two digits
+    return code === '11' ? '/assets/icons/11.png' : `/assets/icons/${code}.png` || defaultIconUrl;
   };
 
   // Obtener el clima en un momento específico del día
   const getWeatherAtTime = (day, time) => {
     if (!day.estadoCielo || !day.estadoCielo.length) {
-      return ' Información no disponible';
+      return '';
     }
     const skyStatusAtTime = day.estadoCielo.find(h => h.periodo === time);
-    return skyStatusAtTime ? skyStatusAtTime.descripcion : ' Información no disponible';
+    return skyStatusAtTime ? skyStatusAtTime.descripcion : '';
   };
 
   // Datos para el gráfico de línea
@@ -166,6 +173,60 @@ const WeatherPage = () => {
       {error && <p className="error-message">{error}</p>}
 
       {/* Datos del clima */}
+      {forecastData && (
+        <div className="forecast-section">
+          <h2>Predicción para las próximas 72 horas en {selectedProvince?.nombre}</h2>
+          <table className="forecast-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>08:00</th>
+                <th>14:00</th>
+                <th>20:00</th>
+                <th>Temperatura Máxima (°{temperatureUnit})</th>
+                <th>Temperatura Mínima (°{temperatureUnit})</th>
+                <th>Humedad (%)</th>
+                <th>Viento (km/h)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {forecastData.prediccion.dia.slice(0, 3).map((day, index) => (
+                <tr key={index}>
+                  <td>{day.fecha}</td>
+                  <td>
+                    <img
+                      src={getSkyStatusImageUrl(day.estadoCielo[0]?.value) || defaultIconUrl}
+                      alt={day.estadoCielo[0]?.descripcion || 'Desconocido'}
+                      className="weather-icon"
+                    />
+                    {getWeatherAtTime(day, '08')}
+                  </td>
+                  <td>
+                    <img
+                      src={getSkyStatusImageUrl(day.estadoCielo[1]?.value) || defaultIconUrl}
+                      alt={day.estadoCielo[1]?.descripcion || 'Desconocido'}
+                      className="weather-icon"
+                    />
+                    {getWeatherAtTime(day, '14')}
+                  </td>
+                  <td>
+                    <img
+                      src={getSkyStatusImageUrl(day.estadoCielo[2]?.value) || defaultIconUrl}
+                      alt={day.estadoCielo[2]?.descripcion || 'Desconocido'}
+                      className="weather-icon"
+                    />
+                    {getWeatherAtTime(day, '20')}
+                  </td>
+                  <td>{convertTemperature(day.temperatura.maxima) || ''}</td>
+                  <td>{convertTemperature(day.temperatura.minima) || ''}</td>
+                  <td>{day.humedadRelativa.maxima || ''}</td>
+                  <td>{day.viento[0]?.velocidad || ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+                 {/* Datos del clima actual */}
       {currentWeather.length > 0 && (
         <div className="current-weather-section">
           <h2>Clima Actual en {selectedProvince?.nombre}</h2>
@@ -188,7 +249,7 @@ const WeatherPage = () => {
                   <td>{item.viento}</td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(item.estadoCielo)}
+                      src={getSkyStatusImageUrl(item.estadoCielo) || defaultIconUrl}
                       alt={item.estadoCielo || 'Desconocido'}
                       className="weather-icon"
                     />
@@ -196,87 +257,39 @@ const WeatherPage = () => {
                 </tr>
               ))}
             </tbody>
-          </table> 
+          </table>
+        </div>
+      )}
+      
+          {/* Gráfico de línea */}
+          <div className="line-chart">
+            <Line data={lineChartData} />
+          </div>
         </div>
       )}
 
-{forecastData && (
-  <div className="forecast-section">
-    {currentPrediction && currentPrediction.length > 0 && (
-  <div className="actual-forecast">
-    <h2>Predicción actual en {selectedProvince?.nombre}</h2>
-    <div className="forecast-container">
-      {currentPrediction.slice(0, 6).map((item, index) => (
-        <div key={index} className="forecast-item">
-          <p className="forecast-hour">{item.hora}</p>
-          <img
-            src={getSkyStatusImageUrl(item.estadoCielo)}
-            alt={item.estadoCielo || 'Desconocido'}
-            className="weather-icon"
-          />
-          <p className="forecast-temp">{convertTemperature(item.temperatura)}°{temperatureUnit}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-    <h2>Predicción para los próximos días en {selectedProvince?.nombre}</h2>
-    <table className="forecast-table">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>08:00</th>
-          <th>14:00</th>
-          <th>20:00</th>
-          <th>Temperatura Máxima (°{temperatureUnit})</th>
-          <th>Temperatura Mínima (°{temperatureUnit})</th>
-          <th>Humedad (%)</th>
-          <th>Viento (km/h)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {forecastData.prediccion.dia.map((day, index) => (
-          <tr key={index}>
-            <td>{day.fecha}</td>
-            <td>
-              <img
-                src={getSkyStatusImageUrl(day.estadoCielo[0]?.value)}
-                alt={day.estadoCielo[0]?.descripcion || 'Desconocido'}
-                className="weather-icon"
-              />
-              {getWeatherAtTime(day, '08')}
-            </td>
-            <td>
-              <img
-                src={getSkyStatusImageUrl(day.estadoCielo[1]?.value)}
-                alt={day.estadoCielo[1]?.descripcion || 'Desconocido'}
-                className="weather-icon"
-              />
-              {getWeatherAtTime(day, '14')}
-            </td>
-            <td>
-              <img
-                src={getSkyStatusImageUrl(day.estadoCielo[2]?.value)}
-                alt={day.estadoCielo[2]?.descripcion || 'Desconocido'}
-                className="weather-icon"
-              />
-              {getWeatherAtTime(day, '20')}
-            </td>
-            <td>{convertTemperature(day.temperatura.maxima) || 'Información no disponible'}</td>
-            <td>{convertTemperature(day.temperatura.minima) || 'Información no disponible'}</td>
-            <td>{day.humedadRelativa.maxima || 'Información no disponible'}</td>
-            <td>{day.viento[0]?.velocidad || 'Información no disponible'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+   
 
-    {/* Gráfico de línea */}
-    <div className="line-chart">
-      <Line data={lineChartData} />
-    </div>
-  </div>
-)}
+      {/* Predicción actual */}
+      {currentPrediction && currentPrediction.length > 0 && (
+        <div className="actual-forecast">
+          <h2>Predicción actual en {selectedProvince?.nombre}</h2>
+          <div className="forecast-container">
+            {currentPrediction.slice(0, 6).map((item, index) => (
+              <div key={index} className="forecast-item">
+                <p className="forecast-hour">{item.periodo}:00</p>
+                <img
+                  src={getSkyStatusImageUrl(item.value) || defaultIconUrl}
+                  alt={item.descripcion || 'Desconocido'}
+                  className="weather-icon"
+                />
+                <p className="forecast-temp">{convertTemperature(todayForecast.temperatura.find(t => t.periodo === item.periodo)?.value)}°{temperatureUnit}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Predicción de hoy */}
       {todayForecast && todayForecast.length > 0 && (
         <div className="today-forecast-section">
@@ -292,51 +305,16 @@ const WeatherPage = () => {
               </tr>
             </thead>
             <tbody>
-              {todayForecast.map((item, index) => (
+              {todayForecast.temperatura.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.hora}</td>
-                  <td>{convertTemperature(item.temperatura)}</td>
-                  <td>{item.humedad}</td>
-                  <td>{item.viento}</td>
+                  <td>{item.periodo}:00</td>
+                  <td>{convertTemperature(item.value)}</td>
+                  <td>{todayForecast.humedadRelativa.find(h => h.periodo === item.periodo)?.value}</td>
+                  <td>{todayForecast.vientoAndRachaMax.find(v => v.periodo === item.periodo)?.velocidad[0]}</td>
                   <td>
                     <img
-                      src={getSkyStatusImageUrl(item.estadoCielo)}
-                      alt={item.estadoCielo || 'Desconocido'}
-                      className="weather-icon"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Predicción actual */}
-      {currentPrediction && currentPrediction.length > 0 && (
-        <div className="current-prediction-section">
-          <h2>Predicción Actual en {selectedProvince?.nombre}</h2>
-          <table className="current-prediction-table">
-            <thead>
-              <tr>
-                <th>Hora</th>
-                <th>Temperatura (°{temperatureUnit})</th>
-                <th>Humedad (%)</th>
-                <th>Viento (km/h)</th>
-                <th>Condición</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentPrediction.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.hora}</td>
-                  <td>{convertTemperature(item.temperatura)}</td>
-                  <td>{item.humedad}</td>
-                  <td>{item.viento}</td>
-                  <td>
-                    <img
-                      src={getSkyStatusImageUrl(item.estadoCielo)}
-                      alt={item.estadoCielo || 'Desconocido'}
+                      src={getSkyStatusImageUrl(todayForecast.estadoCielo.find(e => e.periodo === item.periodo)?.value) || defaultIconUrl}
+                      alt={todayForecast.estadoCielo.find(e => e.periodo === item.periodo)?.descripcion || 'Desconocido'}
                       className="weather-icon"
                     />
                   </td>
