@@ -13,6 +13,24 @@ Para resolver el problema, se ha diseñado una solución utilizando herramientas
 3. **Diagrama de Secuencia**: Ilustra el flujo de interacción entre los componentes del sistema.
 4. **Diagrama de Flujo**: Representa el flujo de datos y las operaciones principales del sistema.
 
+## Pruebas de la Resolución del Problema
+
+Es indispensable realizar pruebas para verificar la integridad y correcto funcionamiento de la implementación realizada. Para ello, se comparará el comportamiento esperado del análisis del problema con la implementación. Se utilizarán pruebas unitarias y de integración para asegurar que todas las funcionalidades operen correctamente y que los usuarios puedan interactuar con el sistema sin problemas.
+
+### Pruebas Realizadas
+
+#### Prueba 1: Comparación de productos
+- Seleccionar al menos dos productos para comparar.
+- Verificar que las diferencias clave se resaltan correctamente.
+
+#### Prueba 2: Encuestas y votaciones
+- Completar una encuesta de satisfacción.
+- Validar que los votos se registran correctamente y afectan la clasificación.
+
+#### Prueba 3: Simulación de decisión de compra
+- Configurar un producto utilizando distintos parámetros.
+- Verificar que las recomendaciones son coherentes con la configuración elegida.
+
 ## Implementación del Diseño Propuesto
 
 En este punto, se procede a implementar el diseño establecido en el punto anterior. La implementación se realiza utilizando React para el frontend y localStorage para el almacenamiento de datos. La estructura de carpetas del proyecto es la siguiente:
@@ -91,24 +109,8 @@ Para obtener los datos meteorológicos, se utilizará la API de AEMET, que propo
 - Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento actual.
 - Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
 
-![](./public/assets/images/Gif1EC.gif)
-## Pruebas de la Resolución del Problema
+![gif 1](./public/assets/images/Gif1EC.gif)
 
-Es indispensable realizar pruebas para verificar la integridad y correcto funcionamiento de la implementación realizada. Para ello, se comparará el comportamiento esperado del análisis del problema con la implementación. Se utilizarán pruebas unitarias y de integración para asegurar que todas las funcionalidades operen correctamente y que los usuarios puedan interactuar con el sistema sin problemas.
-
-### Pruebas Realizadas
-
-#### Prueba 1: Comparación de productos
-- Seleccionar al menos dos productos para comparar.
-- Verificar que las diferencias clave se resaltan correctamente.
-
-#### Prueba 2: Encuestas y votaciones
-- Completar una encuesta de satisfacción.
-- Validar que los votos se registran correctamente y afectan la clasificación.
-
-#### Prueba 3: Simulación de decisión de compra
-- Configurar un producto utilizando distintos parámetros.
-- Verificar que las recomendaciones son coherentes con la configuración elegida.
 
 ## Diagrama de flujo de API
 ![Diagrama de flujo de API](public/assets/images/DIagrama.jpg)
@@ -137,17 +139,19 @@ Es indispensable realizar pruebas para verificar la integridad y correcto funcio
 #### ✅ Prueba 1: Comparación de productos
 - Seleccionar al menos dos productos para comparar.
 - Verificar que las diferencias clave se resaltan correctamente.
-![](./public/assets/images/Gif2EC.gif)
+![gif 2](./public/assets/images/Gif2EC.gif)
 
 
 #### ✅ Prueba 2: Encuestas y votaciones
 - Completar una encuesta de satisfacción.
 - Validar que los votos se registran correctamente y afectan la clasificación.
-![](./public/assets/images/Gif3EC.gif)
+![gif 3](./public/assets/images/Gif3EC.gif)
 
 #### ✅ Prueba 3: Simulación de decisión de compra
 - Configurar un producto utilizando distintos parámetros.
 - Verificar que las recomendaciones son coherentes con la configuración elegida.
-![](./public/assets/images/Gif4EC.gif)
+![gif 4](./public/assets/images/Gif4EC.gif)
 
 
+
+NOTA: Lo de las recomendaciones loa agregué después de hacer el gif numero 3, ya que me di cuenta de que no estaba, las recomendaciones se basan en categorias, es decir si seleccionas una camiseta de anime, te aparecen recomendaciones de camisetas de anime, si seleccionas de bandas, salen de bandas, etc.
