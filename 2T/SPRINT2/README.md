@@ -110,6 +110,10 @@ Para obtener los datos meteorológicos, se utilizará la API de AEMET, que propo
 - Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
 
 ![gif 1](./public/assets/images/Gif1EC.gif)
+✅ Prueba 2: Cambio entre unidades de temperatura
+Cambiar de Celsius a Fahrenheit.
+Confirmar que los valores se actualizan correctamente.
+![gif 2](./public/assets/images/Gif5EC.gif)
 
 
 ## Diagrama de flujo de API
