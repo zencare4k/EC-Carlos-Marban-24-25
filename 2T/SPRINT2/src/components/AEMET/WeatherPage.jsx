@@ -26,8 +26,17 @@ const WeatherPage = () => {
   const [temperatureUnit, setTemperatureUnit] = useState('C'); // Unidad de temperatura (C o F)
   const [theme, setTheme] = useState('light'); // Tema (light o dark)
 
-  const defaultIconUrl = '../../assets/icons/unknown.png'; // Reemplaza con la URL de tu icono predeterminado
-
+  const defaultIconUrl = '../../assets/icons/unknown.'; // Reemplaza con la URL de tu icono predeterminado
+  const getCurrentTimePeriod = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 20 || currentHour < 8) {
+      return '20';
+    } else if (currentHour >= 8 && currentHour < 14) {
+      return '08';
+    } else {
+      return '14';
+    }
+  };
   // Function to normalize strings (remove accents)
   const normalizeString = (str) => {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -72,6 +81,9 @@ const WeatherPage = () => {
       // Establecer coordenadas de la provincia y posición del marcador
       setMapCenter({ lat: province.latitud, lng: province.longitud });
       setMarkerPosition({ lat: province.latitud, lng: province.longitud });
+
+      // Log the selected province to the console
+      console.log(`Provincia seleccionada: ${province.nombre}`);
     } catch (err) {
       setError('Error al obtener los datos meteorológicos');
       setCurrentWeather([]);
@@ -131,12 +143,23 @@ const WeatherPage = () => {
       },
     ],
   } : null;
-
+  const getWindDirectionAngle = (direction) => {
+    const directions = {
+      'N': 0,
+      'NE': 45,
+      'E': 90,
+      'SE': 135,
+      'S': 180,
+      'SW': 225,
+      'W': 270,
+      'NW': 315,
+    };
+    return directions[direction.toUpperCase()] || 0;
+  };
   return (
     <div className={`weather-page ${theme}`}>
       <h1>Consulta del Clima en España</h1>
-
-      {/* Barra de búsqueda */}
+  
       <div className="search-bar">
         <input
           type="text"
@@ -155,24 +178,20 @@ const WeatherPage = () => {
           Buscar
         </button>
       </div>
-
-      {/* Botones de cambio de unidad de temperatura y tema */}
+  
       <div className="toggle-buttons">
         <TemperatureToggleButton toggleTemperatureUnit={toggleTemperatureUnit} />
         <ThemeToggleButton toggleTheme={toggleTheme} />
       </div>
-
-      {/* Indicador de carga */}
+  
       {loading && (
         <div className="loading-container">
           <img src="../../assets/images/LoadingScreen.gif" alt="Cargando..." className="loading-gif" />
         </div>
       )}
-
-      {/* Manejo de errores */}
+  
       {error && <p className="error-message">{error}</p>}
-
-      {/* Datos del clima */}
+  
       {forecastData && (
         <div className="forecast-section">
           <h2>Predicción para las próximas 72 horas en {selectedProvince?.nombre}</h2>
@@ -220,56 +239,73 @@ const WeatherPage = () => {
                   <td>{convertTemperature(day.temperatura.maxima) || ''}</td>
                   <td>{convertTemperature(day.temperatura.minima) || ''}</td>
                   <td>{day.humedadRelativa.maxima || ''}</td>
-                  <td>{day.viento[0]?.velocidad || ''}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-                 {/* Datos del clima actual */}
-      {currentWeather.length > 0 && (
-        <div className="current-weather-section">
-          <h2>Clima Actual en {selectedProvince?.nombre}</h2>
-          <table className="weather-table">
-            <thead>
-              <tr>
-                <th>Estación</th>
-                <th>Temperatura (°{temperatureUnit})</th>
-                <th>Humedad (%)</th>
-                <th>Viento (km/h)</th>
-                <th>Condición</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentWeather.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.nombre}</td>
-                  <td>{convertTemperature(item.temperatura)}</td>
-                  <td>{item.humedad}</td>
-                  <td>{item.viento}</td>
                   <td>
-                    <img
-                      src={getSkyStatusImageUrl(item.estadoCielo) || defaultIconUrl}
-                      alt={item.estadoCielo || 'Desconocido'}
-                      className="weather-icon"
-                    />
+                    {day.viento[0]?.velocidad || ''}
+                    {day.viento[0]?.direccion && (
+                      <span
+                        className="wind-direction-arrow"
+                        style={{ transform: `rotate(${getWindDirectionAngle(day.viento[0].direccion[0])}deg)` }}
+                      >
+                        ➤
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-      )}
-      
+  
+          {/* Datos del clima actual */}
+          {currentWeather.length > 0 && (
+            <div className="current-weather-section">
+              <table className="weather-table">
+                <thead>
+                  <tr>
+                    <th>Estación</th>
+                    <th>Temperatura (°{temperatureUnit})</th>
+                    <th>Humedad (%)</th>
+                    <th>Viento (km/h)</th>
+                    <th>Condición</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentWeather.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.nombre}</td>
+                      <td>{convertTemperature(item.temperatura)}</td>
+                      <td>{item.humedad}</td>
+                      <td>
+                        {item.viento}
+                        {item.direccion && (
+                          <span
+                            className="wind-direction-arrow"
+                            style={{ transform: `rotate(${getWindDirectionAngle(item.direccion[0])}deg)` }}
+                          >
+                            ➤
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        <img
+                          src={getSkyStatusImageUrl(item.estadoCielo) || defaultIconUrl}
+                          alt={item.estadoCielo || 'Desconocido'}
+                          className="weather-icon"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+  
           {/* Gráfico de línea */}
           <div className="line-chart">
             <Line data={lineChartData} />
           </div>
         </div>
       )}
-
-   
-
+  
       {/* Predicción actual */}
       {currentPrediction && currentPrediction.length > 0 && (
         <div className="actual-forecast">
@@ -289,7 +325,7 @@ const WeatherPage = () => {
           </div>
         </div>
       )}
-
+  
       {/* Predicción de hoy */}
       {todayForecast && todayForecast.length > 0 && (
         <div className="today-forecast-section">
@@ -310,7 +346,17 @@ const WeatherPage = () => {
                   <td>{item.periodo}:00</td>
                   <td>{convertTemperature(item.value)}</td>
                   <td>{todayForecast.humedadRelativa.find(h => h.periodo === item.periodo)?.value}</td>
-                  <td>{todayForecast.vientoAndRachaMax.find(v => v.periodo === item.periodo)?.velocidad[0]}</td>
+                  <td>
+                    {todayForecast.vientoAndRachaMax.find(v => v.periodo === item.periodo)?.velocidad[0]}
+                    {todayForecast.vientoAndRachaMax.find(v => v.periodo === item.periodo)?.direccion && (
+                      <span
+                        className="wind-direction-arrow"
+                        style={{ transform: `rotate(${getWindDirectionAngle(todayForecast.vientoAndRachaMax.find(v => v.periodo === item.periodo)?.direccion[0])}deg)` }}
+                      >
+                        ➤
+                      </span>
+                    )}
+                  </td>
                   <td>
                     <img
                       src={getSkyStatusImageUrl(todayForecast.estadoCielo.find(e => e.periodo === item.periodo)?.value) || defaultIconUrl}
@@ -324,7 +370,7 @@ const WeatherPage = () => {
           </table>
         </div>
       )}
-
+  
       {/* Mapa interactivo */}
       <MapContainer center={mapCenter} zoom={8} style={{ height: '400px', width: '100%' }} key={JSON.stringify(mapCenter)}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

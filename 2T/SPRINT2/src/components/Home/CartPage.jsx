@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import '../../styles/CartPage.css';
-import { getMockupCart } from '../../services/product_API';
+import { getMockupCart, getProductsByCategory } from '../../services/product_API';
 import UserSurvey from './UserSurvey';
 
 const CartPage = () => {
     const [cart, setCart] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
 
     useEffect(() => {
-        setCart(getMockupCart());
+        const cartItems = getMockupCart();
+        setCart(cartItems);
+
+        if (cartItems.length > 0) {
+            const category = cartItems[0].category; // Asume que todos los productos en el carrito son de la misma categoría
+            const recommendedProducts = getProductsByCategory(category);
+            setRecommendations(recommendedProducts);
+        }
     }, []);
 
     // Agrupar productos por id y contar la cantidad
@@ -47,6 +55,22 @@ const CartPage = () => {
                 </ul>
             )}
             <UserSurvey onSubmit={handleSurveySubmit} />
+            {recommendations.length > 0 && (
+                <div className="recommendations">
+                    <h3>Recomendaciones</h3>
+                    <ul>
+                        {recommendations.map((item, index) => (
+                            <li key={index}>
+                                <img src={item.image} alt={item.name} className="cart-item-image" />
+                                <div className="cart-item-details">
+                                    <p className="cart-item-name">{item.name}</p>
+                                    <p className="cart-item-price">{item.price}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

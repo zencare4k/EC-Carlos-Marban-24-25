@@ -1,6 +1,3 @@
-> He añadido una pagina para el carrito (CartPage.jsx) y su respectivo css (CartPage.css)
-
-
 # Proyecto de Resolución de Problemas
 
 ## Análisis del Problema
@@ -21,171 +18,136 @@ Para resolver el problema, se ha diseñado una solución utilizando herramientas
 En este punto, se procede a implementar el diseño establecido en el punto anterior. La implementación se realiza utilizando React para el frontend y localStorage para el almacenamiento de datos. La estructura de carpetas del proyecto es la siguiente:
 
 
-## Estructura de carpetas
-├── .gitignore
- 
- ├── package.json 
- 
- ├── public
- 
- │ ├── assets 
- 
- │ │ ├── icons 
- 
- │ │ ├── images 
- 
- │ │ └── products 
- 
- │ ├── index.html 
- 
- │ ├── manifest.json 
- 
- │ └── robots.txt 
- 
- ├── README.md 
- 
- ├── src 
- 
- │ ├── App.css 
- 
- │ ├── App.js 
- 
- │ ├── App.test.js 
- 
- │ ├── components 
 
- │ │ ├── Auth 
+### ⚙️ Requerimientos Funcionales
 
- │ │ │ ├── ForgotPasswordForm.jsx
- 
- │ │ │ ├── LoginForm.jsx 
- 
- │ │ │ └── RegisterForm.jsx 
- 
- │ │ ├── Home 
- 
- │ │ │ ├── CartPage.jsx 
- 
- │ │ │ ├── CartPreview.jsx 
+1. **Consulta del tiempo actual por provincia**
+   - Introducción de la ubicación en un buscador (sólo por provincia).
+   - Visualización del estado actual (temperatura, condición climática y velocidad del viento).
+   - Iconos dinámicos según la condición climática (soleado, nublado, lluvia, etc.).
 
- │ │ │ ├── HeroSection.jsx 
- 
- │ │ │ ├── ProductCard.jsx 
- 
- │ │ │ ├── ProductFilter.jsx 
- 
- │ │ │ └── ProductList.jsx 
- 
- │ │ ├── Layout 
- 
- │ │ │ ├── Footer.jsx 
- 
- │ │ │ └── NavBar.jsx 
- 
- │ │ └── Shared 
- 
- │ │ ├── NotificationSystem.jsx 
- 
- │ │ └── ValidationSystem.jsx 
- 
- │ ├── index.css 
- 
- │ ├── index.js 
- 
- │ ├── reportWebVitals.js 
- 
- │ ├── services 
+2. **Pronóstico detallado por horas y días**
+   - Representación visual de la evolución del tiempo (gráficos de temperatura, precipitaciones, etc.).
+   - Predicción por días con intervalos de mañana (8:00), tarde (15:00) y noche (21:00).
+   - Predicción de mínimo 48 horas, es decir, dos días posterior al actual.
 
- │ │ ├── auth_API.js 
+### 🔗 Documentación de la API de AEMET
 
- │ │ └── product_API.js 
- 
- │ ├── setupTests.js 
- 
- │ └── styles
- 
-  │ ├── CartPage.css 
- 
-  │ ├── home.css 
- 
-  │ ├── layout.css 
+Para obtener los datos meteorológicos, se utilizará la API de AEMET, que proporciona información detallada sobre el clima en tiempo real y pronósticos.
 
-  │ ├── login.css
-   
-  │ ├── notification.css 
-  
-  │ ├── products.css
+#### Registro y obtención de API Key:
+- Acceder a AEMET API y obtener la clave de acceso.
+- Usar POSTMAN para verificar manualmente la llamada al endpoint.
+- Seguir la documentación de SWAGGER:
+  - Acceder a AEMET API SWAGGER para obtener toda la información relevante a volcar en Postman para verificar el correcto funcionamiento de nuestra petición.
 
-  │ └── validation.css
+### 🛠️ Tecnologías Recomendadas
 
+- **React.js / Angular**: Para la implementación de componentes.
+- **Axios / Fetch API**: Para las llamadas a la API de AEMET.
+- **Leaflet.js**: Para la visualización de mapas meteorológicos.
+- **Chart.js**: Para la representación gráfica del pronóstico.
 
+### 🗂️ Estructura de ejemplo (no seguir a rajatabla)
+
+├── components/
+│   ├── Layout/  
+│   │   ├── Navbar.jsx             # Barra de navegación global
+│   │   ├── Footer.jsx             # Pie de página
+│   │   ├── Sidebar.jsx            # Menú lateral opcional
+│   ├── Home/  
+│   │   ├── HeroSection.jsx         # Sección destacada
+│   │   ├── FeaturedContent.jsx     # Contenido destacado
+│   │   ├── SearchBar.jsx           # Barra de búsqueda
+│   │   ├── home.css                # Estilos específicos de la página
+│   ├── Product/
+│   │   ├── ProductList.jsx         # Listado de productos
+│   │   ├── ProductCard.jsx         # Tarjeta de producto
+│   │   ├── ProductFilter.jsx       # Filtros de productos
+│   │   ├── product.css             # Estilos específicos de la página
+│   ├── Shared/  
+│   │   ├── Button.jsx              # Botón reutilizable
+│   │   ├── Modal.jsx               # Modal reutilizable
+│   │   ├── NotificationSystem.jsx  # Sistema de notificaciones
+│   │   ├── ValidationSystem.jsx    # Sistema de validaciones
+├── services/
+│   ├── apiClient.js                # Configuración de llamadas API
+│   ├── productService.js           # Llamadas API para productos
+│   ├── authService.js              # Servicios de autenticación
+├── styles/  
+│   ├── global.css                  # Estilos globales
+│   ├── layout.css                  # Estilos generales de layout
+├── utils/  
+│   ├── formatDate.js               # Función para formateo de fechas
+│   ├── localStorageHelper.js       # Manejo del almacenamiento local
+
+### 🧪 Pruebas a Realizar
+
+#### ✅ Prueba 1: Consulta de provincia y visualización de datos actuales
+- Ingresar Sevilla en el filtro de provincia.
+- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento actual.
+- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
+- Ingresar Madrid en el filtro de provincia.
+- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento actual.
+- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
+
+![](./public/assets/images/Gif1EC.gif)
 ## Pruebas de la Resolución del Problema
 
 Es indispensable realizar pruebas para verificar la integridad y correcto funcionamiento de la implementación realizada. Para ello, se comparará el comportamiento esperado del análisis del problema con la implementación. Se utilizarán pruebas unitarias y de integración para asegurar que todas las funcionalidades operen correctamente y que los usuarios puedan interactuar con el sistema sin problemas.
 
 ### Pruebas Realizadas
 
-## Prueba 1  Comprobación de elementos mínimos y específicos
+#### Prueba 1: Comparación de productos
+- Seleccionar al menos dos productos para comparar.
+- Verificar que las diferencias clave se resaltan correctamente.
 
-### Navegar a la pantalla de Home.
+#### Prueba 2: Encuestas y votaciones
+- Completar una encuesta de satisfacción.
+- Validar que los votos se registran correctamente y afectan la clasificación.
 
-### Comprobar que aparecen los elementos mínimos y específicos definidos anteriormente con el detalle descrito en los diferentes enumerados
-
-![Gif 1: Confirmar notificación de éxito](public/assets/images/Gif1ED.gif)
-
-## Prueba 2 : Inicio de Sesión Correcto
-
-### Ingresar un correo y contraseña válidos.
-
-### Hacer clic en Iniciar Sesión.
-
-### Verificar que el usuario es redirigido al panel principal.
-
-### Confirmar notificación de éxito.
-
-![Gif 2: Inicio de Sesión Correcto](public/assets/images/Gif2ED.gif)
-
-## Prueba 3 Error en Inicio de Sesión
-### Ingresar credenciales incorrectas.
-
-### Verificar que aparece una notificación de error
-
-
-![Gif 3:  Verificar que aparece una notificación de error](public/assets/images/Gif3ED.gif)
-
-## Prueba 4 : Registro con Validaciones
-
-### Ingresar datos inválidos (correo incorrecto, contraseñas que no coinciden).
-
-### Verificar que se muestran mensajes de error en tiempo real.
-
-### Corregir los datos y completar el registro.
-
-### Verificar notificación de éxito y redirección al login.
-
-![Gif 4:   Registro con Validaciones](public/assets/images/Gif4ED.gif)
-
-## Prueba 5 Recuperación de Contraseña
-
-### Ingresar un correo registrado.
-
-### Verificar que se envía un correo de recuperación.
-
-### Probar con un correo no registrado y verificar el mensaje de error.
-
-![Gif 5:  Recuperación de Contraseña](public/assets/images/Gif5ED.gif)
-
-El resultado de las pruebas ha sido satisfactorio, confirmando que la implementación cumple con los requisitos definidos en el análisis del problema.
+#### Prueba 3: Simulación de decisión de compra
+- Configurar un producto utilizando distintos parámetros.
+- Verificar que las recomendaciones son coherentes con la configuración elegida.
 
 ## Diagrama de flujo de API
-![Gif 5:  Recuperación de Contraseña](public/assets/images/DIagrama.jpg)
+![Diagrama de flujo de API](public/assets/images/DIagrama.jpg)
 
 ## Diagrama de flujo de login
-![Gif 5:  Recuperación de Contraseña](public/assets/images/DiagramaDeLogin.jpeg)
+![Diagrama de flujo de login](public/assets/images/DiagramaDeLogin.jpeg)
+
+## 🛒 Categoría 3: Sitio de Ventas (Salesforce / Shopify)
+
+### ⚙️ Descripción de las funcionalidades
+
+1. **Comparador de Productos**
+   - Comparación de productos según precio, valoraciones y especificaciones técnicas.
+   - Posibilidad de seleccionar múltiples productos y visualizar sus diferencias clave.
+
+2. **Sistemas de Encuestas o Votaciones**
+   - Encuestas de satisfacción post-compra o interacción de “me gusta”.
+   - Votaciones para determinar los productos mejor valorados en distintas categorías o visualización de los productos con más “me gusta”.
+
+3. **Simuladores de Decisiones/configuraciones**
+   - Configuración personalizada de productos según necesidades del usuario. (colores, tuning, motor, etc..)
+   - Recomendaciones de productos con base en preferencias seleccionadas.
+
+### 🧪 Pruebas a realizar
+
+#### ✅ Prueba 1: Comparación de productos
+- Seleccionar al menos dos productos para comparar.
+- Verificar que las diferencias clave se resaltan correctamente.
+![](./public/assets/images/Gif2EC.gif)
 
 
+#### ✅ Prueba 2: Encuestas y votaciones
+- Completar una encuesta de satisfacción.
+- Validar que los votos se registran correctamente y afectan la clasificación.
+![](./public/assets/images/Gif3EC.gif)
 
-
-
+#### ✅ Prueba 3: Simulación de decisión de compra
+- Configurar un producto utilizando distintos parámetros.
+- Verificar que las recomendaciones son coherentes con la configuración elegida.
+![](./public/assets/images/Gif4EC.gif)
 
 

@@ -9,6 +9,7 @@ const mockProducts = [
         image: "/assets/products/image1.jpg",
         likes: 0,
         hasLiked: false,
+        category: "anime",
         ratings: [],
         comments: []
     },
@@ -22,6 +23,7 @@ const mockProducts = [
         image: "/assets/products/image2.jpg",
         likes: 0,
         hasLiked: false,
+        category: "bandas",
         ratings: [],
         comments: []
     },
@@ -35,6 +37,7 @@ const mockProducts = [
         image: "/assets/products/image3.jpg",
         likes: 0,
         hasLiked: false,
+        category: "bandas",
         ratings: [],
         comments: []
     },
@@ -48,6 +51,7 @@ const mockProducts = [
         image: "/assets/products/image4.jpg",
         likes: 0,
         hasLiked: false,
+        category: "anime",
         ratings: [],
         comments: []
     },
@@ -61,13 +65,16 @@ const mockProducts = [
         image: "/assets/products/image5.jpg",
         likes: 0,
         hasLiked: false,
+        category: "anime",
         ratings: [],
         comments: []
     }
 ];
 
 let cart = [];
-
+export const getProductsByCategory = (category) => {
+    return mockProducts.filter(product => product.category === category);
+};
 export const fetchProducts = () => {
     return new Promise((resolve) => {
         setTimeout(() => {

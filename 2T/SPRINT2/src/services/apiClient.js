@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5jYXJlNGtAZ21haWwuY29tIiwianRpIjoiZDU5YTZkZWUtNzVmOS00YTRjLTg2YjctNWFmODVkNjg1MDM3IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3Mzg3ODA4NzksInVzZXJJZCI6ImQ1OWE2ZGVlLTc1ZjktNGE0Yy04NmI3LTVhZjg1ZDY4NTAzNyIsInJvbGUiOiIifQ.GbLSifuvSirW_C5jwUY1cn1y9EqIx4XKJsY2pBrRABA';
+const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5jYXJlNGtAZ21haWwuY29tIiwianRpIjoiMWYwMTc1ZmItZTE2NS00ZmViLWExMGYtNjUwZTAzMDVlZDI5IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3Mzg3OTk5NzEsInVzZXJJZCI6IjFmMDE3NWZiLWUxNjUtNGZlYi1hMTBmLTY1MGUwMzA1ZWQyOSIsInJvbGUiOiIifQ.FKRE3DB97iqgvtQ3Z0uHzhTOTu2qrSyLwv1G9R7HVu4';
 const BASE_URL = 'https://opendata.aemet.es/opendata/api';
 
 // Configurar Axios para manejar la codificación de caracteres
@@ -25,7 +25,6 @@ export const getCurrentWeatherByProvince = async (municipioCode) => {
     throw error;
   }
 };
-
 // Obtener la predicción diaria de una provincia
 export const getDailyForecast = async (provinceCode) => {
   try {
