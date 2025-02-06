@@ -33,7 +33,7 @@ Es indispensable realizar pruebas para verificar la integridad y correcto funcio
 
 ## Implementación del Diseño Propuesto
 
-En este punto, se procede a implementar el diseño establecido en el punto anterior. La implementación se realiza utilizando React para el frontend y localStorage para el almacenamiento de datos. La estructura de carpetas del proyecto es la siguiente:
+En este punto, se procede a implementar el diseño establecido en el punto anterior. La implementación se realiza utilizando React para el frontend y el mockup de product_API para el almacenamiento de datos. La estructura de carpetas del proyecto es la siguiente:
 
 
 
