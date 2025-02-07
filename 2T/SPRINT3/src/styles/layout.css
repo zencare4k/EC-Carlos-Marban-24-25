@@ -1,0 +1,160 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding-top: 70px; /* Añade un padding superior para evitar que el contenido choque con el header */
+  padding-bottom: 120px; /* Añade un padding inferior para evitar que el contenido choque con el footer */
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: #6A6A6A;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  position: fixed; /* Fija el header en la parte superior */
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  max-height: 10vh; /* Limita la altura máxima del header */
+}
+
+.logo-image {
+  height: 40px;
+}
+
+.nav {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.nav-item {
+  color: #6A6A6A;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.cart-container {
+  position: relative;
+}
+
+.cart-icon {
+  margin-left: -400px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.login-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.login-icon {
+  margin-left: -400px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Footer styles */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: #6A6A6A;
+  background-color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  position: relative; /* Cambia a relative para que no se superponga con el contenido */
+  bottom: 0;
+  left: 0;
+  max-height: 10vh; /* Limita la altura máxima del footer */
+}
+
+#Derechos {
+  text-align: center;
+}
+
+.nav-list-footer {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.nav-item-footer {
+  color: #6A6A6A;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav {
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    padding: 0.5rem 0;
+  }
+
+  .cart-container {
+    margin-top: 1rem;
+  }
+
+  .login-button {
+    margin-top: 1rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .nav-list-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
