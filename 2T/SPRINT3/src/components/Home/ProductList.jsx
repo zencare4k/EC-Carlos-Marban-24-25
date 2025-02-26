@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductComparison from './ProductComparison';
 
-const ProductList = ({ products, onAddToCart }) => {
+const ProductList = ({ products, onAddToCart, onAddToWishlist }) => {
     const [sortedProducts, setSortedProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -47,6 +47,7 @@ const ProductList = ({ products, onAddToCart }) => {
                         onAddToCart={onAddToCart}
                         onLikeUpdate={handleLikeUpdate}
                         onSelectForComparison={handleSelectForComparison}
+                        onAddToWishlist={onAddToWishlist}
                     />
                 ))}
             </div>

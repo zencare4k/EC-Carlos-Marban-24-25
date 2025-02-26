@@ -28,7 +28,7 @@ const Header = ({ cartItems }) => {
           <li><Link to="/404" className="nav-item">Camisetas Mujer</Link></li>
           <li><Link to="/404" className="nav-item">Camisetas Niño</Link></li>
           <li><Link to="/404" className="nav-item">Camisetas Niña</Link></li>
-          <li><Link to="/404" className="nav-item">Contacto</Link></li>
+          <li><Link to="/support" className="nav-item">Contacto</Link></li> {/* Actualizado */}
           <li><Link to="/weather" className="nav-item">Weather</Link></li> {/* Nueva opción */}
         </ul>
       </nav>
@@ -41,6 +41,7 @@ const Header = ({ cartItems }) => {
         />
         {showCartPreview && <CartPreview cartItems={cartItems} setShowCartPreview={setShowCartPreview} />}
       </div>
+     
       <button 
         className="login-button" 
         onClick={() => window.location.href = '/login'}

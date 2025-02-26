@@ -49,6 +49,29 @@
   margin: 10px 0;
 }
 
+.wishlist-button {
+  padding: 10px 20px;
+  background-color: #8D7B31;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.wishlist-button:hover {
+  background-color: #645722;
+}
+
+.wishlist-button.in-wishlist {
+  background-color: #ff4d4d;
+}
+
+.wishlist-button.in-wishlist:hover {
+  background-color: #ff1a1a;
+}
+
 .original-price {
   text-decoration: line-through;
   color: #999;

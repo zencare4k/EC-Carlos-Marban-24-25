@@ -11,7 +11,8 @@ const mockProducts = [
         hasLiked: false,
         category: "anime",
         ratings: [],
-        comments: []
+        comments: [],
+        inWishlist: false // Nuevo campo
     },
     {
         id: 2,
@@ -25,7 +26,8 @@ const mockProducts = [
         hasLiked: false,
         category: "bandas",
         ratings: [],
-        comments: []
+        comments: [],
+        inWishlist: false // Nuevo campo
     },
     {
         id: 3,
@@ -39,7 +41,8 @@ const mockProducts = [
         hasLiked: false,
         category: "bandas",
         ratings: [],
-        comments: []
+        comments: [],
+        inWishlist: false // Nuevo campo
     },
     {
         id: 4,
@@ -53,7 +56,8 @@ const mockProducts = [
         hasLiked: false,
         category: "anime",
         ratings: [],
-        comments: []
+        comments: [],
+        inWishlist: false // Nuevo campo
     },
     {
         id: 5,
@@ -67,7 +71,8 @@ const mockProducts = [
         hasLiked: false,
         category: "anime",
         ratings: [],
-        comments: []
+        comments: [],
+        inWishlist: false // Nuevo campo
     }
 ];
 
@@ -113,12 +118,20 @@ export const valorateProduct = async (productId, hasLiked) => {
     throw new Error('Product not found');
 };
 
+export const toggleWishlist = (productId) => {
+    const product = mockProducts.find(p => p.id === productId);
+    if (product) {
+        product.inWishlist = !product.inWishlist;
+    }
+};
+
 const api = {
     fetchProducts,
     addToMockupCart,
     getMockupCart,
     addRating,
-    valorateProduct
+    valorateProduct,
+    toggleWishlist // Nueva función
 };
 
 export default api;

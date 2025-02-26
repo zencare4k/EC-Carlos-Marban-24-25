@@ -1,161 +1,100 @@
-# Proyecto de Resolución de Problemas
+# Sprint 3
 
-## Análisis del Problema
+## Ejercicio 2: funcionalidad libre
 
-En el directorio específico de la asignatura, se debe resolver el problema de crear una aplicación web de comercio electrónico que permita a los usuarios registrarse, iniciar sesión, navegar por productos, filtrar productos por nombre y rango de precios, agregar productos al carrito y realizar compras. El problema debe ser abordado de manera clara y sin ambigüedades, asegurando que todos los requisitos estén bien definidos y comprendidos.
+### Historia de Usuario 1: Wishlist
 
-## Diseño de la Propuesta de Solución del Problema
+#### Título: Wishlist
 
-Para resolver el problema, se ha diseñado una solución utilizando herramientas de esquemas gráficos como UML y diagramas de flujo. A continuación se presentan los diagramas utilizados:
+#### Descripción:
+"Como usuario, quiero poder agregar productos a una lista de deseos para poder revisarlos y comprarlos más tarde."
 
-1. **Diagrama de Casos de Uso**: Describe las interacciones entre los usuarios y el sistema.
-2. **Diagrama de Clases**: Muestra la estructura de las clases y sus relaciones.
-3. **Diagrama de Secuencia**: Ilustra el flujo de interacción entre los componentes del sistema.
-4. **Diagrama de Flujo**: Representa el flujo de datos y las operaciones principales del sistema.
+#### Criterios de Aceptación:
+1. Dado que el usuario está navegando por los productos, la funcionalidad deberá permitir agregar un producto a la lista de deseos de manera clara. Cuando el usuario haga clic en el botón "Añadir a la lista de deseos", el sistema deberá agregar el producto a la lista de deseos. Entonces, el producto aparecerá en la lista de deseos del usuario, garantizando que no se añada más de una vez.
+2. Dado que el usuario tiene productos en la lista de deseos, la funcionalidad deberá permitir eliminar un producto de la lista de deseos de manera clara. Cuando el usuario haga clic en el botón "Eliminar de la lista de deseos", el sistema deberá eliminar el producto de la lista de deseos. Entonces, el producto ya no aparecerá en la lista de deseos del usuario.
+3. Dado que el usuario está navegando por la página, la funcionalidad deberá mostrar un icono de lista de deseos flotante en la esquina superior izquierda. Cuando el usuario haga clic en el icono, el sistema deberá mostrar la lista de deseos en una ventana flotante. Entonces, el usuario podrá ver y gestionar su lista de deseos fácilmente.
 
-## Pruebas de la Resolución del Problema
+#### Diseño:
+- Mockups de la lista de deseos y el icono flotante.
+- Descripción detallada de los componentes `Wishlist`, `FloatingWishlistIcon` y `ProductCard`.
 
-Es indispensable realizar pruebas para verificar la integridad y correcto funcionamiento de la implementación realizada. Para ello, se comparará el comportamiento esperado del análisis del problema con la implementación. Se utilizarán pruebas unitarias y de integración para asegurar que todas las funcionalidades operen correctamente y que los usuarios puedan interactuar con el sistema sin problemas.
+#### Implementación:
+- Modificaciones en `src/App.js` para manejar la lógica de la lista de deseos.
+- Creación de los componentes `Wishlist` y `FloatingWishlistIcon`.
+- Actualización del componente `ProductCard` para reflejar el estado de la lista de deseos.
+- Estilos CSS para el icono flotante y la ventana de la lista de deseos.
 
-### Pruebas Realizadas
+#### Pruebas:
+1. Caso de prueba 1: Verificar que un producto se puede agregar a la lista de deseos.
+   - **Descripción**: Navegar a la página de productos, seleccionar un producto y hacer clic en "Añadir a la lista de deseos". Verificar que el producto aparece en la lista de deseos y que no se puede añadir más de una vez.
+   - **Resultado Esperado**: El producto se añade a la lista de deseos y el botón "Añadir a la lista de deseos" se desactiva para ese producto.
+2. Caso de prueba 2: Verificar que un producto se puede eliminar de la lista de deseos.
+   - **Descripción**: Navegar a la lista de deseos, seleccionar un producto y hacer clic en "Eliminar de la lista de deseos". Verificar que el producto se elimina de la lista de deseos y que se puede volver a añadir.
+   - **Resultado Esperado**: El producto se elimina de la lista de deseos y el botón "Añadir a la lista de deseos" se activa nuevamente para ese producto.
+3. Caso de prueba 3: Verificar que el icono de la lista de deseos muestra la ventana flotante correctamente.
+   - **Descripción**: Navegar a la página principal y hacer clic en el icono de la lista de deseos en la esquina superior izquierda. Verificar que la ventana flotante de la lista de deseos se muestra correctamente con los productos añadidos.
+   - **Resultado Esperado**: La ventana flotante de la lista de deseos se muestra correctamente con los productos añadidos.
 
-#### Prueba 1: Comparación de productos
-- Seleccionar al menos dos productos para comparar.
-- Verificar que las diferencias clave se resaltan correctamente.
+### Historia de Usuario 2: Chat con Opciones Disponibles
 
-#### Prueba 2: Encuestas y votaciones
-- Completar una encuesta de satisfacción.
-- Validar que los votos se registran correctamente y afectan la clasificación.
+#### Título: Chat con Opciones Disponibles
 
-#### Prueba 3: Simulación de decisión de compra
-- Configurar un producto utilizando distintos parámetros.
-- Verificar que las recomendaciones son coherentes con la configuración elegida.
+#### Descripción:
+"Como usuario, quiero poder interactuar con un chat que me ofrezca cuatro opciones disponibles para obtener respuestas rápidas a mis preguntas sobre productos y servicios."
 
-## Implementación del Diseño Propuesto
+#### Criterios de Aceptación:
+1. Dado que el usuario necesita asistencia, la funcionalidad deberá permitir abrir el chat de manera clara. Cuando el usuario haga clic en el icono de chat, el sistema deberá abrir la ventana de chat. Entonces, el usuario podrá ver las opciones disponibles.
+2. Dado que el usuario está interactuando con el chat, la funcionalidad deberá permitir seleccionar una opción de manera clara. Cuando el usuario haga clic en una opción, el sistema deberá mostrar la respuesta correspondiente. Entonces, el usuario podrá obtener la información que necesita.
+3. Dado que el usuario está utilizando el chat, la funcionalidad deberá mostrar el historial de la conversación de manera clara. Cuando el usuario seleccione una opción, el sistema deberá actualizar el historial de la conversación. Entonces, el usuario podrá ver toda la conversación en la ventana de chat.
 
-En este punto, se procede a implementar el diseño establecido en el punto anterior. La implementación se realiza utilizando React para el frontend y el mockup de product_API para el almacenamiento de datos. La estructura de carpetas del proyecto es la siguiente:
+#### Diseño:
+- Mockups de la ventana de chat con opciones disponibles.
+- Descripción detallada del componente `CostumerChat`.
 
+#### Implementación:
+- Creación del componente `CostumerChat`.
+- Implementación de las cuatro opciones disponibles en el chat.
+- Estilos CSS para la ventana de chat.
 
+#### Pruebas:
+1. Caso de prueba 1: Verificar que el chat se puede abrir correctamente.
+   - **Descripción**: Navegar a la página principal y hacer clic en el icono de chat. Verificar que la ventana de chat se abre correctamente y muestra las opciones disponibles.
+   - **Resultado Esperado**: La ventana de chat se abre correctamente y muestra las opciones disponibles.
+2. Caso de prueba 2: Verificar que las opciones se pueden seleccionar y mostrar la respuesta correspondiente.
+   - **Descripción**: Abrir la ventana de chat, seleccionar una de las opciones disponibles y verificar que se muestra la respuesta correspondiente en el historial de la conversación.
+   - **Resultado Esperado**: La opción seleccionada muestra la respuesta correspondiente en el historial de la conversación.
+3. Caso de prueba 3: Verificar que el historial de la conversación se muestra correctamente.
+   - **Descripción**: Interactuar con el chat seleccionando varias opciones y verificar que el historial de la conversación se actualiza correctamente con las opciones seleccionadas y las respuestas correspondientes.
+   - **Resultado Esperado**: El historial de la conversación se muestra correctamente con las opciones seleccionadas y las respuestas correspondientes.
 
-### ⚙️ Requerimientos Funcionales
+### Historia de Usuario 3: Enviar Mensajes de Atención al Cliente
 
-1. **Consulta del tiempo actual por provincia**
-   - Introducción de la ubicación en un buscador (sólo por provincia).
-   - Visualización del estado actual (temperatura, condición climática y velocidad del viento).
-   - Iconos dinámicos según la condición climática (soleado, nublado, lluvia, etc.).
+#### Título: Enviar Mensajes de Atención al Cliente
 
-2. **Pronóstico detallado por horas y días**
-   - Representación visual de la evolución del tiempo (gráficos de temperatura, precipitaciones, etc.).
-   - Predicción por días con intervalos de mañana (8:00), tarde (15:00) y noche (21:00).
-   - Predicción de mínimo 48 horas, es decir, dos días posterior al actual.
+#### Descripción:
+"Como usuario, quiero poder enviar mensajes de atención al cliente en una página aparte para resolver mis problemas y consultas."
 
-### 🔗 Documentación de la API de AEMET
+#### Criterios de Aceptación:
+1. Dado que el usuario necesita asistencia, la funcionalidad deberá permitir acceder a la página de atención al cliente de manera clara. Cuando el usuario haga clic en el enlace de atención al cliente, el sistema deberá redirigir al usuario a la página de atención al cliente. Entonces, el usuario podrá ver el formulario de contacto.
+2. Dado que el usuario está en la página de atención al cliente, la funcionalidad deberá permitir enviar un mensaje de manera clara. Cuando el usuario complete el formulario y haga clic en "Enviar", el sistema deberá enviar el mensaje al equipo de atención al cliente. Entonces, el usuario verá una confirmación de que su mensaje ha sido enviado.
+3. Dado que el usuario ha enviado un mensaje, la funcionalidad deberá permitir recibir una respuesta de manera clara. Cuando el equipo de atención al cliente responda al mensaje, el sistema deberá notificar al usuario. Entonces, el usuario podrá ver la respuesta en su correo electrónico.
 
-Para obtener los datos meteorológicos, se utilizará la API de AEMET, que proporciona información detallada sobre el clima en tiempo real y pronósticos.
+#### Diseño:
+- Mockups de la página de atención al cliente y el formulario de contacto.
+- Descripción detallada del componente `SupportPage`.
 
-#### Registro y obtención de API Key:
-- Acceder a AEMET API y obtener la clave de acceso.
-- Usar POSTMAN para verificar manualmente la llamada al endpoint.
-- Seguir la documentación de SWAGGER:
-  - Acceder a AEMET API SWAGGER para obtener toda la información relevante a volcar en Postman para verificar el correcto funcionamiento de nuestra petición.
+#### Implementación:
+- Creación del componente `SupportPage`.
+- Integración con un servicio de correo electrónico para enviar y recibir mensajes.
+- Estilos CSS para la página de atención al cliente y el formulario de contacto.
 
-### 🛠️ Tecnologías Recomendadas
-
-- **React.js / Angular**: Para la implementación de componentes.
-- **Axios / Fetch API**: Para las llamadas a la API de AEMET.
-- **Leaflet.js**: Para la visualización de mapas meteorológicos.
-- **Chart.js**: Para la representación gráfica del pronóstico.
-
-### 🗂️ Estructura de ejemplo (no seguir a rajatabla)
-
-├── components/
-│   ├── Layout/  
-│   │   ├── Navbar.jsx             # Barra de navegación global
-│   │   ├── Footer.jsx             # Pie de página
-│   │   ├── Sidebar.jsx            # Menú lateral opcional
-│   ├── Home/  
-│   │   ├── HeroSection.jsx         # Sección destacada
-│   │   ├── FeaturedContent.jsx     # Contenido destacado
-│   │   ├── SearchBar.jsx           # Barra de búsqueda
-│   │   ├── home.css                # Estilos específicos de la página
-│   ├── Product/
-│   │   ├── ProductList.jsx         # Listado de productos
-│   │   ├── ProductCard.jsx         # Tarjeta de producto
-│   │   ├── ProductFilter.jsx       # Filtros de productos
-│   │   ├── product.css             # Estilos específicos de la página
-│   ├── Shared/  
-│   │   ├── Button.jsx              # Botón reutilizable
-│   │   ├── Modal.jsx               # Modal reutilizable
-│   │   ├── NotificationSystem.jsx  # Sistema de notificaciones
-│   │   ├── ValidationSystem.jsx    # Sistema de validaciones
-├── services/
-│   ├── apiClient.js                # Configuración de llamadas API
-│   ├── productService.js           # Llamadas API para productos
-│   ├── authService.js              # Servicios de autenticación
-├── styles/  
-│   ├── global.css                  # Estilos globales
-│   ├── layout.css                  # Estilos generales de layout
-├── utils/  
-│   ├── formatDate.js               # Función para formateo de fechas
-│   ├── localStorageHelper.js       # Manejo del almacenamiento local
-
-### 🧪 Pruebas a Realizar
-
-#### ✅ Prueba 1: Consulta de provincia y visualización de datos actuales
-- Ingresar Sevilla en el filtro de provincia.
-- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento actual.
-- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
-- Ingresar Madrid en el filtro de provincia.
-- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento actual.
-- Verificar que se muestra la temperatura, el estado del clima (lluvioso, soleado, o nublado) y la velocidad del viento pronosticada en al menos las siguientes 48 horas.
-
-![gif 1](./public/assets/images/Gif1EC.gif)
-✅ Prueba 2: Cambio entre unidades de temperatura
-Cambiar de Celsius a Fahrenheit.
-Confirmar que los valores se actualizan correctamente.
-![gif 2](./public/assets/images/Gif5EC.gif)
-
-
-## Diagrama de flujo de API
-![Diagrama de flujo de API](public/assets/images/DIagrama.jpg)
-
-## Diagrama de flujo de login
-![Diagrama de flujo de login](public/assets/images/DiagramaDeLogin.jpeg)
-
-## 🛒 Categoría 3: Sitio de Ventas (Salesforce / Shopify)
-
-### ⚙️ Descripción de las funcionalidades
-
-1. **Comparador de Productos**
-   - Comparación de productos según precio, valoraciones y especificaciones técnicas.
-   - Posibilidad de seleccionar múltiples productos y visualizar sus diferencias clave.
-
-2. **Sistemas de Encuestas o Votaciones**
-   - Encuestas de satisfacción post-compra o interacción de “me gusta”.
-   - Votaciones para determinar los productos mejor valorados en distintas categorías o visualización de los productos con más “me gusta”.
-
-3. **Simuladores de Decisiones/configuraciones**
-   - Configuración personalizada de productos según necesidades del usuario. (colores, tuning, motor, etc..)
-   - Recomendaciones de productos con base en preferencias seleccionadas.
-
-### 🧪 Pruebas a realizar
-
-#### ✅ Prueba 1: Comparación de productos
-- Seleccionar al menos dos productos para comparar.
-- Verificar que las diferencias clave se resaltan correctamente.
-![gif 2](./public/assets/images/Gif2EC.gif)
-
-
-#### ✅ Prueba 2: Encuestas y votaciones
-- Completar una encuesta de satisfacción.
-- Validar que los votos se registran correctamente y afectan la clasificación.
-![gif 3](./public/assets/images/Gif3EC.gif)
-
-#### ✅ Prueba 3: Simulación de decisión de compra
-- Configurar un producto utilizando distintos parámetros.
-- Verificar que las recomendaciones son coherentes con la configuración elegida.
-![gif 4](./public/assets/images/Gif4EC.gif)
-
-
-
-NOTA: Lo de las recomendaciones loa agregué después de hacer el gif numero 3, ya que me di cuenta de que no estaba, las recomendaciones se basan en categorias, es decir si seleccionas una camiseta de anime, te aparecen recomendaciones de camisetas de anime, si seleccionas de bandas, salen de bandas, etc.
+#### Pruebas:
+1. Caso de prueba 1: Verificar que se puede acceder a la página de atención al cliente correctamente.
+   - **Descripción**: Navegar a la página principal y hacer clic en el enlace de atención al cliente. Verificar que el sistema redirige al usuario a la página de atención al cliente y muestra el formulario de contacto.
+   - **Resultado Esperado**: El sistema redirige al usuario a la página de atención al cliente y muestra el formulario de contacto.
+2. Caso de prueba 2: Verificar que se puede enviar un mensaje de atención al cliente correctamente.
+   - **Descripción**: Completar el formulario de contacto en la página de atención al cliente y hacer clic en "Enviar". Verificar que el sistema envía el mensaje al equipo de atención al cliente y muestra una confirmación de envío.
+   - **Resultado Esperado**: El sistema envía el mensaje al equipo de atención al cliente y muestra una confirmación de envío.
+3. Caso de prueba 3: Verificar que se recibe una respuesta del equipo de atención al cliente correctamente.
+   - **Descripción**: Enviar un mensaje de atención al cliente y esperar una respuesta. Verificar que el sistema notifica al usuario cuando se recibe una respuesta y que la respuesta se muestra en el correo electrónico del usuario.
+   - **Resultado Esperado**: El sistema notifica al usuario cuando se recibe una respuesta y la respuesta se muestra en el correo electrónico del usuario.
