@@ -9,7 +9,7 @@ const SupportPage = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email || !message) {
       setError('Todos los campos son obligatorios');
@@ -18,24 +18,40 @@ const SupportPage = () => {
 
     const templateParams = {
       to_name: name,
-      from_name: 'Telite Team',
-      from_email: 'your-email@example.com',
-      to_email: email,
+      from_name: email, // Aquí se coloca el correo del remitente
+      from_email: email,
+      to_email: 'support@example.com', // Correo del equipo de soporte
       message: message,
     };
 
-    emailjs.send('service_oxurxxs', 'template_37iampg', templateParams, 'B-kJoB9UDT4MRmInH')
-      .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
-        setSuccess('Tu mensaje ha sido enviado con éxito');
-        setName('');
-        setEmail('');
-        setMessage('');
-        setError('');
-      }, (err) => {
-        console.error('FAILED...', err);
-        setError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    try {
+      // Enviar correo de soporte con EmailJS
+      await emailjs.send('service_oxurxxs', 'template_37iampg', templateParams, 'B-kJoB9UDT4MRmInH');
+      console.log('Correo de soporte enviado con éxito');
+      setSuccess('Tu mensaje ha sido enviado con éxito');
+      setName('');
+      setEmail('');
+      setMessage('');
+      setError('');
+
+      // Enviar correo de confirmación con Nodemailer
+      const response = await fetch('/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, message: 'Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.' })
       });
+
+      if (response.ok) {
+        console.log('Correo de confirmación enviado con éxito');
+      } else {
+        console.error('Error al enviar el correo de confirmación');
+      }
+    } catch (err) {
+      console.error('Error al enviar el mensaje:', err);
+      setError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    }
   };
 
   return (
