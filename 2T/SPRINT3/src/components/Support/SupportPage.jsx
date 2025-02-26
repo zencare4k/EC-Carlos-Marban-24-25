@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
+import { sendSupportEmail, sendConfirmationEmail } from '../../services/EmailApi';
 import '../../styles/SupportPage.css';
 
 const SupportPage = () => {
@@ -26,7 +26,7 @@ const SupportPage = () => {
 
     try {
       // Enviar correo de soporte con EmailJS
-      await emailjs.send('service_oxurxxs', 'template_37iampg', templateParams, 'B-kJoB9UDT4MRmInH');
+      await sendSupportEmail(templateParams);
       console.log('Correo de soporte enviado con éxito');
       setSuccess('Tu mensaje ha sido enviado con éxito');
       setName('');
@@ -35,19 +35,8 @@ const SupportPage = () => {
       setError('');
 
       // Enviar correo de confirmación con Nodemailer
-      const response = await fetch('/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, message: 'Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.' })
-      });
-
-      if (response.ok) {
-        console.log('Correo de confirmación enviado con éxito');
-      } else {
-        console.error('Error al enviar el correo de confirmación');
-      }
+      await sendConfirmationEmail(name, email);
+      console.log('Correo de confirmación enviado con éxito');
     } catch (err) {
       console.error('Error al enviar el mensaje:', err);
       setError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');

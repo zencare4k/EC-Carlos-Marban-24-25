@@ -28,12 +28,15 @@
 1. Caso de prueba 1: Verificar que un producto se puede agregar a la lista de deseos.
    - **Descripción**: Navegar a la página de productos, seleccionar un producto y hacer clic en "Añadir a la lista de deseos". Verificar que el producto aparece en la lista de deseos y que no se puede añadir más de una vez.
    - **Resultado Esperado**: El producto se añade a la lista de deseos y el botón "Añadir a la lista de deseos" se desactiva para ese producto.
+   - **GIF**: ![Caso de prueba 1](public\assets\images\Prueba1Ej2Funcion1.gif)
 2. Caso de prueba 2: Verificar que un producto se puede eliminar de la lista de deseos.
    - **Descripción**: Navegar a la lista de deseos, seleccionar un producto y hacer clic en "Eliminar de la lista de deseos". Verificar que el producto se elimina de la lista de deseos y que se puede volver a añadir.
    - **Resultado Esperado**: El producto se elimina de la lista de deseos y el botón "Añadir a la lista de deseos" se activa nuevamente para ese producto.
+   - **GIF**: ![Caso de prueba 2](public\assets\images\Prueba2Ej2Funcion1.gif)
 3. Caso de prueba 3: Verificar que el icono de la lista de deseos muestra la ventana flotante correctamente.
    - **Descripción**: Navegar a la página principal y hacer clic en el icono de la lista de deseos en la esquina superior izquierda. Verificar que la ventana flotante de la lista de deseos se muestra correctamente con los productos añadidos.
    - **Resultado Esperado**: La ventana flotante de la lista de deseos se muestra correctamente con los productos añadidos.
+   - **GIF**: ![Caso de prueba 3](public\assets\images\Prueba3Ej2Funcion1.gif)
 
 ### Historia de Usuario 2: Chat con Opciones Disponibles
 
@@ -60,12 +63,15 @@
 1. Caso de prueba 1: Verificar que el chat se puede abrir correctamente.
    - **Descripción**: Navegar a la página principal y hacer clic en el icono de chat. Verificar que la ventana de chat se abre correctamente y muestra las opciones disponibles.
    - **Resultado Esperado**: La ventana de chat se abre correctamente y muestra las opciones disponibles.
+   - **GIF**: ![Caso de prueba 1](public\assets\images\Prueba1Ej2Funcion2.gif)
 2. Caso de prueba 2: Verificar que las opciones se pueden seleccionar y mostrar la respuesta correspondiente.
    - **Descripción**: Abrir la ventana de chat, seleccionar una de las opciones disponibles y verificar que se muestra la respuesta correspondiente en el historial de la conversación.
    - **Resultado Esperado**: La opción seleccionada muestra la respuesta correspondiente en el historial de la conversación.
+   - **GIF**: ![Caso de prueba 2](public\assets\images\Prueba2Ej2Funcion2.gif)
 3. Caso de prueba 3: Verificar que el historial de la conversación se muestra correctamente.
    - **Descripción**: Interactuar con el chat seleccionando varias opciones y verificar que el historial de la conversación se actualiza correctamente con las opciones seleccionadas y las respuestas correspondientes.
    - **Resultado Esperado**: El historial de la conversación se muestra correctamente con las opciones seleccionadas y las respuestas correspondientes.
+   - **GIF**: ![Caso de prueba 3](public\assets\images\Prueba3Ej2Funcion2.gif)
 
 ### Historia de Usuario 3: Enviar Mensajes de Atención al Cliente
 
@@ -87,14 +93,18 @@
 - Creación del componente `SupportPage`.
 - Integración con un servicio de correo electrónico para enviar y recibir mensajes.
 - Estilos CSS para la página de atención al cliente y el formulario de contacto.
+- Uso de Render para poder implementar la api de nodemailer en el proyecto
 
 #### Pruebas:
 1. Caso de prueba 1: Verificar que se puede acceder a la página de atención al cliente correctamente.
    - **Descripción**: Navegar a la página principal y hacer clic en el enlace de atención al cliente. Verificar que el sistema redirige al usuario a la página de atención al cliente y muestra el formulario de contacto.
    - **Resultado Esperado**: El sistema redirige al usuario a la página de atención al cliente y muestra el formulario de contacto.
+   - **GIF**: ![Caso de prueba 1](path/to/your/gif7.gif)
 2. Caso de prueba 2: Verificar que se puede enviar un mensaje de atención al cliente correctamente.
    - **Descripción**: Completar el formulario de contacto en la página de atención al cliente y hacer clic en "Enviar". Verificar que el sistema envía el mensaje al equipo de atención al cliente y muestra una confirmación de envío.
    - **Resultado Esperado**: El sistema envía el mensaje al equipo de atención al cliente y muestra una confirmación de envío.
+   - **GIF**: ![Caso de prueba 2](path/to/your/gif8.gif)
 3. Caso de prueba 3: Verificar que se recibe una respuesta del equipo de atención al cliente correctamente.
    - **Descripción**: Enviar un mensaje de atención al cliente y esperar una respuesta. Verificar que el sistema notifica al usuario cuando se recibe una respuesta y que la respuesta se muestra en el correo electrónico del usuario.
    - **Resultado Esperado**: El sistema notifica al usuario cuando se recibe una respuesta y la respuesta se muestra en el correo electrónico del usuario.
+   - **GIF**: ![Caso de prueba 3](path/to/your/gif9.gif)
