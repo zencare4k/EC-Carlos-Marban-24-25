@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Wishlist from './Wishlist';
 import '../../styles/FloatingWishlistIcon.css';
 
-const FloatingWishlistIcon = ({ wishlistItems }) => {
+const FloatingWishlistIcon = ({ wishlistItems, onRemoveFromWishlist }) => {
   const [showWishlist, setShowWishlist] = useState(false);
 
   const handleWishlistIconClick = () => {
@@ -12,9 +12,9 @@ const FloatingWishlistIcon = ({ wishlistItems }) => {
   return (
     <div>
       <div className="floating-wishlist-icon" onClick={handleWishlistIconClick}>
-        <img src="/assets/icons/Wishlist.png" alt="Lista de deseos" />
+        <img src="/assets/icons/wishlist.png" alt="Lista de deseos" />
       </div>
-      {showWishlist && <Wishlist wishlistItems={wishlistItems} setShowWishlist={setShowWishlist} />}
+      {showWishlist && <Wishlist wishlistItems={wishlistItems} setShowWishlist={setShowWishlist} onRemoveFromWishlist={onRemoveFromWishlist} />}
     </div>
   );
 };

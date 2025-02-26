@@ -13,7 +13,7 @@ import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
 import WeatherPage from './components/AEMET/WeatherPage'; // Importar el nuevo componente
 import CostumerChat from './components/Home/CostumerChat'; // Importar el componente CostumerChat
 import SupportPage from './components/Support/SupportPage'; // Importar el componente SupportPage
-import FloatingWishlistIcon from './components/Layout/FloatingWishList'; // Importar el componente FloatingWishlistIcon
+import FloatingWishlistIcon from './components/Layout/FloatingWishList'; // Importar el componente FloatingWishList
 import { fetchProducts, addToMockupCart, getMockupCart, toggleWishlist } from './services/product_API'; // Importar toggleWishlist
 
 const NotFound = () => <h2>404 Not Found</h2>;
@@ -50,6 +50,18 @@ function App() {
       } else {
         return [...prevItems, product];
       }
+    });
+  };
+
+  const handleRemoveFromWishlist = (product) => {
+    toggleWishlist(product.id);
+    setProducts(prevProducts => {
+      return prevProducts.map(p => 
+        p.id === product.id ? { ...p, inWishlist: false } : p
+      );
+    });
+    setWishlistItems(prevItems => {
+      return prevItems.filter(item => item.id !== product.id);
     });
   };
 
@@ -96,7 +108,7 @@ function App() {
         </footer>
 
         <CostumerChat /> {/* Añadir el componente CostumerChat */}
-        <FloatingWishlistIcon wishlistItems={wishlistItems} /> {/* Añadir el componente FloatingWishlistIcon */}
+        <FloatingWishlistIcon wishlistItems={wishlistItems} onRemoveFromWishlist={handleRemoveFromWishlist} /> {/* Añadir el componente FloatingWishlistIcon */}
       </div>
     </Router>
   );

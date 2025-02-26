@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/FloatingWishlistIcon.css';
 
-const Wishlist = ({ wishlistItems, setShowWishlist }) => {
+const Wishlist = ({ wishlistItems, setShowWishlist, onRemoveFromWishlist }) => {
   const [items, setItems] = useState(wishlistItems);
   const wishlistRef = useRef(null);
 
@@ -20,8 +20,10 @@ const Wishlist = ({ wishlistItems, setShowWishlist }) => {
   }, [setShowWishlist]);
 
   const handleRemoveItem = (index) => {
+    const itemToRemove = items[index];
     const newItems = items.filter((_, i) => i !== index);
     setItems(newItems);
+    onRemoveFromWishlist(itemToRemove);
   };
 
   return (
